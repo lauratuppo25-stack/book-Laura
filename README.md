@@ -1,6 +1,6 @@
 # Laura Tuppo — Portfolio
 
-Portfolio simple et essentiel : interface noir & blanc, projets en couleur. Graphisme, communication et photographie.
+Portfolio sur fond noir, interface épurée, projets en couleur. Communication & design graphique.
 
 - `index.html` : la page complète (HTML + CSS + JS, sans dépendance).
 - `images/` : tous les visuels des projets.
