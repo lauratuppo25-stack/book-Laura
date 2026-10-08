@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laura Tuppo — Graphisme, communication, photographie</title>
-<meta name="description" content="Portfolio de Laura Tuppo : identités visuelles, affiches, campagnes de communication et photographie produit, en Provence.">
+<title>Laura Tuppo — Portfolio</title>
+<meta name="description" content="Laura Tuppo — Portfolio. Communication &amp; design graphique : identité visuelle, design graphique, stratégie digitale, création de contenu.">
 <meta property="og:title" content="Laura Tuppo — Portfolio">
-<meta property="og:description" content="Graphisme, communication, photographie.">
+<meta property="og:description" content="Portfolio — Communication &amp; Design graphique">
 <meta property="og:image" content="images/bistro-logo.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='10' height='10' fill='%23000'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,44 +21,56 @@
   --line:#000;
   --pad:clamp(16px,2.4vw,32px);
   --gap:8px;
+  --big:clamp(28px,3.6vw,52px);
 }
-html{scroll-behavior:smooth;scroll-padding-top:56px}
+html{scroll-behavior:smooth;scroll-padding-top:52px}
 body{background:var(--bg);color:var(--fg);font-family:'Inter',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.45;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
 img{display:block;width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-h2{font:inherit}
+h1,h2,h3{font:inherit}
+ul,ol{list-style:none}
 ::selection{background:#000;color:#fff}
 :focus-visible{outline:1px solid #000;outline-offset:2px}
 .grey{color:var(--grey)}
 .wrap{padding-left:var(--pad);padding-right:var(--pad)}
+.cols{display:grid;grid-template-columns:48px minmax(0,4fr) minmax(0,3fr) minmax(0,2fr) minmax(0,2fr);gap:0 16px}
 
 /* ── En-tête ───────────────────────── */
-.top{position:sticky;top:0;z-index:10;background:var(--bg);display:flex;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px}
+.top{position:sticky;top:0;z-index:10;background:var(--bg);display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;padding-top:14px;padding-bottom:14px}
 .top nav{display:flex;gap:20px}
 
-/* ── Intro ─────────────────────────── */
-.intro{padding-top:clamp(64px,12vw,180px);padding-bottom:clamp(64px,10vw,140px)}
-.intro p{font-size:clamp(26px,3.4vw,48px);line-height:1.12;letter-spacing:-.025em;max-width:22em}
+/* ── 01 Accueil ────────────────────── */
+.hero{min-height:calc(100svh - 50px);display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(24px,4vw,48px)}
+.hero h1{font-size:clamp(64px,23vw,380px);font-weight:500;line-height:.86;letter-spacing:-.055em;margin-left:-.04em}
+.hero-foot{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 24px;margin-top:clamp(20px,3vw,40px);border-top:1px solid var(--line);padding-top:9px}
 
-/* ── Index + filtre ────────────────── */
-.bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:10px}
+/* ── Sections ──────────────────────── */
+.section{padding-top:clamp(96px,12vw,180px)}
+.s-label{border-top:1px solid var(--line);padding-top:9px}
+.s-body{grid-column:2 / -1;padding-top:clamp(40px,6vw,96px)}
+.s-title{font-size:var(--big);line-height:1.08;letter-spacing:-.03em}
+.s-text{font-size:clamp(18px,1.7vw,24px);line-height:1.35;letter-spacing:-.015em;max-width:34em;margin-top:20px}
+
+/* 02 À propos */
+.about{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:32px clamp(24px,4vw,64px);align-items:start}
+.about img{max-width:320px;justify-self:end}
+
+/* 03 Projets */
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:10px;margin-top:clamp(48px,6vw,80px)}
 .filters{display:flex;gap:18px;flex-wrap:wrap}
 .filters button{color:var(--grey)}
 .filters button[aria-pressed="true"],.filters button:hover{color:var(--fg)}
 .filters sup{font-size:10px;margin-left:2px}
-
-.cols{display:grid;grid-template-columns:48px minmax(0,4fr) minmax(0,3fr) minmax(0,2fr) minmax(0,2fr);gap:0 16px}
-.index{list-style:none;border-top:1px solid var(--line)}
+.index{border-top:1px solid var(--line)}
 .index a{padding:9px 0;border-bottom:1px solid #e4e4e4}
 .index a:hover{text-decoration:none;background:#f4f4f4}
 .index .grey{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-/* ── Projets ───────────────────────── */
 .projects{padding-top:clamp(80px,10vw,140px)}
 .project{padding-bottom:clamp(72px,9vw,128px)}
-.p-head{border-top:1px solid var(--line);padding-top:9px;margin-bottom:var(--gap)}
+.project:last-child{padding-bottom:0}
+.p-head{border-top:1px solid #e4e4e4;padding-top:9px;margin-bottom:var(--gap)}
 .p-desc{grid-column:2 / 4;max-width:46ch;margin-top:16px;margin-bottom:24px}
 .p-desc + .p-desc{margin-top:-12px}
 
@@ -67,21 +79,22 @@ h2{font:inherit}
 .row{display:flex;gap:var(--gap)}
 .shot{flex:var(--ar) 1 0;aspect-ratio:var(--ar);background:#f2f2f2;cursor:zoom-in;overflow:hidden}
 .shot img{height:100%;object-fit:cover}
-
-/* affiches : grille simple avec légende */
 .posters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px var(--gap)}
 .posters .shot{aspect-ratio:3/4}
 .posters figcaption{padding-top:8px;max-width:40ch}
 
-/* ── Infos ─────────────────────────── */
-.infos{border-top:1px solid var(--line);padding-top:9px;padding-bottom:clamp(72px,9vw,128px)}
-.infos .portrait{grid-column:2 / 3;max-width:280px;margin-top:16px}
-.infos .text{grid-column:3 / 6;margin-top:16px;display:grid;gap:28px;max-width:60ch;align-content:start}
-.infos .lead{font-size:clamp(20px,1.8vw,26px);line-height:1.25;letter-spacing:-.015em}
-.infos dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:6px 16px}
-.infos dt{color:var(--grey)}
+/* 04 Compétences */
+.skills li{font-size:var(--big);line-height:1.08;letter-spacing:-.03em}
+.skills li::before{content:"· ";color:var(--grey)}
+.tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:6px 16px;max-width:640px;margin-top:clamp(40px,5vw,64px)}
+.tools dt{color:var(--grey)}
 
-footer{display:flex;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px;border-top:1px solid var(--line)}
+/* 05 Contact */
+.contact-links{margin-top:clamp(32px,4vw,56px);display:grid;gap:4px}
+.contact-links a{display:grid;grid-template-columns:96px auto;align-items:baseline;font-size:var(--big);line-height:1.15;letter-spacing:-.03em;width:fit-content;max-width:100%;overflow-wrap:anywhere}
+.contact-links small{font-size:15px;letter-spacing:0;color:var(--grey)}
+
+footer{display:flex;justify-content:space-between;gap:16px;margin-top:clamp(96px,12vw,180px);padding-top:14px;padding-bottom:14px;border-top:1px solid var(--line)}
 
 /* ── Visionneuse ───────────────────── */
 .lb{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;grid-template-rows:auto minmax(0,1fr)}
@@ -98,15 +111,22 @@ footer{display:flex;justify-content:space-between;gap:16px;padding-top:14px;padd
 @media (max-width:860px){
   .cols{grid-template-columns:32px minmax(0,1fr) auto}
   .cols .c-type,.cols .c-frame{display:none}
+  .s-body{grid-column:1 / -1}
   .p-desc{grid-column:2 / -1}
   .posters{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .infos .portrait,.infos .text{grid-column:2 / -1}
+  .about{grid-template-columns:minmax(0,1fr)}
+  .about img{justify-self:start;max-width:260px}
 }
-@media (max-width:560px){
-  .top nav{gap:14px}
+@media (max-width:640px){
+  .top{flex-wrap:wrap}
+  .top nav{width:100%;justify-content:space-between;gap:10px;font-size:14px}
+  .contact-links a{grid-template-columns:minmax(0,1fr)}
+  .top nav a{white-space:nowrap}
   .row{flex-direction:column}
   .row .shot{flex:none;width:100%}
   .posters{grid-template-columns:minmax(0,1fr)}
+  .tools{grid-template-columns:minmax(0,1fr)}
+  .tools dd{margin-bottom:8px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -114,24 +134,51 @@ footer{display:flex;justify-content:space-between;gap:16px;padding-top:14px;padd
 <body>
 
 <header class="top wrap">
-  <a href="#">Laura Tuppo</a>
+  <a href="#accueil">Laura Tuppo</a>
   <nav aria-label="Navigation">
-    <a href="#index">Travaux</a>
-    <a href="#infos">Infos</a>
+    <a href="#accueil">Accueil</a>
+    <a href="#a-propos">À propos</a>
+    <a href="#projets">Projets</a>
+    <a href="#competences">Compétences</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
 <main>
 
-<section class="intro wrap">
-  <p>Laura Tuppo, graphiste et photographe en Provence. Identités visuelles, affiches, campagnes et photographie produit, pour des clients et en formation à l’IFC Avignon.</p>
+<!-- 01 — ACCUEIL -->
+<section class="hero wrap" id="accueil">
+  <h1>Laura<br>Tuppo</h1>
+  <div class="hero-foot">
+    <p>Portfolio — Communication &amp; Design graphique</p>
+    <a href="#projets">Découvrir mes projets →</a>
+  </div>
 </section>
 
-<!-- ═════════ INDEX ═════════ -->
-<section class="wrap" id="index" aria-label="Index des projets">
+<!-- 02 — À PROPOS -->
+<section class="section wrap" id="a-propos">
+  <div class="cols s-label"><span class="grey">02</span><span>À propos</span>
+    <div class="s-body about">
+      <div>
+        <h2 class="s-title">À propos</h2>
+        <p class="s-text">Étudiante en Master Stratégie Digitale &amp; Innovations, je développe mes compétences en communication, direction artistique et création graphique.</p>
+      </div>
+      <img src="images/laura-portrait.jpg" width="795" height="1200" loading="lazy" alt="Portrait de Laura Tuppo">
+    </div>
+  </div>
+</section>
+
+<!-- 03 — PROJETS -->
+<section class="section wrap" id="projets">
+  <div class="cols s-label"><span class="grey">03</span><span>Projets</span>
+    <div class="s-body">
+      <h2 class="s-title">Projets sélectionnés</h2>
+      <p class="s-text grey">Une sélection de réalisations en branding, design graphique et communication digitale.</p>
+    </div>
+  </div>
+
   <div class="bar">
-    <span>Index</span>
+    <span class="grey">Index</span>
     <div class="filters" role="group" aria-label="Filtrer par discipline">
       <button data-filter="all" aria-pressed="true">Tout<sup>14</sup></button>
       <button data-filter="graphisme" aria-pressed="false">Graphisme<sup>5</sup></button>
@@ -155,10 +202,8 @@ footer{display:flex;justify-content:space-between;gap:16px;padding-top:14px;padd
     <li data-cat="photo"><a class="cols" href="#p-roumaniere"><span class="grey">13</span><span>La Roumanière</span><span class="grey c-type">Photo produit</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span></a></li>
     <li data-cat="photo"><a class="cols" href="#p-cherico"><span class="grey">14</span><span>Chérico</span><span class="grey c-type">Packshot, lifestyle</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span></a></li>
   </ol>
-</section>
 
-<!-- ═════════ PROJETS ═════════ -->
-<div class="projects wrap">
+  <div class="projects">
 
   <article class="project" id="p-bistro" data-cat="graphisme">
     <div class="p-head cols"><span class="grey">01</span><h2>Le Bistro des Arènes</h2><span class="grey c-type">Logo, charte, déclinaisons</span><span class="grey c-frame">Client</span><span class="grey">Graphisme</span>
@@ -346,26 +391,40 @@ footer{display:flex;justify-content:space-between;gap:16px;padding-top:14px;padd
     </div>
   </article>
 
-</div>
+  </div>
+</section>
 
-<!-- ═════════ INFOS ═════════ -->
-<section class="wrap" id="infos" aria-label="Infos">
-  <div class="infos cols">
-    <span class="grey">—</span><span style="grid-column:2 / -1">Infos</span>
-    <img class="portrait" src="images/laura-portrait.jpg" width="795" height="1200" loading="lazy" alt="Portrait de Laura Tuppo">
-    <div class="text">
-      <p class="lead">Étudiante en Master Stratégie digitale &amp; innovations (MSDI) à l’IFC Avignon. Graphisme, photographie et direction artistique, du logo à la campagne.</p>
-      <p>Je travaille sur des projets clients et des projets d’école : identités visuelles, print, packaging, photo produit et contenus digitaux. Disponible pour des missions et des collaborations.</p>
-      <dl>
+<!-- 04 — COMPÉTENCES -->
+<section class="section wrap" id="competences">
+  <div class="cols s-label"><span class="grey">04</span><span>Compétences</span>
+    <div class="s-body">
+      <h2 class="s-title grey">Expertises</h2>
+      <ul class="skills" style="margin-top:12px">
+        <li>Identité visuelle</li>
+        <li>Design graphique</li>
+        <li>Stratégie digitale</li>
+        <li>Création de contenu</li>
+        <li>Communication</li>
+      </ul>
+      <dl class="tools">
         <dt>Design</dt><dd>Illustrator, Photoshop, InDesign, Lightroom, Canva</dd>
         <dt>Vidéo, photo</dt><dd>Premiere Pro, After Effects, photographie</dd>
         <dt>Web</dt><dd>PrestaShop, WordPress, HTML / CSS, SEO / GEO, réseaux sociaux</dd>
       </dl>
-      <dl id="contact">
-        <dt>E-mail</dt><dd><a href="mailto:laura.tuppo@email.com">laura.tuppo@email.com</a></dd>
-        <dt>Téléphone</dt><dd><a href="tel:+33662368666">06 62 36 86 66</a></dd>
-        <dt>Lieu</dt><dd>Saint-Rémy-de-Provence</dd>
-      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 05 — CONTACT -->
+<section class="section wrap" id="contact">
+  <div class="cols s-label"><span class="grey">05</span><span>Contact</span>
+    <div class="s-body">
+      <h2 class="s-title">Contact</h2>
+      <p class="s-text grey">Pour toute demande ou collaboration.</p>
+      <div class="contact-links">
+        <a href="mailto:laura.tuppo@email.com"><small>E-mail</small>laura.tuppo@email.com</a>
+        <a href="https://www.linkedin.com/search/results/people/?keywords=Laura%20Tuppo" target="_blank" rel="noopener"><small>LinkedIn</small>Laura Tuppo ↗</a>
+      </div>
     </div>
   </div>
 </section>
@@ -374,7 +433,7 @@ footer{display:flex;justify-content:space-between;gap:16px;padding-top:14px;padd
 
 <footer class="wrap">
   <span>© <span id="year">2026</span> Laura Tuppo</span>
-  <a href="#">Haut ↑</a>
+  <a href="#accueil">Haut ↑</a>
 </footer>
 
 <!-- Visionneuse -->
