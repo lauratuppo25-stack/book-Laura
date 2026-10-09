@@ -42,8 +42,28 @@ ul,ol{list-style:none}
 .cols{display:grid;grid-template-columns:48px minmax(0,4fr) minmax(0,3fr) minmax(0,2fr) minmax(0,2fr);gap:0 16px}
 
 /* ── En-tête ───────────────────────── */
-.top{position:sticky;top:0;z-index:10;background:var(--bg);display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;padding-top:14px;padding-bottom:14px}
-.top nav{display:flex;gap:20px}
+.top{position:sticky;top:0;z-index:60;transition:background .6s var(--ease);background:var(--bg);display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;padding-top:14px;padding-bottom:14px}
+.menu-btn{display:inline-flex;align-items:center;gap:10px}
+.menu-btn i{position:relative;width:11px;height:11px}
+.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;top:5px;width:11px;height:1px;background:currentColor;transition:transform .6s var(--ease)}
+.menu-btn i::after{transform:rotate(90deg)}
+html.menu-open .menu-btn i::before{transform:rotate(45deg)}
+html.menu-open .menu-btn i::after{transform:rotate(135deg)}
+html.menu-open .top{background:transparent}
+html.menu-open .progress{opacity:0}
+
+/* ── Menu plein écran : fondu + liens qui s'enchaînent ── */
+.menu{position:fixed;inset:0;z-index:55;display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:clamp(80px,12vh,120px) var(--pad) 18px;background:rgba(10,10,10,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility 0s .7s;overflow-y:auto}
+html.menu-open .menu{opacity:1;visibility:visible;transition:opacity .7s var(--ease)}
+.menu ol{counter-reset:m}
+.menu li,.menu-foot{opacity:0;transform:translateY(48px);filter:blur(12px);transition:opacity .35s,transform .5s var(--ease),filter .35s}
+html.menu-open .menu li,html.menu-open .menu-foot{opacity:1;transform:none;filter:none;transition:opacity .8s var(--ease),transform 1s var(--ease),filter .9s var(--ease);transition-delay:calc(150ms + var(--i) * 90ms)}
+.menu ol a{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:baseline;gap:0 16px;border-top:1px solid var(--soft);padding:.06em 0 .1em;font-size:clamp(44px,8.6vw,132px);line-height:1;letter-spacing:-.05em;font-weight:300;transition:opacity .5s,font-weight .5s,padding .6s var(--ease)}
+.menu ol a small{font-size:12px;letter-spacing:0;color:var(--grey);transform:translateY(-.2em)}
+.menu ol:hover a{opacity:.18}
+.menu ol a:hover,.menu ol a:focus-visible{opacity:1;font-weight:700;padding-left:.12em;text-decoration:none}
+.menu ol a.current small::after{content:" ●";color:var(--fg)}
+.menu-foot{--i:5;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;border-top:1px solid var(--soft);padding-top:12px}
 .progress{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg);transform-origin:left;transform:scaleX(var(--p,0))}
 
 /* ── 01 Accueil ────────────────────── */
@@ -147,10 +167,7 @@ html.js .rv.in{opacity:1;transform:none}
   .about img{justify-self:start;max-width:260px}
 }
 @media (max-width:640px){
-  .top{flex-wrap:wrap}
-  .top nav{width:100%;justify-content:space-between;gap:10px;font-size:14px}
   .contact-links a{grid-template-columns:minmax(0,1fr)}
-  .top nav a{white-space:nowrap}
   .row{flex-direction:column}
   .row .shot{flex:none;width:100%}
   .posters{grid-template-columns:minmax(0,1fr)}
@@ -160,6 +177,7 @@ html.js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   html.js .shot img,html.js .rv{clip-path:none;transform:none;opacity:1;transition:none}
+  .menu,.menu li,.menu-foot{transition:none!important;transform:none;filter:none}
 }
 </style>
 </head>
@@ -168,14 +186,22 @@ html.js .rv.in{opacity:1;transform:none}
 <header class="top wrap">
   <span class="progress" id="progress" aria-hidden="true"></span>
   <a href="#accueil">Laura Tuppo</a>
-  <nav aria-label="Navigation">
-    <a href="#accueil">Accueil</a>
-    <a href="#a-propos">À propos</a>
-    <a href="#projets">Projets</a>
-    <a href="#competences">Compétences</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><i aria-hidden="true"></i></button>
 </header>
+
+<nav class="menu" id="menu" aria-label="Navigation" aria-hidden="true">
+  <ol>
+    <li style="--i:0"><a href="#accueil"><small>01</small>Accueil</a></li>
+    <li style="--i:1"><a href="#a-propos"><small>02</small>À propos</a></li>
+    <li style="--i:2"><a href="#projets"><small>03</small>Projets</a></li>
+    <li style="--i:3"><a href="#competences"><small>04</small>Compétences</a></li>
+    <li style="--i:4"><a href="#contact"><small>05</small>Contact</a></li>
+  </ol>
+  <div class="menu-foot">
+    <a href="mailto:laura.tuppo25@gmail.com">laura.tuppo25@gmail.com</a>
+    <a href="https://www.linkedin.com/in/profil-de-laura-tuppo" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+</nav>
 
 <main>
 
@@ -541,6 +567,36 @@ html.js .rv.in{opacity:1;transform:none}
   });
 
   $('#year').textContent = new Date().getFullYear();
+
+  // Menu plein écran
+  const menu = $('#menu'), menuBtn = $('#menuBtn'), menuLbl = $('#menuLbl');
+  const setMenu = open => {
+    document.documentElement.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-hidden', !open);
+    menu.inert = !open;
+    menuLbl.textContent = open ? 'Fermer' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) { markCurrent(); setTimeout(() => $('a', menu).focus({ preventScroll: true }), 250); }
+  };
+  menu.inert = true;
+  menuBtn.addEventListener('click', () => setMenu(!document.documentElement.classList.contains('menu-open')));
+  $$('.menu ol a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.documentElement.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); }
+  });
+
+  // Section en cours (celle qui occupe le milieu de l'écran), signalée dans le menu
+  const menuLinks = $$('.menu ol a');
+  const sections = menuLinks.map(a => document.querySelector(a.getAttribute('href')));
+  const markCurrent = () => {
+    const mid = innerHeight / 2;
+    let i = sections.findIndex(sec => sec.getBoundingClientRect().bottom > mid);
+    if (i < 0) i = sections.length - 1;
+    menuLinks.forEach((a, j) => a.classList.toggle('current', j === i));
+  };
+  addEventListener('scroll', markCurrent, { passive: true });
+  markCurrent();
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
