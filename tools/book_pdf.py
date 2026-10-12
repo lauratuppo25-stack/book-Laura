@@ -94,7 +94,7 @@ pages.append(f"""
 # À propos
 pages.append(f"""
 <section class="page light about">
-  <figure class="ab-photo"><img src="../images/laura-cafe.jpg" alt=""></figure>
+  <figure class="ab-photo"><img src="../images/laura-portrait-rose.jpg" alt=""></figure>
   <div class="ab-t">
     <p class="label">À propos</p>
     <h2 class="t">{rsvg('À <em>propos</em>')}</h2>
@@ -187,7 +187,7 @@ ul{{list-style:none}}
 /* à propos */
 .about{{display:grid;grid-template-columns:400px 1fr;gap:72px;align-items:center;padding-bottom:{M + 20}px}}
 .ab-photo{{margin:0;height:{H - 2 * M - 20}px;border-radius:200px 200px 18px 18px;overflow:hidden}}
-.ab-photo img{{width:100%;height:100%;object-fit:cover;object-position:60% 40%;display:block}}
+.ab-photo img{{width:100%;height:100%;object-fit:cover;object-position:55% 30%;display:block}}
 .ab-t{{display:flex;flex-direction:column;gap:22px;max-width:470px}}
 .ab-t .label{{color:#c27597}}
 .lead{{font-size:21px;line-height:1.5;font-weight:300}}
