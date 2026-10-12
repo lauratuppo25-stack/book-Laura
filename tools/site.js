@@ -36,18 +36,20 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Accueil → À propos : la photo de fond se floute au fil du défilement
+  // Photo : s'ouvre en entrant à l'écran, reste nette, puis se floute pour l'À propos
   const scene = $('#scene');
   if (scene) {
     let ticking = false;
-    const blur = () => {
+    const clamp = v => Math.min(Math.max(v, 0), 1);
+    const update = () => {
       ticking = false;
-      const p = Math.min(Math.max(scrollY / (innerHeight * .9), 0), 1);
-      scene.style.setProperty('--p', p.toFixed(3));
+      const top = scene.getBoundingClientRect().top, h = innerHeight;
+      scene.style.setProperty('--e', clamp(1 - top / h).toFixed(3));
+      scene.style.setProperty('--p', clamp((-top - h * .45) / (h * .55)).toFixed(3));
     };
-    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(blur); } }, { passive: true });
-    addEventListener('resize', blur);
-    blur();
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
   }
 
   // Apparitions au défilement (titres lettre par lettre, cartes, photos)

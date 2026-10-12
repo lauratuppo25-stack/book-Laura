@@ -44,10 +44,7 @@
 <main>
 
 <!-- 01 — ACCUEIL + 02 — À PROPOS : la photo reste en fond, puis se floute au défilement -->
-<div class="scene dark" id="scene">
-  <div class="scene-bg" aria-hidden="true"><div class="scene-photo">{{HERO}}</div></div>
-
-  <section class="hero wrap" id="accueil">
+<section class="hero wrap dark" id="accueil">
     <div class="hero-text">
       <p class="kicker"><span class="pill pill-pink">Portfolio</span>Communication &amp; Design graphique</p>
       <h1 class="wm" aria-label="Laura Tuppo">{{WM_IN}}</h1>
@@ -58,6 +55,10 @@
     </div>
     <a class="scroll-cue" href="#a-propos"><i aria-hidden="true"></i>Défiler</a>
   </section>
+
+<div class="scene dark" id="scene">
+  <div class="scene-bg" aria-hidden="true"><div class="scene-photo">{{HERO}}</div></div>
+  <div class="scene-gap" aria-hidden="true"></div>
 
   <section class="about-over wrap" id="a-propos">
     <div class="about-card rv">
