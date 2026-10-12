@@ -2,191 +2,282 @@
 <html lang="fr" class="js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0a0a0a">
+<meta name="theme-color" content="#0f0e0d">
 <title>Laura Tuppo — Portfolio</title>
-<meta name="description" content="Laura Tuppo — Portfolio. Communication &amp; design graphique : identité visuelle, design graphique, stratégie digitale, création de contenu.">
+<meta name="description" content="Laura Tuppo — Portfolio. Communication &amp; design graphique : identité visuelle, affiches, campagnes, photographie produit.">
 <meta property="og:title" content="Laura Tuppo — Portfolio">
 <meta property="og:description" content="Portfolio — Communication &amp; Design graphique">
-<meta property="og:image" content="images/bistro-logo.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Crect width='10' height='10' fill='%230a0a0a'/%3E%3Ccircle cx='5' cy='5' r='2.2' fill='%23ededed'/%3E%3C/svg%3E">
+<meta property="og:image" content="images/cochonnade-des-voiles.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f0e0d'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-style='italic' font-size='20' fill='%23efe8dd' text-anchor='middle'%3ELT%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300;400;500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* Mise en page éditoriale : sections pleine largeur qui alternent encre et crème,
+   collage de projets en ouverture, grille de projets façon magazine. */
 :root{
-  --fg:#ededed;
-  --bg:#0a0a0a;
-  --grey:#7c7c7c;
-  --line:#ededed;
-  --soft:#242424;
+  color-scheme:dark;
+  --ink:#0f0e0d;
+  --ink-2:#171513;
+  --cream:#efe8dd;
+  --sand:#a99c8a;
+  --line:rgba(239,232,221,.16);
+  --muted:#a99c8a;
+  --fg:var(--cream);
+  --bg:var(--ink);
+  --serif:'Bodoni Moda',Didot,'Bodoni 72',Georgia,serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --script:'Mrs Saint Delafield','Snell Roundhand','Brush Script MT',cursive;
+  --pad:clamp(18px,4vw,64px);
   --ease:cubic-bezier(.7,0,.2,1);
-  --pad:clamp(16px,2.4vw,32px);
-  --gap:8px;
-  --big:clamp(28px,3.6vw,52px);
 }
-html{scroll-behavior:smooth;scroll-padding-top:52px}
-body{background:var(--bg);color:var(--fg);font-family:'Inter',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.45;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
-img{display:block;width:100%;height:auto}
+.cream{--fg:var(--ink);--bg:var(--cream);--line:rgba(15,14,13,.16);--muted:#6f6559;background:var(--bg);color:var(--fg)}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
-a:hover{text-decoration:underline;text-underline-offset:3px}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
-h1,h2,h3{font:inherit}
 ul,ol{list-style:none}
-::selection{background:var(--fg);color:var(--bg)}
-:focus-visible{outline:1px solid var(--fg);outline-offset:2px}
-.grey{color:var(--grey)}
+h1,h2,h3{font-weight:400}
+::selection{background:var(--cream);color:var(--ink)}
+:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+
+.label{font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase}
+.display{font-family:var(--serif);font-weight:400;font-size:clamp(46px,7vw,112px);line-height:.95;letter-spacing:-.02em;text-wrap:balance}
+.display em,.card-title em,h1 em,.exp-list h3 em,.mail em{font-style:italic}
+.script{font-family:var(--script);font-weight:400;line-height:1;letter-spacing:0;text-transform:none}
+.muted{color:var(--muted)}
 .wrap{padding-left:var(--pad);padding-right:var(--pad)}
-.cols{display:grid;grid-template-columns:48px minmax(0,4fr) minmax(0,3fr) minmax(0,2fr) minmax(0,2fr);gap:0 16px}
+
+.btn{display:inline-flex;align-items:center;gap:14px;border:1px solid currentColor;border-radius:999px;padding:14px 26px;font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;transition:background .4s,color .4s}
+.btn span{transition:transform .5s var(--ease)}
+.btn:hover{background:var(--fg);color:var(--bg)}
+.btn:hover span{transform:translateX(6px)}
+.btn.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn.solid:hover{background:transparent;color:var(--fg)}
 
 /* ── En-tête ───────────────────────── */
-.top{position:sticky;top:0;z-index:60;transition:background .6s var(--ease);background:var(--bg);display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;padding-top:14px;padding-bottom:14px}
-.menu-btn{display:inline-flex;align-items:center;gap:10px}
-.menu-btn i{position:relative;width:11px;height:11px}
-.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;top:5px;width:11px;height:1px;background:currentColor;transition:transform .6s var(--ease)}
-.menu-btn i::after{transform:rotate(90deg)}
-html.menu-open .menu-btn i::before{transform:rotate(45deg)}
-html.menu-open .menu-btn i::after{transform:rotate(135deg)}
-html.menu-open .top{background:transparent}
-html.menu-open .progress{opacity:0}
+.top{position:fixed;top:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:calc(18px + env(safe-area-inset-top,0px)) var(--pad) 18px;transition:background .5s,padding .5s var(--ease),border-color .5s;border-bottom:1px solid transparent}
+.top.scrolled{background:rgba(15,14,13,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:12px;border-color:var(--line)}
+html.menu-open .top{background:transparent;border-color:transparent;backdrop-filter:none}
+.top-l{color:var(--muted)}
+.logo{font-family:var(--serif);font-size:20px;letter-spacing:.32em;text-transform:uppercase;white-space:nowrap}
+.menu-btn{justify-self:end;display:inline-flex;align-items:center;gap:12px}
+.menu-btn i{position:relative;width:22px;height:9px}
+.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;width:100%;height:1px;background:currentColor;transition:transform .6s var(--ease),top .6s var(--ease)}
+.menu-btn i::before{top:0}.menu-btn i::after{top:8px}
+html.menu-open .menu-btn i::before{top:4px;transform:rotate(45deg)}
+html.menu-open .menu-btn i::after{top:4px;transform:rotate(-45deg)}
 
-/* ── Menu plein écran : fondu + liens qui s'enchaînent ── */
-.menu{position:fixed;inset:0;z-index:55;display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:clamp(80px,12vh,120px) var(--pad) 18px;background:rgba(10,10,10,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility 0s .7s;overflow-y:auto}
+/* ── Menu plein écran ──────────────── */
+.menu{position:fixed;inset:0;z-index:55;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.7fr);gap:32px;align-items:end;padding:calc(110px + env(safe-area-inset-top,0px)) var(--pad) calc(32px + env(safe-area-inset-bottom,0px));background:rgba(15,14,13,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility 0s .7s;overflow-y:auto}
 html.menu-open .menu{opacity:1;visibility:visible;transition:opacity .7s var(--ease)}
-.menu ol{counter-reset:m}
-.menu li,.menu-foot{opacity:0;transform:translateY(48px);filter:blur(12px);transition:opacity .35s,transform .5s var(--ease),filter .35s}
-html.menu-open .menu li,html.menu-open .menu-foot{opacity:1;transform:none;filter:none;transition:opacity .8s var(--ease),transform 1s var(--ease),filter .9s var(--ease);transition-delay:calc(150ms + var(--i) * 90ms)}
-.menu ol a{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:baseline;gap:0 16px;border-top:1px solid var(--soft);padding:.06em 0 .1em;font-size:clamp(44px,8.6vw,132px);line-height:1;letter-spacing:-.05em;font-weight:300;transition:opacity .5s,font-weight .5s,padding .6s var(--ease)}
-.menu ol a small{font-size:12px;letter-spacing:0;color:var(--grey);transform:translateY(-.2em)}
-.menu ol:hover a{opacity:.18}
-.menu ol a:hover,.menu ol a:focus-visible{opacity:1;font-weight:700;padding-left:.12em;text-decoration:none}
-.menu ol a.current small::after{content:" ●";color:var(--fg)}
-.menu-foot{--i:5;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;border-top:1px solid var(--soft);padding-top:12px}
-.progress{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg);transform-origin:left;transform:scaleX(var(--p,0))}
+.menu li,.menu-side{opacity:0;transform:translateY(48px);filter:blur(12px);transition:opacity .35s,transform .5s var(--ease),filter .35s}
+html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filter:none;transition:opacity .8s var(--ease),transform 1s var(--ease),filter .9s var(--ease);transition-delay:calc(150ms + var(--i) * 90ms)}
+.menu ol a{display:flex;align-items:baseline;gap:18px;font-family:var(--serif);font-size:clamp(46px,8vw,124px);line-height:1.02;letter-spacing:-.02em;transition:opacity .5s,padding .6s var(--ease)}
+.menu ol a small{font-family:var(--sans);font-size:11px;letter-spacing:.24em;color:var(--muted)}
+.menu ol:hover a{opacity:.2}
+.menu ol a:hover,.menu ol a:focus-visible{opacity:1;font-style:italic;padding-left:.2em}
+.menu ol a.current small{color:var(--cream)}
+.menu-side{--i:5;display:grid;gap:22px;justify-items:start;padding-bottom:12px}
+.menu-side .script{font-size:clamp(56px,7vw,110px);color:var(--sand)}
+.menu-side a{border-bottom:1px solid var(--line);padding-bottom:4px}
 
 /* ── 01 Accueil ────────────────────── */
-.hero{min-height:calc(100svh - 50px);display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(24px,4vw,48px)}
-.hero h1{font-size:clamp(64px,23vw,380px);font-weight:500;line-height:.86;letter-spacing:-.055em;margin-left:-.04em;white-space:nowrap}
-.hero h1 .ch{display:inline-block;transition:font-weight .35s ease-out}
-.hero-foot{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 24px;margin-top:clamp(20px,3vw,40px);border-top:1px solid var(--line);padding-top:9px}
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:center;gap:clamp(32px,5vw,96px);min-height:100svh;padding-top:calc(120px + env(safe-area-inset-top,0px));padding-bottom:clamp(48px,7vw,96px)}
+.hero-text{display:grid;gap:28px;justify-items:start;position:relative;z-index:2}
+.hero-text .label{color:var(--muted)}
+.hero h1{font-family:var(--serif);font-size:clamp(76px,11vw,184px);line-height:.86;letter-spacing:-.035em}
+.hero h1 span,.hero h1 em{display:block}
+.hero h1 em{padding-left:.55em}
+.hero-intro{max-width:34ch;color:var(--muted)}
+
+.collage{position:relative;width:100%;aspect-ratio:1/1.08;--mx:0;--my:0;--sy:0}
+.c{position:absolute;margin:0;transform:translate3d(calc(var(--mx) * var(--d) * 16px),calc(var(--my) * var(--d) * 16px + var(--sy) * var(--d) * -60px),0) rotate(var(--r));box-shadow:0 30px 70px rgba(0,0,0,.5);will-change:transform}
+.c img{width:100%;height:auto}
+.c1{left:2%;top:15%;width:40%;z-index:2}
+.c2{right:0;top:0;width:56%;z-index:1}
+.c3{left:35%;top:41%;width:29%;z-index:3;border-radius:999px 999px 0 0;overflow:hidden}
+.c4{right:3%;bottom:0;width:31%;z-index:2}
+.c-script{position:absolute;left:-3%;bottom:5%;z-index:5;font-size:clamp(70px,10vw,160px);color:var(--cream);transform:translate3d(calc(var(--mx) * 30px),calc(var(--my) * 30px),0) rotate(-9deg);text-shadow:0 6px 30px rgba(0,0,0,.45);pointer-events:none}
+.badge{position:absolute;left:31%;top:2%;z-index:6;width:clamp(96px,9vw,132px);aspect-ratio:1;border-radius:50%;background:var(--cream);color:var(--ink);display:grid;place-items:center}
+.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 22s linear infinite}
+.badge text{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;fill:currentColor}
+.badge b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Bandeau défilant ──────────────── */
+.marquee{overflow:hidden;background:var(--cream);color:var(--ink);padding:18px 0;border-block:1px solid var(--cream)}
+.marquee-track{display:flex;width:max-content;animation:slide 38s linear infinite}
+.marquee span{font-family:var(--serif);font-style:italic;font-size:clamp(28px,3.6vw,52px);line-height:1.2;white-space:nowrap;padding:0 .45em}
+.marquee span.sep{font-family:var(--sans);font-style:normal;font-size:clamp(14px,1.4vw,20px);align-self:center}
+@keyframes slide{to{transform:translateX(-50%)}}
 
 /* ── Sections ──────────────────────── */
-.section{padding-top:clamp(96px,12vw,180px)}
-.s-label{border-top:1px solid var(--line);padding-top:9px}
-.s-body{grid-column:2 / -1;padding-top:clamp(40px,6vw,96px)}
-.s-title{font-size:var(--big);line-height:1.08;letter-spacing:-.03em}
-.s-text{font-size:clamp(18px,1.7vw,24px);line-height:1.35;letter-spacing:-.015em;max-width:34em;margin-top:20px}
+.section{padding-top:clamp(96px,12vw,180px);padding-bottom:clamp(96px,12vw,180px)}
+.sec-head{display:grid;gap:22px;margin-bottom:clamp(48px,6vw,88px);max-width:900px}
+.sec-head .label{display:flex;align-items:center;gap:14px;color:var(--muted)}
+.sec-head .label::before{content:"";width:40px;height:1px;background:currentColor}
+.sec-intro{max-width:46ch;font-size:18px;color:var(--muted)}
 
 /* 02 À propos */
-.about{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:32px clamp(24px,4vw,64px);align-items:start}
-.about img{max-width:320px;justify-self:end}
+.about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(48px,7vw,120px);align-items:center}
+.about-photo{position:relative;max-width:460px;width:100%;justify-self:center}
+.about-photo .frame{border-radius:999px 999px 0 0;overflow:hidden;margin:0}
+.about-photo .frame img{width:100%}
+.hello{position:absolute;right:-14%;top:4%;font-size:clamp(76px,9vw,140px);color:var(--cream);mix-blend-mode:difference;transform:rotate(-10deg);pointer-events:none}
+.sticker{position:absolute;left:-6%;bottom:9%;background:var(--ink);color:var(--cream);border-radius:999px;padding:12px 20px;transform:rotate(-6deg)}
+.about-text{display:grid;gap:28px;justify-items:start}
+.about-text .lead{font-family:var(--serif);font-size:clamp(24px,2.5vw,36px);line-height:1.3;letter-spacing:-.01em;max-width:24em}
+.facts{display:grid;width:100%;max-width:560px;border-top:1px solid var(--line)}
+.facts div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.facts dt{color:var(--muted)}
+.sign{font-size:clamp(64px,7vw,96px);margin-top:-8px}
 
 /* 03 Projets */
-.bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-bottom:10px;margin-top:clamp(48px,6vw,80px)}
-.filters{display:flex;gap:18px;flex-wrap:wrap}
-.filters button{color:var(--grey)}
-.filters button[aria-pressed="true"],.filters button:hover{color:var(--fg)}
-.filters sup{font-size:10px;margin-left:2px}
-.index{border-top:1px solid var(--line)}
-.index a{padding:9px 0;border-bottom:1px solid var(--soft);transition:padding .5s var(--ease)}
-.index a:hover{text-decoration:none;padding-left:12px}
-.index a span:nth-child(2){transition:font-weight .4s}
-.index a:hover span:nth-child(2){font-weight:700}
-.index .grey{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.projects{padding-top:clamp(80px,10vw,140px)}
-.project{padding-bottom:clamp(72px,9vw,128px)}
-.project:last-child{padding-bottom:0}
-.p-head{border-top:1px solid var(--soft);padding-top:9px;margin-bottom:var(--gap)}
-.p-desc{grid-column:2 / 4;max-width:46ch;margin-top:16px;margin-bottom:24px}
-.p-desc + .p-desc{margin-top:-12px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(36px,5vw,64px)}
+.filters button{border:1px solid var(--line);border-radius:999px;padding:10px 20px;transition:background .3s,color .3s,border-color .3s}
+.filters button sup{font-size:9px;margin-left:4px;letter-spacing:0}
+.filters button:hover{border-color:var(--cream)}
+.filters button[aria-pressed="true"]{background:var(--cream);color:var(--ink);border-color:var(--cream)}
 
-/* rangées d'images : hauteurs alignées grâce au ratio (--ar = largeur / hauteur) */
-.gallery{display:flex;flex-direction:column;gap:var(--gap)}
-.row{display:flex;gap:var(--gap)}
-.shot{flex:var(--ar) 1 0;aspect-ratio:var(--ar);background:#141414;cursor:zoom-in;overflow:hidden}
-.shot img{height:100%;object-fit:cover}
-.posters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px var(--gap)}
-.posters .shot{aspect-ratio:3/4}
-.posters figcaption{padding-top:8px;max-width:40ch}
+.grid{columns:3 300px;column-gap:clamp(20px,2.4vw,36px)}
+.card{break-inside:avoid;margin-bottom:clamp(40px,4vw,64px)}
+.card-open{display:block;width:100%;text-align:left}
+.card-img{position:relative;overflow:hidden;margin:0;background:var(--ink-2)}
+.card-img img{width:100%;transition:transform 1.4s var(--ease),filter .6s}
+.card-img::after{content:"";position:absolute;inset:0;background:rgba(15,14,13,0);transition:background .6s}
+.card-cta{position:absolute;left:50%;top:50%;z-index:2;transform:translate(-50%,-30%);opacity:0;background:var(--cream);color:var(--ink);border-radius:999px;padding:12px 22px;font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;white-space:nowrap;transition:opacity .5s,transform .6s var(--ease)}
+.card-open:hover .card-img img,.card-open:focus-visible .card-img img{transform:scale(1.06)}
+.card-open:hover .card-img::after,.card-open:focus-visible .card-img::after{background:rgba(15,14,13,.28)}
+.card-open:hover .card-cta,.card-open:focus-visible .card-cta{opacity:1;transform:translate(-50%,-50%)}
+.card-meta{display:grid;gap:6px;padding-top:16px}
+.card-meta .label{color:var(--muted);font-size:10px}
+.card-title{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.08;letter-spacing:-.01em}
+.card-type{color:var(--muted);font-size:14px}
+.card-text{aspect-ratio:4/5;background:var(--cream);color:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:16px;padding:12%}
+.ct-big{font-family:var(--serif);font-size:clamp(52px,6vw,92px);line-height:.95;letter-spacing:-.02em}
+.ct-big em{font-style:italic}
+.ct-small{font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+
+/* Fiche projet */
+.panel{position:fixed;inset:0;z-index:70;background:var(--ink);overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility 0s .6s}
+.panel.open{opacity:1;visibility:visible;transition:opacity .6s var(--ease)}
+.panel-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:calc(16px + env(safe-area-inset-top,0px)) var(--pad) 16px;background:rgba(15,14,13,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.panel-bar div{display:flex;gap:10px}
+.panel-bar button{border:1px solid var(--line);border-radius:999px;padding:9px 18px;transition:background .3s,color .3s}
+.panel-bar button:hover{background:var(--cream);color:var(--ink)}
+.panel-body{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,5vw,96px);padding:clamp(40px,6vw,88px) var(--pad);transform:translateY(30px);transition:transform .8s var(--ease)}
+.panel.open .panel-body{transform:none}
+.panel-info{position:sticky;top:110px;align-self:start;display:grid;gap:22px}
+.panel-info .label{color:var(--muted)}
+.panel-info .display{font-size:clamp(44px,5.4vw,88px)}
+.panel-info .d-text{display:grid;gap:12px;max-width:44ch}
+.panel-info dl{border-top:1px solid var(--line)}
+.panel-info dl div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.panel-info dt{color:var(--muted)}
+.panel-imgs{display:grid;gap:18px}
+.panel-imgs figure{margin:0}
+.panel-imgs img{width:100%}
+.panel-imgs .card-text{max-width:520px}
+#pText{display:grid;gap:26px}
+.card-stack{display:grid;gap:6px;padding:14px;background:#efe8dd}
+.card-stack img{width:100%}
 
 /* 04 Compétences */
-.skills li{font-size:var(--big);line-height:1.08;letter-spacing:-.03em;font-weight:300;transition:font-weight .5s,padding .5s var(--ease);width:fit-content}
-.skills li:hover{font-weight:800;padding-left:.3em}
-.skills li::before{content:"· ";color:var(--grey)}
-.tools{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:6px 16px;max-width:640px;margin-top:clamp(40px,5vw,64px)}
-.tools dt{color:var(--grey)}
-
-/* 05 Contact */
-.contact-links{margin-top:clamp(32px,4vw,56px);display:grid;gap:4px}
-.contact-links a{display:grid;grid-template-columns:96px auto;align-items:baseline;font-size:var(--big);line-height:1.15;letter-spacing:-.03em;width:fit-content;max-width:100%;overflow-wrap:anywhere;transition:font-weight .4s}
-.contact-links a:hover{text-decoration:none;font-weight:700}
-.contact-links small{font-size:15px;letter-spacing:0;color:var(--grey)}
-
-footer{display:flex;justify-content:space-between;gap:16px;margin-top:clamp(96px,12vw,180px);padding-top:14px;padding-bottom:14px;border-top:1px solid var(--line)}
-
-/* ── Visionneuse ───────────────────── */
-.lb{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;grid-template-rows:auto minmax(0,1fr)}
-.lb.open{display:grid}
-.lb-bar{display:flex;justify-content:space-between;gap:16px;padding:14px var(--pad)}
-.lb-bar div{display:flex;gap:20px}
-.lb-stage{position:relative;display:grid;place-items:center;padding:0 var(--pad) var(--pad);min-height:0}
-.lb-stage img{width:auto;max-width:100%;max-height:100%;object-fit:contain}
-.lb-zone{position:absolute;top:0;bottom:0;width:50%}
-.lb-zone.prev{left:0;cursor:w-resize}
-.lb-zone.next{right:0;cursor:e-resize}
-
-/* ── Curseur ───────────────────────── */
-.cursor{display:none}
-html.has-cursor,html.has-cursor *{cursor:none!important}
-html.has-cursor .cursor{display:grid;place-items:center;position:fixed;left:0;top:0;z-index:100;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .3s}
-.cursor span{font-size:12px;color:#000;opacity:0;transition:opacity .2s;white-space:nowrap}
-html.has-cursor .cursor.link{width:36px;height:36px;margin:-18px 0 0 -18px}
-html.has-cursor .cursor.view{width:84px;height:84px;margin:-42px 0 0 -42px;mix-blend-mode:normal}
-.cursor.view span{opacity:1}
-
-/* ── Aperçu au survol de l'index ───── */
-.peek{position:fixed;left:0;top:0;z-index:40;width:min(24vw,340px);pointer-events:none;opacity:0;transition:opacity .3s}
+.expertises{background:var(--ink-2)}
+.exp-list{border-top:1px solid var(--line)}
+.exp-list li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center;gap:16px 48px;padding:clamp(22px,2.6vw,36px) 0;border-bottom:1px solid var(--line);transition:padding .6s var(--ease)}
+.exp-list h3{font-family:var(--serif);font-size:clamp(38px,5.6vw,92px);line-height:1;letter-spacing:-.02em;transition:transform .6s var(--ease)}
+.exp-list p{color:var(--muted);max-width:42ch}
+.exp-list p span{display:block;margin-top:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream)}
+.exp-list li:hover h3{transform:translateX(.25em)}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:clamp(56px,7vw,96px)}
+.tools h3{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.tools ul{display:flex;flex-wrap:wrap;gap:8px}
+.tools li{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px}
+.peek{position:fixed;left:0;top:0;z-index:40;width:min(22vw,300px);pointer-events:none;opacity:0;transition:opacity .35s;box-shadow:0 30px 60px rgba(0,0,0,.5)}
 .peek.on{opacity:1}
 
-/* ── Apparitions ───────────────────── */
-html.js .shot img{clip-path:inset(100% 0 0 0);transform:scale(1.12);transition:clip-path 1.2s var(--ease),transform 1.6s var(--ease)}
-html.js .shot.in img{clip-path:inset(0);transform:none}
-html.js .rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
-html.js .rv.in{opacity:1;transform:none}
+/* Carnet d'images */
+.strip{padding-top:clamp(72px,9vw,128px);padding-bottom:clamp(72px,9vw,128px);overflow:hidden}
+.strip-head{display:flex;align-items:baseline;gap:20px;margin-bottom:28px}
+.strip-head .label{color:var(--muted)}
+.strip-head .script{font-size:clamp(48px,5vw,76px);color:var(--sand)}
+.strip-track{display:flex;gap:14px;width:max-content;animation:slide 70s linear infinite}
+.strip-track img{height:clamp(180px,22vw,320px);width:auto}
+.strip:hover .strip-track{animation-play-state:paused}
 
-/* ── Mobile ────────────────────────── */
-@media (max-width:860px){
-  .cols{grid-template-columns:32px minmax(0,1fr) auto}
-  .cols .c-type,.cols .c-frame{display:none}
-  .s-body{grid-column:1 / -1}
-  .p-desc{grid-column:2 / -1}
-  .posters{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .about{grid-template-columns:minmax(0,1fr)}
-  .about img{justify-self:start;max-width:260px}
+/* 05 Contact */
+.contact{position:relative;text-align:center;display:grid;justify-items:center;gap:28px;overflow:hidden}
+.contact-script{font-size:clamp(90px,15vw,240px);color:var(--sand);margin-bottom:-.35em;transform:rotate(-6deg)}
+.contact .display{font-size:clamp(56px,9vw,150px)}
+.contact > p{font-size:18px;color:var(--muted)}
+.mail{font-family:var(--serif);font-style:italic;font-size:clamp(26px,4.4vw,64px);line-height:1.1;border-bottom:1px solid var(--line);padding-bottom:6px;overflow-wrap:anywhere;max-width:100%;transition:border-color .4s}
+.mail:hover{border-color:var(--fg)}
+.contact-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.copied{min-height:1.7em;font-size:13px;color:var(--muted)}
+
+footer{padding-top:clamp(56px,7vw,96px);padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));overflow:hidden}
+.wordmark{font-family:var(--serif);font-size:clamp(56px,15.4vw,260px);line-height:.85;letter-spacing:-.04em;white-space:nowrap}
+.wordmark em{font-style:italic}
+.foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:36px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted)}
+.foot-row nav{display:flex;flex-wrap:wrap;gap:22px}
+.foot-row a:hover{color:var(--cream)}
+
+/* ── Apparitions ───────────────────── */
+html.js .rv{opacity:0;transform:translateY(40px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+html.js .rv.in{opacity:1;transform:none}
+html.js .hero-text > *{animation:rise 1.2s var(--ease) both}
+html.js .hero-text > :nth-child(2){animation-delay:.12s}
+html.js .hero-text > :nth-child(3){animation-delay:.24s}
+html.js .hero-text > :nth-child(4){animation-delay:.36s}
+html.js .collage{animation:fade 1.6s var(--ease) .2s both}
+@keyframes rise{from{opacity:0;transform:translateY(50px)}}
+@keyframes fade{from{opacity:0;transform:scale(.96)}}
+
+/* ── Responsive ────────────────────── */
+@media (max-width:980px){
+  .hero,.about,.panel-body{grid-template-columns:minmax(0,1fr)}
+  .hero{min-height:0}
+  .collage{max-width:620px;width:100%;justify-self:center}
+  .about-photo{max-width:380px}
+  .panel-info{position:static}
+  .exp-list li{grid-template-columns:minmax(0,1fr)}
+  .tools{grid-template-columns:minmax(0,1fr)}
+  .menu{grid-template-columns:minmax(0,1fr);align-content:space-between}
 }
 @media (max-width:640px){
-  .contact-links a{grid-template-columns:minmax(0,1fr)}
-  .row{flex-direction:column}
-  .row .shot{flex:none;width:100%}
-  .posters{grid-template-columns:minmax(0,1fr)}
-  .tools{grid-template-columns:minmax(0,1fr)}
-  .tools dd{margin-bottom:8px}
+  .top{grid-template-columns:1fr auto}
+  .top-l{display:none}
+  .logo{font-size:16px;letter-spacing:.24em}
+  .menu-btn .lbl{font-size:10px}
+  .hello{right:-2%}
+  .sticker{left:0}
+  .badge{left:auto;right:4%;top:auto;bottom:34%}
+  .facts div{grid-template-columns:minmax(0,1fr)}
+  .facts div{gap:2px}
+  .panel-bar{justify-content:space-between}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  html.js .shot img,html.js .rv{clip-path:none;transform:none;opacity:1;transition:none}
-  .menu,.menu li,.menu-foot{transition:none!important;transform:none;filter:none}
+  *,*::before,*::after{animation:none!important}
+  html.js .rv{opacity:1;transform:none;transition:none}
+  .menu,.menu li,.menu-side,.panel,.panel-body{transition:none!important;transform:none;filter:none}
+  .c,.c-script{transform:rotate(var(--r,0deg))}
 }
 </style>
 </head>
 <body>
 
-<header class="top wrap">
-  <span class="progress" id="progress" aria-hidden="true"></span>
-  <a href="#accueil">Laura Tuppo</a>
-  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><i aria-hidden="true"></i></button>
+<header class="top" id="topbar">
+  <span class="top-l label">Communication &amp; design graphique</span>
+  <a class="logo" href="#accueil">Laura Tuppo</a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span class="label lbl" id="menuLbl">Menu</span><i aria-hidden="true"></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Navigation" aria-hidden="true">
@@ -197,7 +288,9 @@ html.js .rv.in{opacity:1;transform:none}
     <li style="--i:3"><a href="#competences"><small>04</small>Compétences</a></li>
     <li style="--i:4"><a href="#contact"><small>05</small>Contact</a></li>
   </ol>
-  <div class="menu-foot">
+  <div class="menu-side">
+    <span class="script">Laura Tuppo</span>
+    <p class="label">Pour toute demande ou collaboration</p>
     <a href="mailto:laura.tuppo25@gmail.com">laura.tuppo25@gmail.com</a>
     <a href="https://www.linkedin.com/in/profil-de-laura-tuppo" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
@@ -207,492 +300,500 @@ html.js .rv.in{opacity:1;transform:none}
 
 <!-- 01 — ACCUEIL -->
 <section class="hero wrap" id="accueil">
-  <h1 id="heroName" aria-label="Laura Tuppo"><span class="l" aria-hidden="true">Laura</span><br><span class="l" aria-hidden="true">Tuppo</span></h1>
-  <div class="hero-foot">
-    <p>Portfolio — Communication &amp; Design graphique</p>
-    <a href="#projets">Découvrir mes projets →</a>
+  <div class="hero-text">
+    <p class="label">Portfolio — Communication &amp; Design graphique</p>
+    <h1><span>Laura</span><em>Tuppo</em></h1>
+    <p class="hero-intro">Identités visuelles, affiches, campagnes et photographie produit. Des images pensées pour être vues, et retenues.</p>
+    <a class="btn" href="#projets">Découvrir mes projets <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="collage" id="collage" aria-hidden="true">
+    <figure class="c c2" style="--d:.7;--r:3deg"><img src="images/kelloggs-barbie.jpg" width="1200" height="793" alt="Packaging Kellogg’s × Barbie"></figure>
+    <figure class="c c1" style="--d:1;--r:-5deg"><img src="images/cochonnade-des-voiles.jpg" width="1080" height="1440" alt="Affiche La Cochonnade des Voiles"></figure>
+    <figure class="c c3" style="--d:1.6;--r:0deg"><img src="images/roumaniere-1.jpg" width="800" height="1200" alt="Photo produit La Roumanière"></figure>
+    <figure class="c c4" style="--d:1.2;--r:5deg"><img src="images/enzos-birthday.jpg" width="795" height="1125" alt="Invitation Enzo’s Birthday"></figure>
+    <span class="script c-script">portfolio</span>
+    <div class="badge">
+      <svg viewBox="0 0 120 120"><defs><path id="bc" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs><text><textPath href="#bc" textLength="285" lengthAdjust="spacing">Portfolio ✦ Laura Tuppo ✦ 2026 ✦ </textPath></text></svg>
+      <b>LT</b>
+    </div>
   </div>
 </section>
 
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+  <span>Identité visuelle</span><span class="sep">✦</span><span>Design graphique</span><span class="sep">✦</span><span>Stratégie digitale</span><span class="sep">✦</span><span>Création de contenu</span><span class="sep">✦</span><span>Communication</span><span class="sep">✦</span>
+  <span>Identité visuelle</span><span class="sep">✦</span><span>Design graphique</span><span class="sep">✦</span><span>Stratégie digitale</span><span class="sep">✦</span><span>Création de contenu</span><span class="sep">✦</span><span>Communication</span><span class="sep">✦</span>
+</div></div>
+
 <!-- 02 — À PROPOS -->
-<section class="section wrap" id="a-propos">
-  <div class="cols s-label"><span class="grey">02</span><span>À propos</span>
-    <div class="s-body about">
-      <div>
-        <h2 class="s-title rv">À propos</h2>
-        <p class="s-text rv">Étudiante en Master Stratégie Digitale &amp; Innovations, je développe mes compétences en communication, direction artistique et création graphique.</p>
+<section class="section wrap cream" id="a-propos">
+  <div class="about">
+    <div class="about-photo rv">
+      <figure class="frame"><img src="images/laura-portrait.jpg" width="795" height="1200" loading="lazy" alt="Portrait de Laura Tuppo"></figure>
+      <span class="script hello" aria-hidden="true">hello</span>
+      <span class="sticker label">Basée en Provence</span>
+    </div>
+    <div class="about-text rv">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="label">À propos</p>
+        <h2 class="display">À <em>propos</em></h2>
       </div>
-      <img src="images/laura-portrait.jpg" width="795" height="1200" loading="lazy" alt="Portrait de Laura Tuppo">
+      <p class="lead">Étudiante en Master Stratégie Digitale &amp; Innovations, je développe mes compétences en communication, direction artistique et création graphique.</p>
+      <dl class="facts">
+        <div><dt>Formation</dt><dd>Master MSDI, IFC Avignon</dd></div>
+        <div><dt>Basée à</dt><dd>Saint-Rémy-de-Provence</dd></div>
+        <div><dt>Disciplines</dt><dd>Communication, direction artistique, création graphique</dd></div>
+      </dl>
+      <span class="script sign" aria-hidden="true">Laura</span>
     </div>
   </div>
 </section>
 
 <!-- 03 — PROJETS -->
 <section class="section wrap" id="projets">
-  <div class="cols s-label"><span class="grey">03</span><span>Projets</span>
-    <div class="s-body">
-      <h2 class="s-title rv">Projets sélectionnés</h2>
-      <p class="s-text grey rv">Une sélection de réalisations en branding, design graphique et communication digitale.</p>
-    </div>
+  <div class="sec-head rv">
+    <p class="label">Projets</p>
+    <h2 class="display">Projets <em>sélectionnés</em></h2>
+    <p class="sec-intro">Une sélection de réalisations en branding, design graphique et communication digitale.</p>
   </div>
-
-  <div class="bar">
-    <span class="grey">Index</span>
-    <div class="filters" role="group" aria-label="Filtrer par discipline">
-      <button data-filter="all" aria-pressed="true">Tout<sup>14</sup></button>
-      <button data-filter="graphisme" aria-pressed="false">Graphisme<sup>5</sup></button>
-      <button data-filter="communication" aria-pressed="false">Communication<sup>6</sup></button>
-      <button data-filter="photo" aria-pressed="false">Photographie<sup>3</sup></button>
-    </div>
+  <div class="filters label" role="group" aria-label="Filtrer les projets">
+    <button data-filter="all" aria-pressed="true">Tout<sup>19</sup></button>
+    <button data-filter="graphisme" aria-pressed="false">Design graphique<sup>10</sup></button>
+    <button data-filter="communication" aria-pressed="false">Communication<sup>6</sup></button>
+    <button data-filter="photo" aria-pressed="false">Photographie<sup>3</sup></button>
   </div>
-  <ol class="index">
-    <li data-cat="graphisme"><a class="cols" href="#p-bistro" data-peek="images/bistro-logo.jpg"><span class="grey">01</span><span>Le Bistro des Arènes</span><span class="grey c-type">Identité visuelle</span><span class="grey c-frame">Client</span><span class="grey">Graphisme</span></a></li>
-    <li data-cat="graphisme"><a class="cols" href="#p-regina" data-peek="images/regina-tropical.jpg"><span class="grey">02</span><span>Le Régina</span><span class="grey c-type">Identité, réseaux sociaux</span><span class="grey c-frame">Client</span><span class="grey">Graphisme</span></a></li>
-    <li data-cat="graphisme"><a class="cols" href="#p-siroo" data-peek="images/siroo-bouteille.jpg"><span class="grey">03</span><span>Siroo</span><span class="grey c-type">Branding, packaging</span><span class="grey c-frame">École</span><span class="grey">Graphisme</span></a></li>
-    <li data-cat="graphisme"><a class="cols" href="#p-kelloggs" data-peek="images/kelloggs-barbie.jpg"><span class="grey">04</span><span>Kellogg’s × Barbie</span><span class="grey c-type">Packaging</span><span class="grey c-frame">École</span><span class="grey">Graphisme</span></a></li>
-    <li data-cat="graphisme"><a class="cols" href="#p-affiches" data-peek="images/cochonnade-des-voiles.jpg"><span class="grey">05</span><span>Affiches &amp; invitations</span><span class="grey c-type">Affiches, stories</span><span class="grey c-frame">Clients, école</span><span class="grey">Graphisme</span></a></li>
-    <li data-cat="communication"><a class="cols" href="#p-confort" data-peek="images/confort-enfer-affiche.jpg"><span class="grey">06</span><span>Notre confort, leur enfer</span><span class="grey c-type">Campagne de sensibilisation</span><span class="grey c-frame">École</span><span class="grey">Communication</span></a></li>
-    <li data-cat="communication"><a class="cols" href="#p-dondusang" data-peek="images/don-du-sang-affiche.jpg"><span class="grey">07</span><span>Don du sang × Marvel</span><span class="grey c-type">Street marketing</span><span class="grey c-frame">École</span><span class="grey">Communication</span></a></li>
-    <li data-cat="communication"><a class="cols" href="#p-cic" data-peek="images/cic-cartes.jpg"><span class="grey">08</span><span>CIC, Plan Q*</span><span class="grey c-type">Campagne, carte bancaire</span><span class="grey c-frame">École</span><span class="grey">Communication</span></a></li>
-    <li data-cat="communication"><a class="cols" href="#p-gestiboat" data-peek="images/gestiboat-affiche.jpg"><span class="grey">09</span><span>GestiBoat</span><span class="grey c-type">Identité, affichage</span><span class="grey c-frame">École</span><span class="grey">Communication</span></a></li>
-    <li data-cat="communication"><a class="cols" href="#p-sorhobis" data-peek="images/sorhobis-lillet.jpg"><span class="grey">10</span><span>Sorhobis Boissons</span><span class="grey c-type">Bannières web</span><span class="grey c-frame">Client</span><span class="grey">Communication</span></a></li>
-    <li data-cat="communication"><a class="cols" href="#p-pallas"><span class="grey">11</span><span>Pallas Cuir</span><span class="grey c-type">SEO / GEO, social media</span><span class="grey c-frame">Client</span><span class="grey">Communication</span></a></li>
-    <li data-cat="photo"><a class="cols" href="#p-bda-photo" data-peek="images/bda-photo-3.jpg"><span class="grey">12</span><span>Le Bistro des Arènes</span><span class="grey c-type">Food, lifestyle</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span></a></li>
-    <li data-cat="photo"><a class="cols" href="#p-roumaniere" data-peek="images/roumaniere-1.jpg"><span class="grey">13</span><span>La Roumanière</span><span class="grey c-type">Photo produit</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span></a></li>
-    <li data-cat="photo"><a class="cols" href="#p-cherico" data-peek="images/cherico-lifestyle.jpg"><span class="grey">14</span><span>Chérico</span><span class="grey c-type">Packshot, lifestyle</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span></a></li>
-  </ol>
-
-  <div class="projects">
-
-  <article class="project" id="p-bistro" data-cat="graphisme">
-    <div class="p-head cols"><span class="grey">01</span><h2>Le Bistro des Arènes</h2><span class="grey c-type">Logo, charte, déclinaisons</span><span class="grey c-frame">Client</span><span class="grey">Graphisme</span>
-      <p class="p-desc">Logotype d’un restaurant bistronomique provençal. Une arche inspirée des Arènes de Nîmes et une typographie Art déco, posée en lettrage blanc sur la vitrine.</p>
-    </div>
-    <div class="gallery">
-      <div class="row"><figure class="shot" style="--ar:1.497"><img src="images/bistro-logo.jpg" width="1400" height="935" loading="lazy" alt="Logo Le Bistro des Arènes en lettrage blanc sur une vitrine"></figure></div>
-    </div>
-  </article>
-
-  <article class="project" id="p-regina" data-cat="graphisme">
-    <div class="p-head cols"><span class="grey">02</span><h2>Le Régina</h2><span class="grey c-type">Logo, stories Instagram</span><span class="grey c-frame">Client</span><span class="grey">Graphisme</span>
-      <p class="p-desc">Identité du Régina, bar-café à Châteaurenard : un serif terracotta et un script doré, déclinés en stories pour les soirées de l’été 2025 (programme de la Saint-Éloi, Tropical Flower Night).</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:1.175"><img src="images/regina-logo.jpg" width="1200" height="1021" loading="lazy" alt="Logotype Le Régina bar-café"></figure>
-        <figure class="shot" style="--ar:.5625"><img src="images/regina-programme.jpg" width="675" height="1200" loading="lazy" alt="Story Instagram, programme de la Saint-Éloi 2025"></figure>
-        <figure class="shot" style="--ar:.5625"><img src="images/regina-tropical.jpg" width="675" height="1200" loading="lazy" alt="Story Instagram, Tropical Flower Night"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-siroo" data-cat="graphisme">
-    <div class="p-head cols"><span class="grey">03</span><h2>Siroo</h2><span class="grey c-type">Identité, étiquettes, packaging</span><span class="grey c-frame">École</span><span class="grey">Graphisme</span>
-      <p class="p-desc">Marque fictive de sirops naturels et rechargeables, « le goût en boucle ». Un logo décliné par saveur, des étiquettes ovales et une bouteille d’apothicaire.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:.997"><img src="images/siroo-fraise.jpg" width="706" height="708" loading="lazy" alt="Étiquette Siroo goût fraise"></figure>
-        <figure class="shot" style="--ar:.997"><img src="images/siroo-peche.jpg" width="706" height="708" loading="lazy" alt="Étiquette Siroo goût pêche"></figure>
-        <figure class="shot" style="--ar:1.333"><img src="images/siroo-bouteille.jpg" width="1200" height="900" loading="lazy" alt="Bouteille Siroo framboise"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-kelloggs" data-cat="graphisme">
-    <div class="p-head cols"><span class="grey">04</span><h2>Kellogg’s × Barbie</h2><span class="grey c-type">Packaging, édition limitée</span><span class="grey c-frame">École</span><span class="grey">Graphisme</span>
-      <p class="p-desc">Refonte fictive d’une boîte de céréales en édition limitée : univers rose, typographie script, goût framboise.</p>
-    </div>
-    <div class="gallery">
-      <div class="row"><figure class="shot" style="--ar:1.513"><img src="images/kelloggs-barbie.jpg" width="1200" height="793" loading="lazy" alt="Boîte de céréales Kellogg’s × Barbie sur une table"></figure></div>
-    </div>
-  </article>
-
-  <article class="project" id="p-affiches" data-cat="graphisme">
-    <div class="p-head cols"><span class="grey">05</span><h2>Affiches &amp; invitations</h2><span class="grey c-type">Print, stories</span><span class="grey c-frame">Clients, école</span><span class="grey">Graphisme</span>
-      <p class="p-desc">Affiches et visuels d’événements pour des bars, restaurants et soirées.</p>
-    </div>
-    <div class="posters">
-      <figure>
-        <div class="shot"><img src="images/cochonnade-des-voiles.jpg" width="1080" height="1440" loading="lazy" alt="Affiche La Cochonnade des Voiles"></div>
-        <figcaption>La Cochonnade des Voiles<br><span class="grey">Les Voiles, Beaucaire. BBQ du 14 juillet avec AML Music.</span></figcaption>
-      </figure>
-      <figure>
-        <div class="shot"><img src="images/voiles-aml-music.jpg" width="1080" height="1440" loading="lazy" alt="Affiche AML Music aux Voiles"></div>
-        <figcaption>AML Music<br><span class="grey">Les Voiles, Beaucaire. Soirée DJ du 22 juillet.</span></figcaption>
-      </figure>
-      <figure>
-        <div class="shot"><img src="images/enzos-birthday.jpg" width="795" height="1125" loading="lazy" alt="Invitation Enzo’s Birthday"></div>
-        <figcaption>Enzo’s Birthday<br><span class="grey">Invitation, L’Antre des Citrons. « Venez comme vous zestes. »</span></figcaption>
-      </figure>
-      <figure>
-        <div class="shot"><img src="images/low-bass-stay-tuned.jpg" style="object-position:center top" width="900" height="1600" loading="lazy" alt="Story Low Bass, Stay tuned, 22 novembre 2026"></div>
-        <figcaption>Low Bass<br><span class="grey">Story teaser, annonce du 22 novembre 2026.</span></figcaption>
-      </figure>
-      <figure>
-        <div class="shot"><img src="images/comptoir-chef-en-cave.jpg" width="968" height="1200" loading="lazy" alt="Affiche Un chef en cave, Comptoir des Vignes"></div>
-        <figcaption>Un chef en cave<br><span class="grey">Comptoir des Vignes, Châteaurenard. Soirée accords mets et vins.</span></figcaption>
-      </figure>
-      <figure>
-        <div class="shot"><img src="images/futurs-affiche.jpg" width="861" height="1200" loading="lazy" alt="Affiche du film fictif Futur(s)"></div>
-        <figcaption>Futur(s)<br><span class="grey">Affiche de film fictif, projet école.</span></figcaption>
-      </figure>
-    </div>
-  </article>
-
-  <article class="project" id="p-confort" data-cat="communication">
-    <div class="p-head cols"><span class="grey">06</span><h2>Notre confort, leur enfer</h2><span class="grey c-type">Affiche, abribus</span><span class="grey c-frame">École</span><span class="grey">Communication</span>
-      <p class="p-desc">Campagne fictive contre la pollution pétrolière et ses effets sur la faune marine : un manchot couvert de pétrole et une accroche directe, déclinée en abribus.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:.708"><img src="images/confort-enfer-affiche.jpg" width="850" height="1200" loading="lazy" alt="Affiche Notre confort, leur enfer"></figure>
-        <figure class="shot" style="--ar:.667"><img src="images/confort-enfer-abribus.jpg" width="800" height="1200" loading="lazy" alt="L’affiche sur un abribus"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-dondusang" data-cat="communication">
-    <div class="p-head cols"><span class="grey">07</span><h2>Don du sang × Marvel</h2><span class="grey c-type">Street marketing</span><span class="grey c-frame">École</span><span class="grey">Communication</span>
-      <p class="p-desc">Collaboration imaginaire pour le don du sang : Captain America en héros du quotidien. « Le vrai héros, c’est celui qui donne. »</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:.683"><img src="images/don-du-sang-affiche.jpg" width="820" height="1200" loading="lazy" alt="Affiche Don du sang avec Captain America"></figure>
-        <figure class="shot" style="--ar:1.504"><img src="images/don-du-sang-abribus.jpg" width="1200" height="798" loading="lazy" alt="L’affiche Don du sang sur un abribus"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-cic" data-cat="communication">
-    <div class="p-head cols"><span class="grey">08</span><h2>CIC, Plan Q*</h2><span class="grey c-type">Abribus, carte bancaire</span><span class="grey c-frame">École</span><span class="grey">Communication</span>
-      <p class="p-desc">Campagne pour les 18–25 ans qui joue sur le double sens du « Plan Q » (*plan quotidien), déclinée en abribus et en carte étudiante Q+ en trois versions.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:1.437"><img src="images/cic-abribus.jpg" width="1400" height="974" loading="lazy" alt="Abribus CIC, le meilleur Plan Q de ta vie"></figure>
-        <figure class="shot" style="--ar:1.439"><img src="images/cic-cartes.jpg" width="1600" height="1112" loading="lazy" alt="Trois cartes bancaires CIC Q+"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-gestiboat" data-cat="communication">
-    <div class="p-head cols"><span class="grey">09</span><h2>GestiBoat</h2><span class="grey c-type">Identité, affiche, affichage</span><span class="grey c-frame">École</span><span class="grey">Communication</span>
-      <p class="p-desc">Supports de communication pour une startup de gestion nautique : la journée Speed Boating au port de La Grande-Motte, en affiche et en affichage urbain.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:.707"><img src="images/gestiboat-affiche.jpg" width="848" height="1200" loading="lazy" alt="Affiche GestiBoat Speed Boating Day"></figure>
-        <figure class="shot" style="--ar:1.486"><img src="images/gestiboat-mockup.jpg" width="1400" height="942" loading="lazy" alt="Affichage urbain GestiBoat"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-sorhobis" data-cat="communication">
-    <div class="p-head cols"><span class="grey">10</span><h2>Sorhobis Boissons</h2><span class="grey c-type">Bannières web</span><span class="grey c-frame">Client</span><span class="grey">Communication</span>
-      <p class="p-desc">Cinq bannières promotionnelles pour l’intranet du distributeur, dans le respect des chartes de chaque marque : Pastis Olive, Ricard, Get 27, Citadelle, Lillet.</p>
-    </div>
-    <div class="gallery">
-      <figure class="shot" style="--ar:5.195;flex:none"><img src="images/sorhobis-pastis-olive.jpg" width="1200" height="231" loading="lazy" alt="Bannière Pastis Olive"></figure>
-      <figure class="shot" style="--ar:5.195;flex:none"><img src="images/sorhobis-ricard.jpg" width="1200" height="231" loading="lazy" alt="Bannière Ricard"></figure>
-      <figure class="shot" style="--ar:5.195;flex:none"><img src="images/sorhobis-get27.jpg" width="1200" height="231" loading="lazy" alt="Bannière Get 27"></figure>
-      <figure class="shot" style="--ar:5.195;flex:none"><img src="images/sorhobis-citadelle.jpg" width="1200" height="231" loading="lazy" alt="Bannière Citadelle"></figure>
-      <figure class="shot" style="--ar:5.195;flex:none"><img src="images/sorhobis-lillet.jpg" width="1200" height="231" loading="lazy" alt="Bannière Lillet"></figure>
-    </div>
-  </article>
-
-  <article class="project" id="p-pallas" data-cat="communication">
-    <div class="p-head cols"><span class="grey">11</span><h2>Pallas Cuir</h2><span class="grey c-type">SEO / GEO, social media</span><span class="grey c-frame">Client</span><span class="grey">Communication</span>
-      <p class="p-desc">Audit SEO et GEO du site e-commerce multimarque (PrestaShop) et optimisation des fiches produit pour la visibilité en Provence.</p>
-      <p class="p-desc">Contenus pour les réseaux sociaux : posts Pallas Cuir, stories du Régina, visuels Sorhobis.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-bda-photo" data-cat="photo">
-    <div class="p-head cols"><span class="grey">12</span><h2>Le Bistro des Arènes</h2><span class="grey c-type">Food, cocktails, lifestyle</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span>
-      <p class="p-desc">Shooting pour le restaurant : cocktails, assiettes et terrasse. Direction artistique, prise de vue et retouche.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:1.504"><img src="images/bda-photo-1.jpg" width="1200" height="798" loading="lazy" alt="Bière tenue en terrasse"></figure>
-        <figure class="shot" style="--ar:.667"><img src="images/bda-photo-2.jpg" width="800" height="1200" loading="lazy" alt="Portrait en casquette, lumière naturelle"></figure>
-      </div>
-      <div class="row">
-        <figure class="shot" style="--ar:.67"><img src="images/bda-photo-3.jpg" width="804" height="1200" loading="lazy" alt="Cocktail spritz"></figure>
-        <figure class="shot" style="--ar:.67"><img src="images/bda-photo-4.jpg" width="803" height="1200" loading="lazy" alt="Mule dans une tasse en cuivre"></figure>
-        <figure class="shot" style="--ar:.67"><img src="images/bda-photo-5.jpg" width="802" height="1200" loading="lazy" alt="Assiettes dressées"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-roumaniere" data-cat="photo">
-    <div class="p-head cols"><span class="grey">13</span><h2>La Roumanière</h2><span class="grey c-type">Photo produit</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span>
-      <p class="p-desc">Confiture de pêche de Provence : fond rouge, lumière naturelle et mise en scène végétale. Direction artistique et retouche.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:.667"><img src="images/roumaniere-1.jpg" width="800" height="1200" loading="lazy" alt="Pot de confiture sur des feuilles, fond rouge"></figure>
-        <figure class="shot" style="--ar:1.5"><img src="images/roumaniere-2.jpg" width="1200" height="800" loading="lazy" alt="Pot de confiture tenu en main"></figure>
-        <figure class="shot" style="--ar:1.5"><img src="images/roumaniere-3.jpg" width="1200" height="800" loading="lazy" alt="Pot de confiture couché sur fond rouge"></figure>
-      </div>
-    </div>
-  </article>
-
-  <article class="project" id="p-cherico" data-cat="photo">
-    <div class="p-head cols"><span class="grey">14</span><h2>Chérico</h2><span class="grey c-type">Packshot, lifestyle</span><span class="grey c-frame">Client</span><span class="grey">Photographie</span>
-      <p class="p-desc">Chicorée bio : packshot pour la fiche produit e-commerce et image lifestyle en lumière naturelle pour les réseaux sociaux.</p>
-    </div>
-    <div class="gallery">
-      <div class="row">
-        <figure class="shot" style="--ar:1.5"><img src="images/cherico-packshot.jpg" width="1400" height="933" loading="lazy" alt="Boîtes de chicorée Chérico"></figure>
-        <figure class="shot" style="--ar:1.5"><img src="images/cherico-lifestyle.jpg" width="1400" height="933" loading="lazy" alt="Chicorée versée dans une tasse"></figure>
-      </div>
-    </div>
-  </article>
-
+  <div class="grid" id="grid">
+      <article class="card rv" id="p-bistro" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Le Bistro des Arènes">
+          <figure class="card-img"><img src="images/bistro-logo.jpg" width="1400" height="935" loading="lazy" alt="Le Bistro des Arènes"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">01 — Design graphique</span><span class="card-title">Le Bistro <em>des Arènes</em></span><span class="card-type">Identité visuelle · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Logotype d’un restaurant bistronomique provençal. Une arche inspirée des Arènes de Nîmes et une typographie Art déco, posée en lettrage blanc sur la vitrine.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Livrables</dt><dd>Logo, charte, mockup</dd></div><div><dt>Outils</dt><dd>Illustrator, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/bistro-logo.jpg" width="1400" height="935" loading="lazy" alt="Logo Le Bistro des Arènes en lettrage blanc sur une vitrine"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-regina" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Le Régina">
+          <figure class="card-img"><img src="images/regina-tropical.jpg" width="675" height="1200" loading="lazy" alt="Le Régina"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">02 — Design graphique</span><span class="card-title">Le <em>Régina</em></span><span class="card-type">Identité & réseaux sociaux · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Identité du Régina, bar-café à Châteaurenard : un serif terracotta et un script doré.</p><p>L’univers se décline en stories pour les soirées de l’été 2025, du programme de la Saint-Éloi à la Tropical Flower Night.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Livrables</dt><dd>Logo, stories, programme</dd></div><div><dt>Date</dt><dd>Juillet 2025</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/regina-logo.jpg" width="1200" height="1021" loading="lazy" alt="Logotype Le Régina bar-café"></figure><figure><img src="images/regina-programme.jpg" width="675" height="1200" loading="lazy" alt="Story Instagram, programme de la Saint-Éloi 2025"></figure><figure><img src="images/regina-tropical.jpg" width="675" height="1200" loading="lazy" alt="Story Instagram, Tropical Flower Night"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-cochonnade" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet La Cochonnade des Voiles">
+          <figure class="card-img"><img src="images/cochonnade-des-voiles.jpg" width="1080" height="1440" loading="lazy" alt="La Cochonnade des Voiles"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">03 — Design graphique</span><span class="card-title">La Cochonnade <em>des Voiles</em></span><span class="card-type">Affiche événementielle · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Affiche du BBQ du 14 juillet aux Voiles, à Beaucaire, avec AML Music. Le titre est gravé dans la viande, piquée sur une fourchette à découper, en monochrome bleu électrique.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Lieu</dt><dd>Les Voiles, Beaucaire</dd></div><div><dt>Outils</dt><dd>Photoshop, Illustrator</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/cochonnade-des-voiles.jpg" width="1080" height="1440" loading="lazy" alt="Affiche La Cochonnade des Voiles"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-siroo" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Siroo, le goût en boucle">
+          <figure class="card-img"><img src="images/siroo-bouteille.jpg" width="1200" height="900" loading="lazy" alt="Siroo, le goût en boucle"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">04 — Design graphique</span><span class="card-title">Siroo, <em>le goût en boucle</em></span><span class="card-type">Branding & packaging · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Marque fictive de sirops naturels et rechargeables. Un logo décliné par saveur, des étiquettes ovales et une bouteille d’apothicaire.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Livrables</dt><dd>Logo, étiquettes, mockup</dd></div><div><dt>Outils</dt><dd>Illustrator, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/siroo-fraise.jpg" width="706" height="708" loading="lazy" alt="Étiquette Siroo goût fraise"></figure><figure><img src="images/siroo-peche.jpg" width="706" height="708" loading="lazy" alt="Étiquette Siroo goût pêche"></figure><figure><img src="images/siroo-bouteille.jpg" width="1200" height="900" loading="lazy" alt="Bouteille Siroo framboise"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-enzo" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Enzo’s Birthday">
+          <figure class="card-img"><img src="images/enzos-birthday.jpg" width="795" height="1125" loading="lazy" alt="Enzo’s Birthday"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">05 — Design graphique</span><span class="card-title">Enzo’s <em>Birthday</em></span><span class="card-type">Invitation · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Invitation pour les 35 ans du « Citron » à L’Antre des Citrons : typographie liquide, collage de citrons tramés et dégradé solaire. Dress code : venez comme vous zestes.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Lieu</dt><dd>L’Antre des Citrons</dd></div><div><dt>Format</dt><dd>Invitation, réseaux sociaux</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/enzos-birthday.jpg" width="795" height="1125" loading="lazy" alt="Invitation Enzo’s Birthday"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-kelloggs" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Kellogg’s × Barbie">
+          <figure class="card-img"><img src="images/kelloggs-barbie.jpg" width="1200" height="793" loading="lazy" alt="Kellogg’s × Barbie"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">06 — Design graphique</span><span class="card-title">Kellogg’s <em>× Barbie</em></span><span class="card-type">Packaging · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Refonte fictive d’une boîte de céréales en édition limitée : univers rose, typographie script, goût framboise.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Livrable</dt><dd>Boîte et mise en situation</dd></div><div><dt>Outils</dt><dd>Illustrator, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/kelloggs-barbie.jpg" width="1200" height="793" loading="lazy" alt="Boîte de céréales Kellogg’s × Barbie sur une table"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-aml" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet AML Music aux Voiles">
+          <figure class="card-img"><img src="images/voiles-aml-music.jpg" width="1080" height="1440" loading="lazy" alt="AML Music aux Voiles"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">07 — Design graphique</span><span class="card-title">AML Music <em>aux Voiles</em></span><span class="card-type">Affiche événementielle · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Soirée DJ du 22 juillet, de 17 h à 2 h : un portrait en monochrome bleu fondu dans la façade du bar, dans la continuité de la Cochonnade.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Lieu</dt><dd>Les Voiles, Beaucaire</dd></div><div><dt>Outils</dt><dd>Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/voiles-aml-music.jpg" width="1080" height="1440" loading="lazy" alt="Affiche AML Music aux Voiles"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-comptoir" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Un chef en cave">
+          <figure class="card-img"><img src="images/comptoir-chef-en-cave.jpg" width="968" height="1200" loading="lazy" alt="Un chef en cave"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">08 — Design graphique</span><span class="card-title">Un chef <em>en cave</em></span><span class="card-type">Affiche événementielle · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Soirée accords mets et vins dans les chais du Comptoir des Vignes, à Châteaurenard : formes organiques, script manuscrit et palette chaude.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Client</dt><dd>Comptoir des Vignes</dd></div><div><dt>Outils</dt><dd>Illustrator, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/comptoir-chef-en-cave.jpg" width="968" height="1200" loading="lazy" alt="Affiche Un chef en cave, Comptoir des Vignes"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-lowbass" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Low Bass, stay tuned">
+          <figure class="card-img"><img src="images/low-bass-stay-tuned.jpg" width="900" height="1600" loading="lazy" alt="Low Bass, stay tuned"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">09 — Design graphique</span><span class="card-title">Low Bass, <em>stay tuned</em></span><span class="card-type">Story teaser · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Story d’annonce pour l’événement du 22 novembre 2026 : un dégradé rouge et noir granuleux, un titre flouté et le minimum d’informations pour créer l’attente.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Format</dt><dd>Story Instagram</dd></div><div><dt>Date</dt><dd>22 novembre 2026</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/low-bass-stay-tuned.jpg" width="900" height="1600" loading="lazy" alt="Story Low Bass, Stay tuned, 22 novembre 2026"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-futurs" data-cat="graphisme">
+        <button class="card-open" aria-label="Voir le projet Futur(s)">
+          <figure class="card-img"><img src="images/futurs-affiche.jpg" width="861" height="1200" loading="lazy" alt="Futur(s)"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">10 — Design graphique</span><span class="card-title">Futur<em>(s)</em></span><span class="card-type">Affiche de film · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Affiche d’un film fictif. Direction artistique cinématographique, entre synthwave et cyberpunk, entièrement composée sous Photoshop.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Design graphique</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Projet</dt><dd>Film fictif</dd></div><div><dt>Outil</dt><dd>Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/futurs-affiche.jpg" width="861" height="1200" loading="lazy" alt="Affiche du film fictif Futur(s)"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-confort" data-cat="communication">
+        <button class="card-open" aria-label="Voir le projet Notre confort, leur enfer.">
+          <figure class="card-img"><img src="images/confort-enfer-affiche.jpg" width="850" height="1200" loading="lazy" alt="Notre confort, leur enfer."><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">11 — Communication</span><span class="card-title">Notre confort, <em>leur enfer.</em></span><span class="card-type">Campagne de sensibilisation · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Campagne fictive contre la pollution pétrolière et ses effets sur la faune marine : un manchot couvert de pétrole et une accroche directe, déclinée en abribus.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Communication</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Livrables</dt><dd>Affiche, abribus</dd></div><div><dt>Outils</dt><dd>Photoshop, Illustrator</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/confort-enfer-affiche.jpg" width="850" height="1200" loading="lazy" alt="Affiche Notre confort, leur enfer"></figure><figure><img src="images/confort-enfer-abribus.jpg" width="800" height="1200" loading="lazy" alt="L’affiche sur un abribus"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-dondusang" data-cat="communication">
+        <button class="card-open" aria-label="Voir le projet Don du sang × Marvel">
+          <figure class="card-img"><img src="images/don-du-sang-affiche.jpg" width="820" height="1200" loading="lazy" alt="Don du sang × Marvel"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">12 — Communication</span><span class="card-title">Don du sang <em>× Marvel</em></span><span class="card-type">Street marketing · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Collaboration imaginaire pour le don du sang : Captain America en héros du quotidien. « Le vrai héros, c’est celui qui donne. »</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Communication</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Support</dt><dd>Abribus</dd></div><div><dt>Outils</dt><dd>Photoshop, Illustrator</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/don-du-sang-affiche.jpg" width="820" height="1200" loading="lazy" alt="Affiche Don du sang avec Captain America"></figure><figure><img src="images/don-du-sang-abribus.jpg" width="1200" height="798" loading="lazy" alt="L’affiche Don du sang sur un abribus"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-cic" data-cat="communication">
+        <button class="card-open" aria-label="Voir le projet CIC, le plan Q*">
+          <figure class="card-img"><img src="images/cic-cartes.jpg" width="1600" height="1112" loading="lazy" alt="CIC, le plan Q*"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">13 — Communication</span><span class="card-title">CIC, <em>le plan Q*</em></span><span class="card-type">Campagne & carte bancaire · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Campagne pour les 18–25 ans qui joue sur le double sens du « Plan Q » (*plan quotidien), déclinée en abribus et en carte étudiante Q+ en trois versions.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Communication</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Cible</dt><dd>Étudiants 18–25 ans</dd></div><div><dt>Livrables</dt><dd>Abribus, cartes Q+</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/cic-abribus.jpg" width="1400" height="974" loading="lazy" alt="Abribus CIC, le meilleur Plan Q de ta vie"></figure><figure><img src="images/cic-cartes.jpg" width="1600" height="1112" loading="lazy" alt="Trois cartes bancaires CIC Q+"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-gestiboat" data-cat="communication">
+        <button class="card-open" aria-label="Voir le projet GestiBoat, speed boating day">
+          <figure class="card-img"><img src="images/gestiboat-affiche.jpg" width="848" height="1200" loading="lazy" alt="GestiBoat, speed boating day"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">14 — Communication</span><span class="card-title">GestiBoat, <em>speed boating day</em></span><span class="card-type">Identité & affichage · École</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Supports de communication pour une startup de gestion nautique : la journée spéciale propriétaires au port de La Grande-Motte, en affiche et en affichage urbain.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Communication</dd></div><div><dt>Cadre</dt><dd>École</dd></div><div><dt>Livrables</dt><dd>Affiche, affichage urbain</dd></div><div><dt>Outils</dt><dd>Illustrator, Canva</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/gestiboat-affiche.jpg" width="848" height="1200" loading="lazy" alt="Affiche GestiBoat Speed Boating Day"></figure><figure><img src="images/gestiboat-mockup.jpg" width="1400" height="942" loading="lazy" alt="Affichage urbain GestiBoat"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-sorhobis" data-cat="communication">
+        <button class="card-open" aria-label="Voir le projet Sorhobis Boissons">
+          <figure class="card-img card-stack"><img src="images/sorhobis-pastis-olive.jpg" width="1200" height="231" loading="lazy" alt="Bannière Pastis Olive"><img src="images/sorhobis-ricard.jpg" width="1200" height="231" loading="lazy" alt="Bannière Ricard"><img src="images/sorhobis-get27.jpg" width="1200" height="231" loading="lazy" alt="Bannière Get 27"><img src="images/sorhobis-citadelle.jpg" width="1200" height="231" loading="lazy" alt="Bannière Citadelle"><img src="images/sorhobis-lillet.jpg" width="1200" height="231" loading="lazy" alt="Bannière Lillet"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">15 — Communication</span><span class="card-title">Sorhobis <em>Boissons</em></span><span class="card-type">Bannières web · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Cinq bannières promotionnelles pour l’intranet du distributeur, dans le respect des chartes de chaque marque : Pastis Olive, Ricard, Get 27, Citadelle et Lillet.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Communication</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Livrables</dt><dd>5 bannières web</dd></div><div><dt>Outils</dt><dd>Photoshop, Illustrator</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/sorhobis-pastis-olive.jpg" width="1200" height="231" loading="lazy" alt="Bannière Pastis Olive"></figure><figure><img src="images/sorhobis-ricard.jpg" width="1200" height="231" loading="lazy" alt="Bannière Ricard"></figure><figure><img src="images/sorhobis-get27.jpg" width="1200" height="231" loading="lazy" alt="Bannière Get 27"></figure><figure><img src="images/sorhobis-citadelle.jpg" width="1200" height="231" loading="lazy" alt="Bannière Citadelle"></figure><figure><img src="images/sorhobis-lillet.jpg" width="1200" height="231" loading="lazy" alt="Bannière Lillet"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-pallas" data-cat="communication">
+        <button class="card-open" aria-label="Voir le projet Pallas Cuir">
+          <figure class="card-img card-text"><span class="ct-big">SEO <em>&amp; GEO</em></span><span class="ct-small">E-commerce · PrestaShop · réseaux sociaux</span><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">16 — Communication</span><span class="card-title">Pallas <em>Cuir</em></span><span class="card-type">SEO / GEO & social media · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Audit SEO et GEO du site e-commerce multimarque sous PrestaShop, et optimisation des fiches produit pour gagner en visibilité en Provence.</p><p>En parallèle, création de contenus pour les réseaux sociaux.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Communication</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Plateforme</dt><dd>PrestaShop</dd></div><div><dt>Missions</dt><dd>Audit SEO, GEO, contenus</dd></div></dl>
+          <div class="d-imgs"></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-bda" data-cat="photo">
+        <button class="card-open" aria-label="Voir le projet Le Bistro des Arènes, en images">
+          <figure class="card-img"><img src="images/bda-photo-3.jpg" width="804" height="1200" loading="lazy" alt="Le Bistro des Arènes, en images"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">17 — Photographie</span><span class="card-title">Le Bistro des Arènes, <em>en images</em></span><span class="card-type">Photo food & lifestyle · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Shooting pour le restaurant : cocktails, assiettes et terrasse. Direction artistique, prise de vue et retouche.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Photographie</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Sujets</dt><dd>Cocktails, plats, terrasse</dd></div><div><dt>Outils</dt><dd>Lightroom, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/bda-photo-1.jpg" width="1200" height="798" loading="lazy" alt="Bière tenue en terrasse"></figure><figure><img src="images/bda-photo-2.jpg" width="800" height="1200" loading="lazy" alt="Portrait en casquette, lumière naturelle"></figure><figure><img src="images/bda-photo-3.jpg" width="804" height="1200" loading="lazy" alt="Cocktail spritz"></figure><figure><img src="images/bda-photo-4.jpg" width="803" height="1200" loading="lazy" alt="Mule dans une tasse en cuivre"></figure><figure><img src="images/bda-photo-5.jpg" width="802" height="1200" loading="lazy" alt="Assiettes dressées"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-roumaniere" data-cat="photo">
+        <button class="card-open" aria-label="Voir le projet La Roumanière">
+          <figure class="card-img"><img src="images/roumaniere-1.jpg" width="800" height="1200" loading="lazy" alt="La Roumanière"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">18 — Photographie</span><span class="card-title">La <em>Roumanière</em></span><span class="card-type">Photo produit · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Confiture de pêche de Provence : fond rouge, lumière naturelle et mise en scène végétale. Direction artistique et retouche.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Photographie</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Produit</dt><dd>Confiture pêche de Provence</dd></div><div><dt>Outils</dt><dd>Lightroom, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/roumaniere-1.jpg" width="800" height="1200" loading="lazy" alt="Pot de confiture sur des feuilles, fond rouge"></figure><figure><img src="images/roumaniere-2.jpg" width="1200" height="800" loading="lazy" alt="Pot de confiture tenu en main"></figure><figure><img src="images/roumaniere-3.jpg" width="1200" height="800" loading="lazy" alt="Pot de confiture couché sur fond rouge"></figure></div>
+        </div>
+      </article>
+      <article class="card rv" id="p-cherico" data-cat="photo">
+        <button class="card-open" aria-label="Voir le projet Chérico, chicorée bio">
+          <figure class="card-img"><img src="images/cherico-lifestyle.jpg" width="1400" height="933" loading="lazy" alt="Chérico, chicorée bio"><span class="card-cta">Voir le projet</span></figure>
+          <span class="card-meta"><span class="label">19 — Photographie</span><span class="card-title">Chérico, <em>chicorée bio</em></span><span class="card-type">Packshot & lifestyle · Client</span></span>
+        </button>
+        <div class="card-detail" hidden>
+          <div class="d-text"><p>Packshot pour la fiche produit e-commerce et image lifestyle en lumière naturelle pour les réseaux sociaux.</p></div>
+          <dl class="d-specs"><div><dt>Discipline</dt><dd>Photographie</dd></div><div><dt>Cadre</dt><dd>Client</dd></div><div><dt>Usages</dt><dd>E-commerce, réseaux sociaux</dd></div><div><dt>Outils</dt><dd>Lightroom, Photoshop</dd></div></dl>
+          <div class="d-imgs"><figure><img src="images/cherico-packshot.jpg" width="1400" height="933" loading="lazy" alt="Boîtes de chicorée Chérico"></figure><figure><img src="images/cherico-lifestyle.jpg" width="1400" height="933" loading="lazy" alt="Chicorée versée dans une tasse"></figure></div>
+        </div>
+      </article>
   </div>
 </section>
 
 <!-- 04 — COMPÉTENCES -->
-<section class="section wrap" id="competences">
-  <div class="cols s-label"><span class="grey">04</span><span>Compétences</span>
-    <div class="s-body">
-      <h2 class="s-title grey rv">Expertises</h2>
-      <ul class="skills" style="margin-top:12px">
-        <li class="rv">Identité visuelle</li>
-        <li class="rv">Design graphique</li>
-        <li class="rv">Stratégie digitale</li>
-        <li class="rv">Création de contenu</li>
-        <li class="rv">Communication</li>
-      </ul>
-      <dl class="tools">
-        <dt>Design</dt><dd>Illustrator, Photoshop, InDesign, Lightroom, Canva</dd>
-        <dt>Vidéo, photo</dt><dd>Premiere Pro, After Effects, photographie</dd>
-        <dt>Web</dt><dd>PrestaShop, WordPress, HTML / CSS, SEO / GEO, réseaux sociaux</dd>
-      </dl>
-    </div>
+<section class="section wrap expertises" id="competences">
+  <div class="sec-head rv">
+    <p class="label">Compétences</p>
+    <h2 class="display">Exper<em>tises</em></h2>
+  </div>
+  <ol class="exp-list">
+        <li class="rv" data-peek="images/bistro-logo.jpg"><h3>Identité <em>visuelle</em></h3><p>Logos, chartes et déclinaisons qui donnent une voix visuelle à une marque.<span>Le Bistro des Arènes · Le Régina · Siroo</span></p></li>
+        <li class="rv" data-peek="images/enzos-birthday.jpg"><h3>Design <em>graphique</em></h3><p>Affiches, packagings et visuels d’événements, du print aux stories.<span>La Cochonnade · Enzo’s Birthday · Kellogg’s × Barbie</span></p></li>
+        <li class="rv" data-peek="images/sorhobis-ricard.jpg"><h3>Stratégie <em>digitale</em></h3><p>Audit SEO et GEO, e-commerce et visibilité en ligne.<span>Pallas Cuir · Sorhobis Boissons</span></p></li>
+        <li class="rv" data-peek="images/cherico-lifestyle.jpg"><h3>Création <em>de contenu</em></h3><p>Photographie produit, lifestyle et contenus pour les réseaux sociaux.<span>La Roumanière · Chérico · Le Bistro des Arènes</span></p></li>
+        <li class="rv" data-peek="images/confort-enfer-abribus.jpg"><h3>Commu<em>nication</em></h3><p>Campagnes de sensibilisation, street marketing et affichage urbain.<span>Notre confort, leur enfer · Don du sang × Marvel · CIC</span></p></li>
+  </ol>
+  <div class="tools rv">
+    <div><h3>Design</h3><ul><li>Illustrator</li><li>Photoshop</li><li>InDesign</li><li>Lightroom</li><li>Canva</li></ul></div>
+    <div><h3>Vidéo &amp; photo</h3><ul><li>Premiere Pro</li><li>After Effects</li><li>Photographie</li></ul></div>
+    <div><h3>Web</h3><ul><li>PrestaShop</li><li>WordPress</li><li>HTML / CSS</li><li>SEO / GEO</li><li>Réseaux sociaux</li></ul></div>
   </div>
 </section>
 
+<!-- Carnet d'images -->
+<section class="strip" aria-label="Carnet d'images">
+  <div class="strip-head wrap"><p class="label">Carnet d’images</p><span class="script" aria-hidden="true">en couleurs</span></div>
+  <div class="strip-track"><img src="images/roumaniere-2.jpg" width="1200" height="800" loading="lazy" alt="" aria-hidden="true"><img src="images/regina-tropical.jpg" width="675" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/bda-photo-3.jpg" width="804" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/cochonnade-des-voiles.jpg" width="1080" height="1440" loading="lazy" alt="" aria-hidden="true"><img src="images/cherico-packshot.jpg" width="1400" height="933" loading="lazy" alt="" aria-hidden="true"><img src="images/enzos-birthday.jpg" width="795" height="1125" loading="lazy" alt="" aria-hidden="true"><img src="images/bda-photo-5.jpg" width="802" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/siroo-fraise.jpg" width="706" height="708" loading="lazy" alt="" aria-hidden="true"><img src="images/roumaniere-1.jpg" width="800" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/voiles-aml-music.jpg" width="1080" height="1440" loading="lazy" alt="" aria-hidden="true"><img src="images/kelloggs-barbie.jpg" width="1200" height="793" loading="lazy" alt="" aria-hidden="true"><img src="images/bda-photo-4.jpg" width="803" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/roumaniere-2.jpg" width="1200" height="800" loading="lazy" alt="" aria-hidden="true"><img src="images/regina-tropical.jpg" width="675" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/bda-photo-3.jpg" width="804" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/cochonnade-des-voiles.jpg" width="1080" height="1440" loading="lazy" alt="" aria-hidden="true"><img src="images/cherico-packshot.jpg" width="1400" height="933" loading="lazy" alt="" aria-hidden="true"><img src="images/enzos-birthday.jpg" width="795" height="1125" loading="lazy" alt="" aria-hidden="true"><img src="images/bda-photo-5.jpg" width="802" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/siroo-fraise.jpg" width="706" height="708" loading="lazy" alt="" aria-hidden="true"><img src="images/roumaniere-1.jpg" width="800" height="1200" loading="lazy" alt="" aria-hidden="true"><img src="images/voiles-aml-music.jpg" width="1080" height="1440" loading="lazy" alt="" aria-hidden="true"><img src="images/kelloggs-barbie.jpg" width="1200" height="793" loading="lazy" alt="" aria-hidden="true"><img src="images/bda-photo-4.jpg" width="803" height="1200" loading="lazy" alt="" aria-hidden="true"></div>
+</section>
+
 <!-- 05 — CONTACT -->
-<section class="section wrap" id="contact">
-  <div class="cols s-label"><span class="grey">05</span><span>Contact</span>
-    <div class="s-body">
-      <h2 class="s-title rv">Contact</h2>
-      <p class="s-text grey rv">Pour toute demande ou collaboration.</p>
-      <div class="contact-links">
-        <a href="mailto:laura.tuppo25@gmail.com"><small>E-mail</small>laura.tuppo25@gmail.com</a>
-        <a href="https://www.linkedin.com/in/profil-de-laura-tuppo" target="_blank" rel="noopener"><small>LinkedIn</small>Laura Tuppo ↗</a>
-      </div>
-    </div>
+<section class="section wrap cream contact" id="contact">
+  <span class="script contact-script" aria-hidden="true">à bientôt</span>
+  <p class="label">Contact</p>
+  <h2 class="display">Con<em>tact</em></h2>
+  <p>Pour toute demande ou collaboration.</p>
+  <a class="mail" href="mailto:laura.tuppo25@gmail.com">laura.tuppo25<em>@</em>gmail.com</a>
+  <div class="contact-btns">
+    <a class="btn solid" href="mailto:laura.tuppo25@gmail.com">Écrire un e-mail <span aria-hidden="true">→</span></a>
+    <a class="btn" href="https://www.linkedin.com/in/profil-de-laura-tuppo" target="_blank" rel="noopener">LinkedIn · Laura Tuppo <span aria-hidden="true">↗</span></a>
+    <button class="btn" id="copyMail" type="button">Copier l’adresse</button>
   </div>
+  <p class="copied" id="copied" aria-live="polite"></p>
 </section>
 
 </main>
 
 <footer class="wrap">
-  <span>© <span id="year">2026</span> Laura Tuppo</span>
-  <a href="#accueil">Haut ↑</a>
+  <p class="wordmark">Laura <em>Tuppo</em></p>
+  <div class="foot-row label">
+    <span>© <span id="year">2026</span> Laura Tuppo</span>
+    <nav aria-label="Pied de page"><a href="#a-propos">À propos</a><a href="#projets">Projets</a><a href="#competences">Compétences</a><a href="#contact">Contact</a></nav>
+    <a href="#accueil">Haut de page ↑</a>
+  </div>
 </footer>
 
-<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
-<div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
-
-<!-- Visionneuse -->
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image agrandie">
-  <div class="lb-bar">
-    <span id="lbCap"></span>
-    <div><button id="lbPrev">Préc.</button><button id="lbNext">Suiv.</button><button id="lbClose">Fermer</button></div>
+<!-- Fiche projet -->
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle" aria-hidden="true">
+  <div class="panel-bar label">
+    <button id="pClose">← Projets</button>
+    <span id="pCount" class="muted"></span>
+    <div><button id="pPrev">Précédent</button><button id="pNext">Suivant</button></div>
   </div>
-  <div class="lb-stage">
-    <img id="lbImg" alt="">
-    <button class="lb-zone prev" id="zPrev" aria-label="Image précédente" data-cursor="←"></button>
-    <button class="lb-zone next" id="zNext" aria-label="Image suivante" data-cursor="→"></button>
+  <div class="panel-body">
+    <div class="panel-info">
+      <p class="label" id="pLabel"></p>
+      <h2 class="display" id="pTitle"></h2>
+      <p class="muted" id="pType"></p>
+      <div id="pText"></div>
+    </div>
+    <div class="panel-imgs" id="pImgs"></div>
   </div>
 </div>
+
+<div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
 
 <script>
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-
-  // Filtre par discipline (index + projets)
-  const buttons = $$('.filters button');
-  buttons.forEach(b => b.addEventListener('click', () => {
-    const f = b.dataset.filter;
-    buttons.forEach(x => x.setAttribute('aria-pressed', x === b));
-    $$('[data-cat]').forEach(el => { el.hidden = f !== 'all' && el.dataset.cat !== f; });
-  }));
-
-  // Visionneuse : parcourt les images du projet
-  const lb = $('#lb'), img = $('#lbImg'), cap = $('#lbCap');
-  let set = [], i = 0, back = null;
-  const show = n => {
-    i = (n + set.length) % set.length;
-    const src = $('img', set[i]);
-    img.src = src.currentSrc || src.src;
-    img.alt = src.alt;
-    const title = $('h2', set[i].closest('.project')).textContent;
-    cap.textContent = title + (set.length > 1 ? ' — ' + (i + 1) + '/' + set.length : '');
-    $$('#lbPrev, #lbNext, .lb-zone').forEach(el => el.hidden = set.length < 2);
-  };
-  const open = shot => {
-    set = $$('.shot', shot.closest('.project'));
-    back = shot;
-    show(set.indexOf(shot));
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    $('#lbClose').focus();
-  };
-  const close = () => {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    if (back) back.focus();
-  };
-  $$('.shot').forEach(s => {
-    s.tabIndex = 0;
-    s.setAttribute('role', 'button');
-    s.setAttribute('aria-label', 'Agrandir : ' + $('img', s).alt);
-    s.addEventListener('click', () => open(s));
-    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(s); } });
-  });
-  $('#lbClose').addEventListener('click', close);
-  ['#lbPrev', '#zPrev'].forEach(id => $(id).addEventListener('click', () => show(i - 1)));
-  ['#lbNext', '#zNext'].forEach(id => $(id).addEventListener('click', () => show(i + 1)));
-  addEventListener('keydown', e => {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') show(i - 1);
-    if (e.key === 'ArrowRight') show(i + 1);
-  });
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const lock = on => { document.body.style.overflow = on ? 'hidden' : ''; };
 
   $('#year').textContent = new Date().getFullYear();
 
+  // En-tête : fond au défilement
+  const top = $('#topbar');
+  const onScroll = () => top.classList.toggle('scrolled', scrollY > 40);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Apparitions au défilement
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+  $$('.rv').forEach(el => io.observe(el));
+
   // Menu plein écran
   const menu = $('#menu'), menuBtn = $('#menuBtn'), menuLbl = $('#menuLbl');
-  const setMenu = open => {
-    document.documentElement.classList.toggle('menu-open', open);
-    menuBtn.setAttribute('aria-expanded', open);
-    menu.setAttribute('aria-hidden', !open);
-    menu.inert = !open;
-    menuLbl.textContent = open ? 'Fermer' : 'Menu';
-    document.body.style.overflow = open ? 'hidden' : '';
-    if (open) { markCurrent(); setTimeout(() => $('a', menu).focus({ preventScroll: true }), 250); }
-  };
-  menu.inert = true;
-  menuBtn.addEventListener('click', () => setMenu(!document.documentElement.classList.contains('menu-open')));
-  $$('.menu ol a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-  addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.documentElement.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); }
-  });
-
-  // Section en cours (celle qui occupe le milieu de l'écran), signalée dans le menu
   const menuLinks = $$('.menu ol a');
   const sections = menuLinks.map(a => document.querySelector(a.getAttribute('href')));
   const markCurrent = () => {
     const mid = innerHeight / 2;
-    let i = sections.findIndex(sec => sec.getBoundingClientRect().bottom > mid);
+    let i = sections.findIndex(s => s.getBoundingClientRect().bottom > mid);
     if (i < 0) i = sections.length - 1;
     menuLinks.forEach((a, j) => a.classList.toggle('current', j === i));
   };
-  addEventListener('scroll', markCurrent, { passive: true });
-  markCurrent();
-
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  // Barre de progression du défilement
-  const prog = $('#progress');
-  const onScroll = () => {
-    const h = document.documentElement.scrollHeight - innerHeight;
-    prog.style.setProperty('--p', h > 0 ? scrollY / h : 0);
+  const setMenu = open => {
+    root.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menu.setAttribute('aria-hidden', !open);
+    menu.inert = !open;
+    menuLbl.textContent = open ? 'Fermer' : 'Menu';
+    lock(open);
+    if (open) { markCurrent(); setTimeout(() => menuLinks[0].focus({ preventScroll: true }), 250); }
   };
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  menu.inert = true;
+  menuBtn.addEventListener('click', () => setMenu(!root.classList.contains('menu-open')));
+  $$('.menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
-  // Apparition des images et des textes
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), { threshold: .12 });
-  $$('.shot, .rv').forEach(el => io.observe(el));
+  // Filtres
+  const filterBtns = $$('.filters button');
+  filterBtns.forEach(b => b.addEventListener('click', () => {
+    const f = b.dataset.filter;
+    filterBtns.forEach(x => x.setAttribute('aria-pressed', x === b));
+    $$('.card').forEach(c => { c.hidden = f !== 'all' && c.dataset.cat !== f; if (!c.hidden) c.classList.add('in'); });
+  }));
 
-  // Accueil : la graisse de chaque lettre réagit à la distance du curseur
-  const chars = [];
-  $$('#heroName .l').forEach(line => {
-    const txt = line.textContent; line.textContent = '';
-    [...txt].forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; line.appendChild(s); chars.push(s); });
+  // Fiche projet
+  const panel = $('#panel'), cards = $$('.card');
+  let current = null, opener = null;
+  const visibleCards = () => cards.filter(c => !c.hidden);
+  const show = card => {
+    current = card;
+    const list = visibleCards();
+    const det = $('.card-detail', card);
+    $('#pLabel').textContent = $('.card-meta .label', card).textContent;
+    $('#pTitle').innerHTML = $('.card-title', card).innerHTML;
+    $('#pType').textContent = $('.card-type', card).textContent;
+    const text = $('#pText'); text.innerHTML = '';
+    text.append($('.d-text', det).cloneNode(true), $('.d-specs', det).cloneNode(true));
+    const imgs = $('#pImgs'); imgs.innerHTML = '';
+    const figs = $$('.d-imgs figure', det);
+    if (figs.length) figs.forEach(f => { const c = f.cloneNode(true); $('img', c).loading = 'eager'; imgs.append(c); });
+    else imgs.append($('.card-img', card).cloneNode(true));
+    $$('.card-cta', imgs).forEach(el => el.remove());
+    $('#pCount').textContent = String(list.indexOf(card) + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+    panel.scrollTop = 0;
+  };
+  const openPanel = card => {
+    opener = $('.card-open', card);
+    show(card);
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden', 'false');
+    panel.inert = false;
+    lock(true);
+    $('#pClose').focus({ preventScroll: true });
+  };
+  const closePanel = () => {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden', 'true');
+    panel.inert = true;
+    lock(false);
+    if (opener) opener.focus({ preventScroll: true });
+  };
+  const step = d => { const l = visibleCards(); show(l[(l.indexOf(current) + d + l.length) % l.length]); };
+  panel.inert = true;
+  cards.forEach(c => $('.card-open', c).addEventListener('click', () => openPanel(c)));
+  $('#pClose').addEventListener('click', closePanel);
+  $('#pPrev').addEventListener('click', () => step(-1));
+  $('#pNext').addEventListener('click', () => step(1));
+
+  addEventListener('keydown', e => {
+    if (panel.classList.contains('open')) {
+      if (e.key === 'Escape') closePanel();
+      if (e.key === 'ArrowRight') step(1);
+      if (e.key === 'ArrowLeft') step(-1);
+    } else if (e.key === 'Escape' && root.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); }
   });
+
+  // Copier l'adresse e-mail
+  $('#copyMail').addEventListener('click', () => {
+    const mail = 'laura.tuppo25@gmail.com', out = $('#copied');
+    const done = () => { out.textContent = 'Adresse copiée : ' + mail; };
+    if (navigator.clipboard) navigator.clipboard.writeText(mail).then(done, () => { out.textContent = mail; });
+    else out.textContent = mail;
+  });
+
+  // Collage de l'accueil : les visuels réagissent à la souris et au défilement
+  const collage = $('#collage');
   if (!reduce) {
-    if (finePointer) {
-      let mx = -1e4, my = -1e4, raf = 0;
-      const paint = () => {
-        raf = 0;
-        const R = Math.max(240, innerWidth * .32);
-        chars.forEach(ch => {
-          const r = ch.getBoundingClientRect();
-          const d = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
-          const k = Math.max(0, 1 - d / R);
-          ch.style.fontWeight = Math.round(200 + 700 * k * k);
-        });
-      };
-      addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; if (!raf) raf = requestAnimationFrame(paint); });
-      document.addEventListener('pointerleave', () => chars.forEach(ch => ch.style.fontWeight = ''));
-    } else {
-      // écrans tactiles : une vague lente traverse le nom
-      const t0 = performance.now();
-      const wave = t => {
-        chars.forEach((ch, i) => { ch.style.fontWeight = Math.round(500 + 380 * Math.sin((t - t0) / 900 - i * .55)); });
-        requestAnimationFrame(wave);
-      };
-      requestAnimationFrame(wave);
-    }
+    let tx = 0, ty = 0, x = 0, y = 0;
+    if (fine) addEventListener('pointermove', e => { tx = e.clientX / innerWidth * 2 - 1; ty = e.clientY / innerHeight * 2 - 1; });
+    const loop = () => {
+      x += (tx - x) * .06; y += (ty - y) * .06;
+      collage.style.setProperty('--mx', x.toFixed(3));
+      collage.style.setProperty('--my', y.toFixed(3));
+      collage.style.setProperty('--sy', Math.min(scrollY / innerHeight, 1.5).toFixed(3));
+      requestAnimationFrame(loop);
+    };
+    loop();
   }
 
-  if (finePointer) {
-    // Curseur personnalisé
-    document.documentElement.classList.add('has-cursor');
-    const cur = $('#cursor'), label = $('span', cur);
-    let x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y;
-    addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; });
+  // Expertises : un visuel suit la souris au survol de chaque ligne
+  if (fine) {
+    const peek = $('#peek'), pimg = $('img', peek);
+    let mx = 0, my = 0, px = 0, py = 0, active = null;
+    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+    $$('.exp-list li').forEach(li => {
+      li.addEventListener('pointerenter', () => { active = li; pimg.src = li.dataset.peek; if (!peek.classList.contains('on')) { px = mx + 40; py = my - 120; } peek.classList.add('on'); });
+      li.addEventListener('pointerleave', () => { active = null; peek.classList.remove('on'); });
+    });
+    addEventListener('scroll', () => { if (active && !active.matches(':hover')) { active = null; peek.classList.remove('on'); } }, { passive: true });
     const follow = () => {
-      cx += (x - cx) * (reduce ? 1 : .25); cy += (y - cy) * (reduce ? 1 : .25);
-      cur.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+      const w = peek.offsetWidth, h = peek.offsetHeight;
+      const tx = mx > innerWidth * .6 ? mx - w - 40 : mx + 40;
+      const ty = Math.min(Math.max(my - h / 2, 80), innerHeight - h - 20);
+      px += (tx - px) * (reduce ? 1 : .15); py += (ty - py) * (reduce ? 1 : .15);
+      peek.style.transform = `translate3d(${px}px,${py}px,0) rotate(-3deg)`;
       requestAnimationFrame(follow);
     };
     follow();
-    // Aperçu flottant au survol de l'index
-    const peek = $('#peek'), pimg = $('img', peek);
-    let px = 0, py = 0, tx = 0, ty = 0;
-
-    // État du curseur et de l'aperçu selon l'élément survolé
-    // (recalculé aussi au défilement, quand la souris ne bouge pas)
-    const hover = el => {
-      const t = el && el.closest('[data-cursor], .shot, a, button');
-      cur.classList.remove('view', 'link');
-      if (t) {
-        const txt = t.dataset.cursor || (t.classList.contains('shot') ? 'Voir' : '');
-        if (txt) { label.textContent = txt; cur.classList.add('view'); }
-        else cur.classList.add('link');
-      }
-      const row = el && el.closest('.index a');
-      if (row && row.dataset.peek) {
-        if (!peek.classList.contains('on')) { px = x > innerWidth * .55 ? x - peek.offsetWidth - 32 : x + 32; py = y; }
-        if (pimg.getAttribute('src') !== row.dataset.peek) pimg.src = row.dataset.peek;
-        peek.classList.add('on');
-      } else peek.classList.remove('on');
-    };
-    addEventListener('pointerover', e => hover(e.target));
-    addEventListener('scroll', () => hover(document.elementFromPoint(x, y)), { passive: true });
-    document.addEventListener('pointerleave', () => hover(null));
-    const move = () => {
-      const w = peek.offsetWidth, h = peek.offsetHeight;
-      tx = x > innerWidth * .55 ? x - w - 32 : x + 32;
-      ty = Math.min(Math.max(y - h / 2, 60), innerHeight - h - 16);
-      px += (tx - px) * (reduce ? 1 : .18); py += (ty - py) * (reduce ? 1 : .18);
-      peek.style.transform = `translate3d(${px}px,${py}px,0)`;
-      requestAnimationFrame(move);
-    };
-    move();
   }
 })();
 </script>

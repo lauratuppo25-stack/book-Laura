@@ -1,6 +1,6 @@
 # Laura Tuppo — Portfolio
 
-Portfolio sur fond noir, interface épurée, projets en couleur. Communication & design graphique.
+Portfolio éditorial sur fond noir et crème, projets en couleur. Communication & design graphique.
 
 - `index.html` : la page complète (HTML + CSS + JS, sans dépendance).
 - `images/` : tous les visuels des projets.
@@ -8,12 +8,18 @@ Portfolio sur fond noir, interface épurée, projets en couleur. Communication &
 Ouvrir `index.html` dans un navigateur suffit. Pour le mettre en ligne gratuitement :
 GitHub → *Settings* → *Pages* → *Deploy from a branch* → `main` / `root`.
 
-## Ajouter un projet
+## Ajouter ou modifier un projet
 
-Copier un bloc `<article class="project">` existant, puis :
+`index.html` est généré à partir de deux fichiers du dossier `tools/` :
 
-1. déposer les images dans `images/` ;
-2. pour chaque image, renseigner `--ar` (largeur ÷ hauteur), `width`, `height` et `alt` ;
-3. ajouter la ligne correspondante dans l'index (`.index`), avec le même `data-cat`
-   (`graphisme`, `communication` ou `photo`), et mettre à jour les compteurs du filtre.
+- `tools/template.html` : la mise en page (CSS, sections, scripts) ;
+- `tools/build.py` : la liste des projets (`P`), des expertises et du carnet d'images.
 
+Pour ajouter un projet : déposer les images dans `images/`, ajouter une entrée dans la liste `P`
+de `tools/build.py`, puis régénérer la page :
+
+```
+python3 tools/build.py .
+```
+
+(nécessite Python 3 et Pillow : `pip install pillow`)
