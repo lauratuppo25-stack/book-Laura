@@ -52,14 +52,14 @@ P = [
       desc=['Soirée accords mets et vins dans les chais du Comptoir des Vignes, à Châteaurenard : formes organiques, script manuscrit et palette chaude.'],
       specs=[('Client', 'Comptoir des Vignes'), ('Outils', 'Illustrator, Photoshop')],
       cover='comptoir-chef-en-cave', imgs=[('comptoir-chef-en-cave', 'Affiche Un chef en cave, Comptoir des Vignes')]),
- dict(id='lowbass', cat='graphisme', cadre='Client', type='Story teaser', title='Low Bass, <em>stay tuned</em>',
-      desc=['Story d’annonce pour l’événement du 22 novembre 2026 : un dégradé rouge et noir granuleux, un titre flouté et le minimum d’informations pour créer l’attente.'],
-      specs=[('Format', 'Story Instagram'), ('Date', '22 novembre 2026')],
-      cover='low-bass-stay-tuned', imgs=[('low-bass-stay-tuned', 'Story Low Bass, Stay tuned, 22 novembre 2026')]),
  dict(id='futurs', cat='graphisme', cadre='École', type='Affiche de film', title='Futur<em>(s)</em>',
       desc=['Affiche d’un film fictif. Direction artistique cinématographique, entre synthwave et cyberpunk, entièrement composée sous Photoshop.'],
       specs=[('Projet', 'Film fictif'), ('Outil', 'Photoshop')],
       cover='futurs-affiche', imgs=[('futurs-affiche', 'Affiche du film fictif Futur(s)')]),
+ dict(id='lowbass', cat='communication', cadre='Client', type='Communication événementielle', title='Low <em>Bass</em>',
+      desc=['Communication de l’événement Low Bass au Château Romanin, à Saint-Rémy-de-Provence : dimanche 22 novembre, de 14 h à 21 h, food & drink.', 'Une story teaser « Stay tuned » pour créer l’attente, puis l’invitation exclusive. Dégradé rouge et noir granuleux, titres flous en mouvement et logo circulaire.'],
+      specs=[('Lieu', 'Château Romanin, Saint-Rémy-de-Provence'), ('Date', 'Dimanche 22 novembre'), ('Formats', 'Story teaser, invitation')],
+      cover='low-bass-invitation', imgs=[('low-bass-invitation', 'Invitation exclusive Low Bass au Château Romanin, dimanche 22 novembre'), ('low-bass-stay-tuned', 'Story teaser Low Bass, Stay tuned')]),
  dict(id='confort', cat='communication', cadre='École', type='Campagne de sensibilisation', title='Notre confort, <em>leur enfer.</em>',
       desc=['Campagne fictive contre la pollution pétrolière et ses effets sur la faune marine : un manchot couvert de pétrole et une accroche directe, déclinée en abribus.'],
       specs=[('Livrables', 'Affiche, abribus'), ('Outils', 'Photoshop, Illustrator')],
@@ -133,21 +133,21 @@ EXP = [
  ('Design <em>graphique</em>', 'Affiches, packagings et visuels d’événements, du print aux stories.', 'La Cochonnade · Enzo’s Birthday · Kellogg’s × Barbie', 'enzos-birthday'),
  ('Stratégie <em>digitale</em>', 'Audit SEO et GEO, e-commerce et visibilité en ligne.', 'Pallas Cuir · Sorhobis Boissons', 'sorhobis-ricard'),
  ('Création <em>de contenu</em>', 'Photographie produit, lifestyle et contenus pour les réseaux sociaux.', 'La Roumanière · Chérico · Le Bistro des Arènes', 'cherico-lifestyle'),
- ('Commu<em>nication</em>', 'Campagnes de sensibilisation, street marketing et affichage urbain.', 'Notre confort, leur enfer · Don du sang × Marvel · CIC', 'confort-enfer-abribus'),
+ ('Commu<em>nication</em>', 'Communication événementielle, campagnes de sensibilisation et street marketing.', 'Low Bass · Notre confort, leur enfer · Don du sang × Marvel', 'low-bass-invitation'),
 ]
 exp = ''.join(f'''
         <li class="rv" data-peek="images/{pk}.jpg"><h3>{t}</h3><p>{d}<span>{ex}</span></p></li>''' for t, d, ex, pk in EXP)
 
 # ─────────────────────────────────────────────── Carnet d'images (bandeau défilant)
-STRIP = ['roumaniere-2', 'regina-tropical', 'bda-photo-3', 'cochonnade-des-voiles', 'cherico-packshot', 'enzos-birthday', 'bda-photo-5', 'siroo-fraise', 'roumaniere-1', 'voiles-aml-music', 'kelloggs-barbie', 'bda-photo-4']
+STRIP = ['roumaniere-2', 'low-bass-invitation', 'regina-tropical', 'bda-photo-3', 'cochonnade-des-voiles', 'cherico-packshot', 'enzos-birthday', 'bda-photo-5', 'siroo-fraise', 'roumaniere-1', 'voiles-aml-music', 'kelloggs-barbie', 'bda-photo-4']
 strip_imgs = ''.join(img(n, '', extra=' aria-hidden="true"') for n in STRIP)
 
 page = open(os.path.join(os.path.dirname(__file__), 'template.html'), encoding='utf-8').read()
 page = (page.replace('{{CARDS}}', cards).replace('{{EXP}}', exp).replace('{{STRIP}}', strip_imgs + strip_imgs)
         .replace('{{N_ALL}}', str(len(P))).replace('{{N_G}}', str(count['graphisme']))
         .replace('{{N_C}}', str(count['communication'])).replace('{{N_P}}', str(count['photo'])))
-for key, (name, alt) in {'H1': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'), 'H2': ('kelloggs-barbie', 'Packaging Kellogg’s × Barbie'),
-                         'H3': ('roumaniere-1', 'Photo produit La Roumanière'), 'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'),
+for key, (name, alt) in {'H1': ('low-bass-invitation', 'Invitation Low Bass'), 'H2': ('kelloggs-barbie', 'Packaging Kellogg’s × Barbie'),
+                         'H3': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'), 'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'),
                          'PORTRAIT': ('laura-portrait', 'Portrait de Laura Tuppo')}.items():
     page = page.replace('{{' + key + '}}', img(name, alt, lazy=(key == 'PORTRAIT')))
 assert '{{' not in page, page[page.index('{{'):page.index('{{') + 40]
