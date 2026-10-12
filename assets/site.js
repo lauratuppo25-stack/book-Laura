@@ -99,21 +99,21 @@
   }
 
   // Filtres de projets, avec fondu entre deux sélections
-  const grid = $('#grid'), filterBtns = $$('.filters button');
+  const grid = $('#grid'), tiles = $('#tiles'), filterBtns = $$('.filters button');
   filterBtns.forEach(b => b.addEventListener('click', () => {
     if (b.getAttribute('aria-pressed') === 'true') return;
-    const f = b.dataset.filter;
+    const f = b.dataset.filter, zones = [grid, tiles].filter(Boolean);
     filterBtns.forEach(x => x.setAttribute('aria-pressed', x === b));
     const apply = () => {
-      $$('.card', grid).forEach(c => {
+      $$('.card').forEach(c => {
         c.hidden = f !== 'all' && c.dataset.cat !== f;
         c.classList.remove('in');
         if (!c.hidden) io.observe(c);
       });
-      grid.classList.remove('fading');
+      zones.forEach(z => { z.hidden = !$$('.card', z).some(c => !c.hidden); z.classList.remove('fading'); });
     };
     if (reduce) { apply(); return; }
-    grid.classList.add('fading');
+    zones.forEach(z => z.classList.add('fading'));
     setTimeout(apply, 260);
   }));
 

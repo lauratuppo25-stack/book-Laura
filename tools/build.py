@@ -96,10 +96,10 @@ P = [
       desc=['Identité d’un bar-café : serif terracotta, script doré. Stories des soirées de l’été 2025.'],
       specs=[('Livrables', 'Logo, stories, programme'), ('Date', 'Juillet 2025')],
       cover='regina-tropical', imgs=[('regina-logo', 'Logotype Le Régina bar-café'), ('regina-programme', 'Story Instagram, programme de la Saint-Éloi 2025'), ('regina-tropical', 'Story Instagram, Tropical Flower Night')]),
- dict(id='cochonnade', cat='graphisme', cadre='Client', type='Affiche événementielle', title='La Cochonnade <em>des Voiles</em>',
-      desc=['Affiche du BBQ du 14 juillet. Titre gravé dans la viande, monochrome bleu.'],
-      specs=[('Lieu', 'Les Voiles, Beaucaire'), ('Outils', 'Photoshop, Illustrator')],
-      cover='cochonnade-des-voiles', imgs=[('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles')]),
+ dict(id='voiles', cat='graphisme', cadre='Client', type='Affiches événementielles', title='Les <em>Voiles</em>',
+      desc=['Deux affiches pour deux soirées d’un même lieu, à Beaucaire. Monochrome bleu commun.'],
+      specs=[('Lieu', 'Les Voiles, Beaucaire'), ('Événements', 'BBQ du 14 juillet, soirée DJ du 22 juillet'), ('Outils', 'Photoshop, Illustrator')],
+      cover='cochonnade-des-voiles', imgs=[('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles, BBQ du 14 juillet'), ('voiles-aml-music', 'Affiche AML Music aux Voiles, soirée DJ du 22 juillet')]),
  dict(id='siroo', cat='graphisme', cadre='École', type='Branding & packaging', title='Siroo, <em>le goût en boucle</em>',
       desc=['Marque fictive de sirops rechargeables. Logo par saveur, étiquettes ovales.'],
       specs=[('Livrables', 'Logo, étiquettes, mockup'), ('Outils', 'Illustrator, Photoshop')],
@@ -112,10 +112,6 @@ P = [
       desc=['Édition limitée fictive. Univers rose, goût framboise.'],
       specs=[('Livrable', 'Boîte et mise en situation'), ('Outils', 'Illustrator, Photoshop')],
       cover='kelloggs-barbie', imgs=[('kelloggs-barbie', 'Boîte de céréales Kellogg’s × Barbie sur une table')]),
- dict(id='aml', cat='graphisme', cadre='Client', type='Affiche événementielle', title='AML Music <em>aux Voiles</em>',
-      desc=['Soirée DJ du 22 juillet. Portrait monochrome bleu.'],
-      specs=[('Lieu', 'Les Voiles, Beaucaire'), ('Outils', 'Photoshop')],
-      cover='voiles-aml-music', imgs=[('voiles-aml-music', 'Affiche AML Music aux Voiles')]),
  dict(id='futurs', cat='graphisme', cadre='École', type='Affiche de film', title='Futur<em>(s)</em>',
       desc=['Affiche de film fictif, entre synthwave et cyberpunk.'],
       specs=[('Projet', 'Film fictif'), ('Outil', 'Photoshop')],
@@ -181,7 +177,7 @@ def card(i, p):
     specs = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in [('Discipline', CAT[p['cat']]), ('Cadre', p['cadre'])] + p['specs'])
     imgs = ''.join(f'<figure>{img(n, a)}</figure>' for n, a in p['imgs'])
     return f'''
-      <article class="card rv" id="p-{p['id']}" data-cat="{p['cat']}">
+      <article class="card rv{' tile' if p['cat'] == 'photo' else ''}" id="p-{p['id']}" data-cat="{p['cat']}">
         <button class="card-open" data-cursor="Voir" aria-label="Voir le projet {html.escape(plain)}">
           {cover}
           <span class="card-meta"><span class="label">{num} — {CAT[p['cat']]}</span><span class="card-title">{p['title']}</span><span class="card-type">{p['type']} · {p['cadre']}</span></span>
@@ -194,7 +190,8 @@ def card(i, p):
         </div>
       </article>'''
 
-cards = ''.join(card(i, p) for i, p in enumerate(P))
+cards = ''.join(card(i, p) for i, p in enumerate(P) if p['cat'] != 'photo')
+tiles = ''.join(card(i, p) for i, p in enumerate(P) if p['cat'] == 'photo')
 
 # ─────────────────────────────────────────────── Expertises
 EXP = [
@@ -247,7 +244,7 @@ def render(name, base, extra):
     return page
 
 pages = {}
-extra = {'CARDS': cards, 'EXP': exp, 'STRIP': strip_imgs + strip_imgs, 'N_ALL': str(len(P)), 'N_G': str(count['graphisme']),
+extra = {'CARDS': cards, 'TILES': tiles, 'EXP': exp, 'STRIP': strip_imgs + strip_imgs, 'N_ALL': str(len(P)), 'N_G': str(count['graphisme']),
          'N_C': str(count['communication']), 'N_P': str(count['photo'])}
 extra['HERO'] = img('laura-cafe', 'Laura Tuppo en terrasse d’un café parisien', lazy=False)
 pages['index.html'] = render('template.html', '', extra)

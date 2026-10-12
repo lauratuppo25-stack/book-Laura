@@ -207,6 +207,24 @@ html.js .card.rv{transform:translateY(60px)}
 .card-stack{display:grid;gap:6px;padding:14px;background:var(--white)}
 .card-stack img{width:100%;border-radius:6px}
 
+/* Photographie : vignettes carrées */
+.tiles-wrap{margin-top:clamp(24px,4vw,48px);transition:opacity .25s}
+.tiles-wrap.fading{opacity:0}
+.tiles-head{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:22px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,2vw,28px);max-width:980px}
+.tile{margin:0}
+.tile .card-img{aspect-ratio:1;border-radius:clamp(16px,2vw,26px)}
+.tile .card-img img{height:100%;object-fit:cover}
+.tile .card-meta .label,.tile .card-type{display:none}
+.tile .card-meta{padding-top:10px}
+.tile .card-title{font-size:clamp(11px,1.2vw,15px);padding:.35em .85em}
+.tile .card-cta{right:10px;bottom:10px;padding:8px 14px;font-size:12px}
+@media (max-width:640px){
+  .tile .card-cta{display:none}
+  .tile .card-title{background:none;color:var(--white);padding:0;font-weight:500;line-height:1.25}
+  .tile .card-title em{color:var(--pink)}
+}
+
 /* Fiche projet */
 .panel{position:fixed;inset:0;z-index:70;background:var(--black);color:var(--white);overflow-y:auto;clip-path:inset(100% 0 0 0);visibility:hidden;transition:clip-path .8s var(--ease),visibility 0s .8s}
 .panel.open{clip-path:inset(0);visibility:visible;transition:clip-path .8s var(--ease)}
