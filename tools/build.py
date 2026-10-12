@@ -88,10 +88,10 @@ def width_of(text):
 # ─────────────────────────────────────────────── Projets
 # cat: graphisme | communication | photo
 P = [
- dict(id='lowbass', cat='communication', cadre='Client', type='Communication événementielle', title='Low <em>Bass</em>',
-      desc=['Château Romanin, 22 novembre. Story teaser, puis invitation exclusive.'],
-      specs=[('Lieu', 'Château Romanin, Saint-Rémy-de-Provence'), ('Date', 'Dimanche 22 novembre'), ('Formats', 'Story teaser, invitation')],
-      cover='low-bass-invitation', imgs=[('low-bass-invitation', 'Invitation exclusive Low Bass au Château Romanin, dimanche 22 novembre'), ('low-bass-stay-tuned', 'Story teaser Low Bass, Stay tuned')]),
+ dict(id='lowbass', cat='communication', cadre='Client', type='Communication événementielle & mini-site', title='Low <em>Bass</em>',
+      desc=['Château Romanin, 22 novembre. Story teaser, invitation exclusive et mini-site de réservation.', 'Un lien par invité, laissez-passer avec QR code, scan des entrées, suivi des paiements.'],
+      specs=[('Lieu', 'Château Romanin, Saint-Rémy-de-Provence'), ('Date', 'Dimanche 22 novembre'), ('Formats', 'Story teaser, invitation, site web'), ('Site', 'Réservation, billet QR, tableau de bord')],
+      cover='low-bass-invitation', imgs=[('low-bass-invitation', 'Invitation exclusive Low Bass au Château Romanin, dimanche 22 novembre'), ('low-bass-stay-tuned', 'Story teaser Low Bass, Stay tuned'), ('low-bass-pass', 'Mini-site : laissez-passer Low Bass avec code de réservation'), ('low-bass-dashboard', 'Mini-site : tableau de bord des réservations et des entrées')]),
  dict(id='voiles', cat='graphisme', cadre='Client', type='Affiches événementielles', title='Les <em>Voiles</em>',
       desc=['Deux affiches pour deux soirées d’un même lieu, à Beaucaire. Monochrome bleu commun.'],
       specs=[('Lieu', 'Les Voiles, Beaucaire'), ('Événements', 'BBQ du 14 juillet, soirée DJ du 22 juillet'), ('Outils', 'Photoshop, Illustrator')],
