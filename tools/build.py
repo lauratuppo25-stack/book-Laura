@@ -217,8 +217,8 @@ page = (page.replace('{{CARDS}}', cards).replace('{{EXP}}', exp).replace('{{STRI
         .replace('{{N_C}}', str(count['communication'])).replace('{{N_P}}', str(count['photo'])))
 for key, (name, alt) in {'H1': ('low-bass-invitation', 'Invitation Low Bass'), 'H2': ('kelloggs-barbie', 'Packaging Kellogg’s × Barbie'),
                          'H3': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'), 'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'),
-                         'PORTRAIT': ('laura-portrait', 'Portrait de Laura Tuppo')}.items():
-    page = page.replace('{{' + key + '}}', img(name, alt, lazy=(key == 'PORTRAIT')))
+                         'PORTRAIT': ('laura-portrait', 'Portrait de Laura Tuppo'), 'CAFE': ('laura-cafe', 'Laura Tuppo en terrasse d’un café parisien')}.items():
+    page = page.replace('{{' + key + '}}', img(name, alt, lazy=(key in ('PORTRAIT', 'CAFE'))))
 page = re.sub(r'\[\[r:(.+?)\]\]', lambda m: rtext(m.group(1)), page)
 wl, wt = width_of('LAURA'), width_of('TUPPO')
 wm_in = f'<span class="wm-l">{rsvg("LAURA")}</span><span class="wm-t">{rsvg("TUPPO")}</span>'
