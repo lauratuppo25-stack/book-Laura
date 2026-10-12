@@ -1,14 +1,14 @@
 # Laura Tuppo — Portfolio
 
-Portfolio dans la DA du CV : colonnes blanche et noire, rose poudré, nom en typo Art déco, titres en étiquettes arrondies. Communication & design graphique.
+Portfolio de Laura Tuppo — communication & design graphique. Noir, blanc, rose poudré, titres en Riesling.
 
 - `index.html` : le portfolio ; `cv.html` : la page CV (consultation et téléchargement).
 - `assets/site.css`, `assets/site.js` : styles et animations communs aux deux pages.
 - `cv/` : le CV en PDF et ses aperçus en image. Pour mettre à jour le CV, remplacer `cv/CV_Laura_Tuppo_2026.pdf` (et les deux images `cv-laura-tuppo*.jpg`).
-- `images/` : tous les visuels des projets, plus `portrait-cutout.png` (portrait détouré du CV).
+- `images/` : tous les visuels des projets.
 
-Ouvrir `index.html` dans un navigateur suffit. Pour le mettre en ligne gratuitement :
-GitHub → *Settings* → *Pages* → *Deploy from a branch* → `main` / `root`.
+Ouvrir `index.html` dans un navigateur suffit. Mise en ligne gratuite : GitHub → *Settings* → *Pages* →
+*Deploy from a branch* → `main` / `/ (root)` → adresse : https://lauratuppo25-stack.github.io/book-Laura/
 
 ## Ajouter ou modifier un projet
 
