@@ -10,12 +10,19 @@
 <meta property="og:description" content="Portfolio — Communication &amp; Design graphique">
 <meta property="og:image" content="images/low-bass-invitation.jpg">
 {{HEAD}}
+<script>document.documentElement.classList.add("is-loading");setTimeout(function(){var d=document.documentElement;if(d.classList.contains("is-loading")){d.classList.remove("is-loading");d.classList.add("loaded")}},9000)</script>
 </head>
 <body>
 {{SPRITE}}
 {{ICONS}}
 
-<div class="intro" aria-hidden="true"><span class="wm">{{WM_IN}}</span></div>
+<div class="loader" aria-hidden="true">
+  <div class="loader-in">
+    <span class="wm">{{WM_IN}}</span>
+    <span class="loader-bar"><i></i></span>
+    <span class="loader-count">000 %</span>
+  </div>
+</div>
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="top" id="topbar">

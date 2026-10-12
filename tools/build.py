@@ -89,7 +89,7 @@ def width_of(text):
 # cat: graphisme | communication | photo
 P = [
  dict(id='bistro', cat='graphisme', cadre='Client', type='Identité visuelle', title='Le Bistro <em>des Arènes</em>',
-      desc=['Logotype d’un restaurant bistronomique. Arche des Arènes de Nîmes, typographie Art déco.'],
+      desc=['Logotype d’un restaurant bistronomique. Porte des Arènes de Beaucaire, typographie Art déco.'],
       specs=[('Livrables', 'Logo, charte, mockup'), ('Outils', 'Illustrator, Photoshop')],
       cover='bistro-logo', imgs=[('bistro-logo', 'Logo Le Bistro des Arènes en lettrage blanc sur une vitrine')]),
  dict(id='regina', cat='graphisme', cadre='Client', type='Identité & réseaux sociaux', title='Le <em>Régina</em>',

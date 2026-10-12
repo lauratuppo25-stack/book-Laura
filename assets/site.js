@@ -10,15 +10,31 @@
   const year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Intro : le nom s'écrit, puis le rideau se lève (une fois par visite)
-  if ($('.intro') && !reduce) {
-    let seen = false;
-    try { seen = sessionStorage.getItem('lt-intro') === '1'; sessionStorage.setItem('lt-intro', '1'); } catch (e) {}
-    if (!seen) {
-      root.classList.add('intro-on');
-      setTimeout(() => root.classList.remove('intro-on'), 3600);
-    }
-  }
+  // Écran de chargement : compteur réel (images de l'accueil + polices), puis ouverture
+  const loader = $('.loader');
+  const reveal = () => { root.classList.remove('is-loading'); root.classList.add('loaded'); };
+  if (loader && !reduce) {
+    const bar = $('.loader-bar', loader), count = $('.loader-count', loader);
+    const imgs = $$('img').filter(i => i.loading !== 'lazy');
+    const t0 = performance.now(), MIN = 1500;
+    let shown = 0, done = false;
+    const ready = () => imgs.filter(i => i.complete).length / Math.max(imgs.length, 1);
+    let fontsOk = false;
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { fontsOk = true; });
+    const tick = now => {
+      const time = Math.min((now - t0) / MIN, 1);
+      const real = (ready() + (fontsOk ? 1 : 0)) / 2;
+      const target = Math.min(time, real < 1 ? Math.min(real, .92) : 1) ;
+      shown += (Math.max(target, shown) - shown) * .12;
+      if (target >= 1 && shown > .995) shown = 1;
+      bar.style.setProperty('--l', shown.toFixed(3));
+      count.textContent = String(Math.round(shown * 100)).padStart(3, '0') + ' %';
+      if (shown >= 1 && !done) { done = true; setTimeout(reveal, 250); return; }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    setTimeout(() => { if (!done) { done = true; reveal(); } }, 7000);
+  } else reveal();
 
   // En-tête : fond au défilement, se cache en descendant ; barre de progression
   const top = $('#topbar'), prog = $('#progress');
