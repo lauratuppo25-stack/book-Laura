@@ -128,19 +128,26 @@ for i, (pid, imgs) in enumerate(SEL):
 </section>""")
     n += 1
 
-# Photographie
-cells = ''.join(f'<figure><img src="../images/{x}.jpg" alt=""><figcaption>{c}</figcaption></figure>' for x, c in
-                [('roumaniere-3', 'La Roumanière'), ('cherico-verse', 'Chérico'), ('bda-cafe-glace', 'Le Bistro des Arènes')])
-pages.append(f"""
-<section class="page light photo bg-mist-r">
-  <div class="ph-t">
-    <p class="num">11</p>
-    <h2 class="t">{rsvg('Photo<em>graphie</em>')}</h2>
-    <p class="desc">Shootings produit et lifestyle. Direction artistique, prise de vue, retouche.</p>
+# Photographie : une page par shooting
+PHOTO = [('roumaniere', ['roumaniere-3', 'roumaniere-1'], 'bg-mist-r'),
+         ('cherico', ['cherico-verse', 'cherico-duo'], 'bg-mist'),
+         ('bda', ['bda-cafe', 'bda-assiette'], 'bg-mist-r')]
+for j, (pid, imgs, bg) in enumerate(PHOTO):
+    p = proj[pid]
+    k = len(SEL) + j
+    side = 'left' if k % 2 == 0 else 'right'
+    pages.append(f"""
+<section class="page light proj {side} {bg}">
+  <div class="pj-t">
+    <p class="num">{k + 1:02d} — Photographie</p>
+    <h2 class="t">{rsvg(p['title'])}</h2>
+    <p class="type">{p['type']} · {p['cadre']}</p>
+    <p class="desc">{p['desc'][0]}</p>
   </div>
-  <div class="ph-g">{cells}</div>
+  <div class="pj-i">{fit(imgs, W - 2 * M - 290 - 56, H - 2 * M - 40)}</div>
   {foot(n)}
 </section>""")
+    n += 1
 
 # Contact
 pages.append(f"""
