@@ -119,7 +119,7 @@ P = [
  dict(id='futurs', cat='graphisme', cadre='École', type='Affiche de film', title='Futur<em>(s)</em>',
       desc=['Affiche de film fictif, entre synthwave et cyberpunk.'],
       specs=[('Projet', 'Film fictif'), ('Outil', 'Photoshop')],
-      cover='futurs-affiche', imgs=[('futurs-affiche', 'Affiche du film fictif Futur(s)')]),
+      cover='futurs-affiche', imgs=[('futurs-affiche', 'Affiche du film fictif Futur(s)'), ('futurs-abribus', 'Affiche Futur(s) en mobilier urbain, mockup')]),
  dict(id='comptoir', cat='communication', cadre='Alternance', type='Communication print & réseaux', title='Comptoir <em>des Vignes</em>',
       desc=['Cave du groupe Sorhobis à Châteaurenard. Événements, posts réseaux sociaux, PLV, photo.'],
       specs=[('Entreprise', 'Sorhobis Boissons'), ('Lieu', 'Châteaurenard'), ('Supports', 'Affiche, post, PLV, photo'), ('Outils', 'Illustrator, Photoshop, Canva')],
@@ -139,7 +139,7 @@ P = [
  dict(id='cic', cat='communication', cadre='École', type='Campagne & carte bancaire', title='CIC, <em>le plan Q*</em>',
       desc=['Campagne 18–25 ans autour du « Plan Q ». Abribus et carte Q+.'],
       specs=[('Cible', 'Étudiants 18–25 ans'), ('Livrables', 'Abribus, cartes Q+')],
-      cover='cic-cartes', imgs=[('cic-abribus', 'Abribus CIC, le meilleur Plan Q de ta vie'), ('cic-cartes', 'Trois cartes bancaires CIC Q+')]),
+      cover='cic-cartes', imgs=[('cic-abribus', 'Abribus CIC, le meilleur Plan Q de ta vie'), ('cic-app', 'Affiche Q+ : la carte et l’application CIC'), ('cic-cartes', 'Trois cartes bancaires CIC Q+')]),
  dict(id='gestiboat', cat='communication', cadre='École', type='Identité & affichage', title='GestiBoat, <em>speed boating day</em>',
       desc=['Journée Speed Boating à La Grande-Motte. Affiche et affichage urbain.'],
       specs=[('Livrables', 'Affiche, affichage urbain'), ('Outils', 'Illustrator, Canva')],
@@ -163,7 +163,7 @@ P = [
  dict(id='cherico', cat='photo', cadre='Client', type='Packshot & lifestyle', title='Chérico, <em>chicorée bio</em>',
       desc=['Packshot e-commerce et image lifestyle.'],
       specs=[('Usages', 'E-commerce, réseaux sociaux'), ('Outils', 'Lightroom, Photoshop')],
-      cover='cherico-lifestyle', imgs=[('cherico-packshot', 'Boîtes de chicorée Chérico'), ('cherico-lifestyle', 'Chicorée versée dans une tasse')]),
+      cover='cherico-verse', imgs=[('cherico-verse', 'Chicorée versée dans une tasse rose'), ('cherico-duo', 'Deux boîtes Chérico sur fond bleu'), ('cherico-main', 'Boîte Chérico nature tenue en main')]),
 ]
 CAT = {'graphisme': 'Design graphique', 'communication': 'Communication', 'photo': 'Photographie'}
 count = {c: sum(1 for p in P if p['cat'] == c) for c in CAT}
@@ -201,14 +201,14 @@ EXP = [
  ('Identité <em>visuelle</em>', 'Logos, chartes, déclinaisons.', 'Le Bistro des Arènes · Le Régina · Siroo', 'bistro-logo'),
  ('Design <em>graphique</em>', 'Affiches, packagings, visuels d’événements.', 'La Cochonnade · Enzo’s Birthday · Kellogg’s × Barbie', 'enzos-birthday'),
  ('Stratégie <em>digitale</em>', 'SEO, GEO, e-commerce.', 'Pallas Cuir · Sorhobis Boissons', 'sorhobis-ricard'),
- ('Création <em>de contenu</em>', 'Photo produit, lifestyle, réseaux sociaux.', 'La Roumanière · Chérico · Le Bistro des Arènes', 'cherico-lifestyle'),
+ ('Création <em>de contenu</em>', 'Photo produit, lifestyle, réseaux sociaux.', 'La Roumanière · Chérico · Le Bistro des Arènes', 'cherico-verse'),
  ('Commu<em>nication</em>', 'Événementiel, campagnes, street marketing.', 'Low Bass · Notre confort, leur enfer · Don du sang × Marvel', 'low-bass-invitation'),
 ]
 exp = ''.join(f'''
         <li class="rv" data-peek="images/{pk}.jpg"><h3>{rtext(t)}</h3><p>{d}<span>{ex}</span></p></li>''' for t, d, ex, pk in EXP)
 
 # ─────────────────────────────────────────────── Carnet d'images (bandeau défilant)
-STRIP = ['roumaniere-2', 'bda-cafe-glace', 'low-bass-invitation', 'regina-tropical', 'bda-photo-3', 'cochonnade-des-voiles', 'cherico-packshot', 'enzos-birthday', 'bda-photo-5', 'siroo-fraise', 'roumaniere-1', 'voiles-aml-music', 'kelloggs-barbie', 'bda-photo-4']
+STRIP = ['roumaniere-2', 'bda-cafe-glace', 'low-bass-invitation', 'regina-tropical', 'bda-photo-3', 'cochonnade-des-voiles', 'cherico-duo', 'enzos-birthday', 'bda-photo-5', 'siroo-fraise', 'roumaniere-1', 'voiles-aml-music', 'kelloggs-barbie', 'bda-photo-4']
 strip_imgs = ''.join(img(n, '', extra=' aria-hidden="true"') for n in STRIP)
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
