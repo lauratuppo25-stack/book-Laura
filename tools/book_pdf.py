@@ -20,9 +20,9 @@ K_L, K_T = B['BOX'] / wl, .63 * wl / wt
 WM = f'<span class="wm-l">{rsvg("LAURA")}</span><span class="wm-t">{rsvg("TUPPO")}</span>'
 
 W, H = 1123, 794                               # A4 paysage à 96 dpi
-M = 56                                         # marge
+M = 64                                         # marge
 SITE = 'lauratuppo25-stack.github.io/book-Laura'
-GAP = 14
+GAP = 16
 
 
 def fit(names, bw, bh):
@@ -57,170 +57,176 @@ def fit(names, bw, bh):
     return ''.join(out)
 
 
-def foot(n, theme):
-    return f'<footer class="pf"><span class="wm row">{WM}</span><span>{SITE}</span><span class="pn">{n:02d}</span></footer>'
+
+proj = {p['id']: p for p in P}
+SEL = [  # projets retenus et images montrées (moins chargé que le site)
+    ('lowbass', ['low-bass-invitation', 'low-bass-pass']),
+    ('voiles', ['cochonnade-des-voiles', 'voiles-aml-music']),
+    ('bistro', ['bistro-logo']),
+    ('regina', ['regina-logo', 'regina-tropical']),
+    ('dondusang', ['don-du-sang-affiche', 'don-du-sang-abribus']),
+    ('siroo', ['siroo-bouteille', 'siroo-fraise']),
+    ('comptoir', ['comptoir-chef-en-cave', 'comptoir-whisky-sour']),
+    ('cic', ['cic-abribus', 'cic-cartes']),
+    ('enzo', ['enzos-birthday']),
+    ('futurs', ['futurs-affiche', 'futurs-abribus']),
+]
+
+
+def plain(t):
+    return html.unescape(t.replace('<em>', '').replace('</em>', ''))
+
+
+def foot(n):
+    return f'<footer class="pf"><span class="wm row">{WM}</span><span class="pn">{n:02d}</span></footer>'
 
 
 pages = []
 
-# 1. Couverture
-pages.append(f'''
+# Couverture
+pages.append(f"""
 <section class="page dark cover">
-  <div class="cv-l">
-    <p class="kicker"><span class="pill pill-pink">Portfolio</span>Communication &amp; Design graphique</p>
-    <span class="wm big">{WM}</span>
-    <p class="cv-sub">Identité visuelle · Affiches · Communication événementielle · Photographie</p>
-    <p class="cv-year">Book 2026</p>
-  </div>
-  <div class="cv-r">{fit(['low-bass-invitation', 'cochonnade-des-voiles'], 470, 600)}</div>
-</section>''')
+  <p class="kicker">Portfolio</p>
+  <span class="wm big">{WM}</span>
+  <div class="cv-b"><span>Communication &amp; Design graphique</span><span>Book 2026</span></div>
+</section>""")
 
-# 2. À propos + sommaire
-proj_pages = {}
-num = 3
-for p in P:
-    proj_pages[p['id']] = num
-    num += 1
-toc = ''.join(f'<li><span class="n">{proj_pages[p["id"]]:02d}</span><span class="tt">{html.unescape(p["title"].replace("<em>", "").replace("</em>", ""))}</span><span class="c">{CAT[p["cat"]]}</span></li>' for p in P)
-pages.append(f'''
+# À propos
+pages.append(f"""
 <section class="page light about">
-  <div class="ab-l">
-    <span class="pill pill-black">À propos</span>
+  <figure class="ab-photo"><img src="../images/laura-cafe.jpg" alt=""></figure>
+  <div class="ab-t">
+    <p class="label">À propos</p>
     <h2 class="t">{rsvg('À <em>propos</em>')}</h2>
-    <p class="lead">Étudiante en <strong>Master Stratégie Digitale &amp; Innovations</strong>.<br>Communication, direction artistique, création graphique.</p>
-    <ul class="exp">
-      <li>Identité visuelle</li><li>Design graphique</li><li>Stratégie digitale</li><li>Création de contenu</li><li>Communication</li>
-    </ul>
+    <p class="lead">Étudiante en Master Stratégie Digitale &amp; Innovations à l’IFC Avignon. Communication, direction artistique, création graphique.</p>
+    <p class="txt">Alternance en communication chez Sorhobis Boissons, puis chez Pallas Cuir. Identités visuelles, affiches, événements, contenus pour les réseaux sociaux et photographie produit.</p>
+    <dl class="facts">
+      <div><dt>Basée à</dt><dd>Saint-Rémy-de-Provence</dd></div>
+      <div><dt>Expertises</dt><dd>Identité visuelle · Design graphique · Stratégie digitale · Création de contenu · Communication</dd></div>
+    </dl>
   </div>
-  <div class="ab-r">
-    <span class="pill pill-pink">Sommaire</span>
-    <ol class="toc">{toc}</ol>
-  </div>
-  {foot(2, 'light')}
-</section>''')
+  {foot(2)}
+</section>""")
 
-# Pages projets
-for i, p in enumerate(P):
-    n = proj_pages[p['id']]
-    theme = 'light' if p['cat'] == 'photo' or i % 4 == 3 else 'dark'
-    specs = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in [('Cadre', p['cadre'])] + p['specs'])
-    desc = ''.join(f'<p>{d}</p>' for d in p['desc'])
-    names = [x for x, _ in p['imgs']]
-    if names:
-        visual = fit(names, W - 2 * M - 330 - 44, H - 2 * M - 46)
-    else:
-        visual = f'<div class="txtcard"><span class="big">{rsvg("SEO <em>&amp; GEO</em>")}</span><span>E-commerce · PrestaShop · réseaux sociaux</span></div>'
-    pages.append(f'''
-<section class="page {theme} proj">
-  <div class="pj-l">
-    <span class="pill {'pill-white' if theme == 'dark' else 'pill-black'}">{i + 1:02d} — {CAT[p['cat']]}</span>
+# Projets : une page chacun, texte minimal, images respirantes
+n = 3
+for i, (pid, imgs) in enumerate(SEL):
+    p = proj[pid]
+    theme = 'light' if i % 3 == 2 else 'dark'
+    side = 'left' if i % 2 == 0 else 'right'
+    pages.append(f"""
+<section class="page {theme} proj {side}">
+  <div class="pj-t">
+    <p class="num">{i + 1:02d}</p>
     <h2 class="t">{rsvg(p['title'])}</h2>
-    <p class="type">{p['type']}</p>
-    <div class="desc">{desc}</div>
-    <dl class="specs">{specs}</dl>
+    <p class="type">{p['type']} · {p['cadre']}</p>
+    <p class="desc">{p['desc'][0]}</p>
   </div>
-  <div class="pj-r">{visual}</div>
-  {foot(n, theme)}
-</section>''')
+  <div class="pj-i">{fit(imgs, W - 2 * M - 290 - 56, H - 2 * M - 40)}</div>
+  {foot(n)}
+</section>""")
+    n += 1
+
+# Photographie
+cells = ''.join(f'<figure><img src="../images/{x}.jpg" alt=""><figcaption>{c}</figcaption></figure>' for x, c in
+                [('roumaniere-3', 'La Roumanière'), ('cherico-verse', 'Chérico'), ('bda-cafe-glace', 'Le Bistro des Arènes')])
+pages.append(f"""
+<section class="page light photo">
+  <div class="ph-t">
+    <p class="num">11</p>
+    <h2 class="t">{rsvg('Photo<em>graphie</em>')}</h2>
+    <p class="desc">Shootings produit et lifestyle. Direction artistique, prise de vue, retouche.</p>
+  </div>
+  <div class="ph-g">{cells}</div>
+  {foot(n)}
+</section>""")
 
 # Contact
-pages.append(f'''
+pages.append(f"""
 <section class="page rose contact">
-  <div class="ct-l">
-    <span class="pill pill-black">Contact</span>
-    <h2 class="t big">{rsvg('Con<em>tact</em>')}</h2>
-    <p class="lead">Pour toute demande ou collaboration.</p>
-    <ul class="links">
-      <li><b>E-mail</b>laura.tuppo25@gmail.com</li>
-      <li><b>LinkedIn</b>linkedin.com/in/profil-de-laura-tuppo</li>
-      <li><b>Site</b>{SITE}</li>
-    </ul>
-  </div>
+  <p class="label">Contact</p>
+  <h2 class="t big">{rsvg('Con<em>tact</em>')}</h2>
+  <ul class="links">
+    <li>laura.tuppo25@gmail.com</li>
+    <li>linkedin.com/in/profil-de-laura-tuppo</li>
+    <li>{SITE}</li>
+  </ul>
   <span class="wm end">{WM}</span>
-</section>''')
+</section>""")
 
-css = f'''
+css = f"""
 @page{{size:{W}px {H}px;margin:0}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 html,body{{background:#141414}}
 body{{font-family:'Raleway','Helvetica Neue',Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-ul,ol{{list-style:none}}
+ul{{list-style:none}}
 .page{{position:relative;width:{W}px;height:{H}px;overflow:hidden;padding:{M}px;break-after:page;page-break-after:always}}
 .dark{{background:#141414;color:#fff}}
 .light{{background:#fff;color:#141414}}
 .rose{{background:#dfa0be;color:#141414}}
-.pill{{display:inline-block;align-self:flex-start;justify-self:start;border-radius:999px;padding:6px 16px;font-family:'Lexend',Arial,sans-serif;font-weight:600;font-size:13px;line-height:1.3}}
-.pill-black{{background:#141414;color:#fff}}.pill-white{{background:#fff;color:#141414}}.pill-pink{{background:#dfa0be;color:#141414}}
 .rs{{display:inline-block;height:1em;vertical-align:-.264em;fill:currentColor;overflow:visible}}
 .rs .e{{fill:#dfa0be}}
 .light .rs .e{{fill:#c27597}}
 .rose .rs .e{{fill:#fff}}
-.t{{font-weight:400;font-size:66px;line-height:1.02}}
-.t.big{{font-size:120px}}
+.t{{font-weight:400;font-size:52px;line-height:1.05}}
+.t.big{{font-size:150px}}
+.label,.kicker{{font-family:'Lexend',Arial,sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase}}
 .wm{{display:inline-grid;justify-items:start;gap:.04em;font-size:calc(var(--w,320px) * {K_L:.4f});line-height:0}}
 .wm .rs{{display:block}}
 .wm-l{{color:var(--wl,#fff)}}
 .wm-t{{color:var(--wt,#dfa0be);font-size:{K_T:.4f}em;margin-top:-.45em}}
-.wm.row{{display:inline-flex;align-items:flex-end;gap:.25em;font-size:18px}}
+.wm.row{{display:inline-flex;align-items:flex-end;gap:.25em;font-size:15px}}
 .wm.row .wm-t{{margin:0 0 .12em}}
 .light .wm,.rose .wm{{--wl:#141414}}
-/* pied de page */
-.pf{{position:absolute;left:{M}px;right:{M}px;bottom:24px;display:flex;align-items:center;gap:24px;font-family:'Lexend',Arial,sans-serif;font-size:11px;color:#a8a8a8}}
-.light .pf{{color:#8a8a8a}}
-.pf span:nth-child(2){{flex:1;text-align:right}}
-.pn{{font-weight:600;color:inherit}}
+.pf{{position:absolute;left:{M}px;right:{M}px;bottom:26px;display:flex;justify-content:space-between;align-items:center;font-family:'Lexend',Arial,sans-serif;font-size:10px;color:#9a9a9a}}
 /* couverture */
-.cover{{display:grid;grid-template-columns:1fr 470px;gap:48px;align-items:center}}
-.cv-l{{display:flex;flex-direction:column;gap:34px}}
-.kicker{{display:flex;align-items:center;gap:14px;font-family:'Lexend',Arial,sans-serif;font-weight:500;font-size:16px}}
-.wm.big{{--w:440px}}
-.cv-sub{{font-size:16px;color:#bdbdbd;line-height:1.6;max-width:30em}}
-.cv-year{{font-family:'Lexend',Arial,sans-serif;font-size:13px;color:#dfa0be;letter-spacing:.2em;text-transform:uppercase}}
-.cv-r{{display:flex;flex-direction:column;gap:{GAP}px;align-items:center}}
-/* images */
-.row{{display:flex;gap:{GAP}px;justify-content:center}}
-.row img{{display:block;border-radius:12px;object-fit:cover}}
-.cv-r .row img{{border-radius:16px}}
+.cover{{display:flex;flex-direction:column;justify-content:center;gap:40px;padding:{M + 30}px}}
+.cover .kicker{{color:#dfa0be}}
+.wm.big{{--w:520px}}
+.cv-b{{position:absolute;left:{M + 30}px;right:{M + 30}px;bottom:{M}px;display:flex;justify-content:space-between;font-family:'Lexend',Arial,sans-serif;font-size:12px;color:#9a9a9a;letter-spacing:.06em}}
 /* à propos */
-.about{{display:grid;grid-template-columns:1fr 1fr;gap:64px}}
-.ab-l,.ab-r{{display:flex;flex-direction:column;gap:22px}}
+.about{{display:grid;grid-template-columns:400px 1fr;gap:72px;align-items:center;padding-bottom:{M + 20}px}}
+.ab-photo{{margin:0;height:{H - 2 * M - 20}px;border-radius:200px 200px 18px 18px;overflow:hidden}}
+.ab-photo img{{width:100%;height:100%;object-fit:cover;object-position:60% 40%;display:block}}
+.ab-t{{display:flex;flex-direction:column;gap:22px;max-width:470px}}
+.ab-t .label{{color:#c27597}}
 .lead{{font-size:21px;line-height:1.5;font-weight:300}}
-.lead strong{{font-weight:500}}
-.exp{{border-top:1px solid rgba(20,20,20,.14);margin-top:6px}}
-.exp li{{padding:11px 0;border-bottom:1px solid rgba(20,20,20,.14);font-family:'Lexend',Arial,sans-serif;font-size:16px}}
-.toc{{border-top:1px solid rgba(20,20,20,.14)}}
-.toc li{{display:grid;grid-template-columns:34px 1fr auto;gap:10px;padding:6.5px 0;border-bottom:1px solid rgba(20,20,20,.1);font-size:13px;align-items:baseline}}
-.toc .n{{font-family:'Lexend',Arial,sans-serif;font-weight:600;color:#c27597}}
-.toc .c{{color:#8a8a8a;font-size:11px}}
+.txt{{font-size:14px;line-height:1.75;color:#555}}
+.facts{{border-top:1px solid #e6e6e6;margin-top:6px}}
+.facts div{{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #e6e6e6;font-size:13px;line-height:1.5}}
+.facts dt{{color:#9a9a9a}}
 /* projets */
-.proj{{display:grid;grid-template-columns:330px 1fr;gap:44px;padding-bottom:{M + 46 - 10}px}}
-.pj-l{{display:flex;flex-direction:column;gap:16px;align-self:start}}
-.type{{font-family:'Lexend',Arial,sans-serif;font-size:14px;color:#dfa0be}}
-.light .type{{color:#b0678b}}
-.desc{{display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.6;font-weight:300}}
-.specs{{border-top:1px solid rgba(255,255,255,.16);margin-top:6px}}
-.light .specs{{border-color:rgba(20,20,20,.14)}}
-.specs div{{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:12.5px}}
-.light .specs div{{border-color:rgba(20,20,20,.1)}}
-.specs dt{{color:#a8a8a8}}
-.pj-r{{display:flex;flex-direction:column;gap:{GAP}px;justify-content:center;align-items:center;height:100%}}
-.txtcard{{width:100%;height:100%;border-radius:16px;background:#dfa0be;color:#141414;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:60px;font-family:'Lexend',Arial,sans-serif}}
-.txtcard .big{{font-size:110px;line-height:.95}}
-.txtcard .rs .e{{fill:#fff}}
+.proj{{display:grid;grid-template-columns:290px 1fr;gap:56px;padding-bottom:{M + 40}px}}
+.proj.right{{grid-template-columns:1fr 290px}}
+.proj.right .pj-t{{order:2}}
+.pj-t{{align-self:end;display:flex;flex-direction:column;gap:12px}}
+.num{{font-family:'Lexend',Arial,sans-serif;font-size:12px;letter-spacing:.2em;color:#dfa0be}}
+.light .num{{color:#c27597}}
+.type{{font-family:'Lexend',Arial,sans-serif;font-size:11px;letter-spacing:.06em;color:#9a9a9a;text-transform:uppercase}}
+.desc{{font-size:14px;line-height:1.7;font-weight:300;max-width:26em}}
+.pj-i{{display:flex;flex-direction:column;gap:{GAP}px;justify-content:center;align-items:center}}
+.row{{display:flex;gap:{GAP}px;justify-content:center}}
+.row img{{display:block;border-radius:10px;object-fit:cover}}
+/* photographie */
+.photo{{display:grid;grid-template-rows:auto 1fr;gap:34px;padding-bottom:{M + 40}px}}
+.ph-t{{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:6px 40px}}
+.ph-t .num{{grid-column:1 / -1}}
+.ph-t .desc{{justify-self:end;text-align:right}}
+.ph-g{{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;min-height:0}}
+.ph-g figure{{margin:0;display:flex;flex-direction:column;gap:10px;min-height:0}}
+.ph-g img{{flex:1;min-height:0;width:100%;object-fit:cover;border-radius:10px;display:block}}
+.ph-g figcaption{{font-family:'Lexend',Arial,sans-serif;font-size:11px;color:#9a9a9a}}
 /* contact */
-.contact{{display:grid;grid-template-columns:1fr auto;align-items:center;gap:48px}}
-.ct-l{{display:flex;flex-direction:column;gap:24px}}
-.links{{border-top:1px solid rgba(20,20,20,.2);margin-top:8px}}
-.links li{{display:grid;grid-template-columns:110px 1fr;padding:13px 0;border-bottom:1px solid rgba(20,20,20,.2);font-size:17px}}
-.links b{{font-family:'Lexend',Arial,sans-serif;font-weight:600;font-size:13px;align-self:center}}
-.wm.end{{--w:380px;--wt:#fff}}
-'''
+.contact{{display:flex;flex-direction:column;justify-content:center;gap:26px;padding:{M + 30}px}}
+.links li{{font-size:19px;padding:10px 0;border-bottom:1px solid rgba(20,20,20,.2);max-width:520px}}
+.wm.end{{position:absolute;right:{M + 30}px;bottom:{M}px;--w:300px;--wt:#fff}}
+"""
 
-page = f'''<!DOCTYPE html>
+page = f"""<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><title>Laura Tuppo — Book</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap">
 <style>{css}</style></head>
-<body>{sprite()}{''.join(pages)}</body></html>'''
+<body>{sprite()}{''.join(pages)}</body></html>"""
 
 os.makedirs('pdf', exist_ok=True)
 open('pdf/book.html', 'w', encoding='utf-8').write(page)
