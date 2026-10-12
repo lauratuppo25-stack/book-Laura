@@ -85,7 +85,7 @@ pages = []
 
 # Couverture
 pages.append(f"""
-<section class="page dark cover">
+<section class="page dark cover bg-aurora">
   <p class="kicker">Portfolio</p>
   <span class="wm big">{WM}</span>
   <div class="cv-b"><span>Communication &amp; Design graphique</span><span>Book 2026</span></div>
@@ -93,7 +93,7 @@ pages.append(f"""
 
 # À propos
 pages.append(f"""
-<section class="page light about">
+<section class="page light about bg-mist">
   <figure class="ab-photo"><img src="../images/laura-portrait-rose.jpg" alt=""></figure>
   <div class="ab-t">
     <p class="label">À propos</p>
@@ -113,9 +113,10 @@ n = 3
 for i, (pid, imgs) in enumerate(SEL):
     p = proj[pid]
     theme = 'light' if i % 3 == 2 else 'dark'
+    bg = ['bg-glow-br', '', 'bg-mist', 'bg-glow-tl', '', 'bg-mist-r', 'bg-glow-br', '', 'bg-mist', 'bg-aurora'][i]
     side = 'left' if i % 2 == 0 else 'right'
     pages.append(f"""
-<section class="page {theme} proj {side}">
+<section class="page {theme} proj {side} {bg}">
   <div class="pj-t">
     <p class="num">{i + 1:02d}</p>
     <h2 class="t">{rsvg(p['title'])}</h2>
@@ -131,7 +132,7 @@ for i, (pid, imgs) in enumerate(SEL):
 cells = ''.join(f'<figure><img src="../images/{x}.jpg" alt=""><figcaption>{c}</figcaption></figure>' for x, c in
                 [('roumaniere-3', 'La Roumanière'), ('cherico-verse', 'Chérico'), ('bda-cafe-glace', 'Le Bistro des Arènes')])
 pages.append(f"""
-<section class="page light photo">
+<section class="page light photo bg-mist-r">
   <div class="ph-t">
     <p class="num">11</p>
     <h2 class="t">{rsvg('Photo<em>graphie</em>')}</h2>
@@ -143,7 +144,7 @@ pages.append(f"""
 
 # Contact
 pages.append(f"""
-<section class="page rose contact">
+<section class="page rose contact bg-rose">
   <p class="label">Contact</p>
   <h2 class="t big">{rsvg('Con<em>tact</em>')}</h2>
   <ul class="links">
@@ -179,6 +180,17 @@ ul{{list-style:none}}
 .wm.row .wm-t{{margin:0 0 .12em}}
 .light .wm,.rose .wm{{--wl:#141414}}
 .pf{{position:absolute;left:{M}px;right:{M}px;bottom:26px;display:flex;justify-content:space-between;align-items:center;font-family:'Lexend',Arial,sans-serif;font-size:10px;color:#9a9a9a}}
+/* fonds en dégradé et halos flous (palette noir, blanc, rose) */
+.bg-aurora{{background:
+  radial-gradient(ellipse 620px 520px at 88% 18%,rgba(223,160,190,.42),rgba(223,160,190,0) 70%),
+  radial-gradient(ellipse 520px 460px at 72% 92%,rgba(194,117,151,.30),rgba(194,117,151,0) 70%),
+  radial-gradient(ellipse 480px 420px at 6% 100%,rgba(255,255,255,.07),rgba(255,255,255,0) 70%),
+  linear-gradient(160deg,#1c1719 0%,#141414 55%,#0f0d0e 100%)}}
+.bg-glow-br{{background:radial-gradient(ellipse 560px 460px at 95% 105%,rgba(223,160,190,.32),rgba(223,160,190,0) 70%),linear-gradient(180deg,#161415,#121112)}}
+.bg-glow-tl{{background:radial-gradient(ellipse 600px 480px at -5% -8%,rgba(223,160,190,.30),rgba(223,160,190,0) 70%),linear-gradient(0deg,#141414,#181516)}}
+.bg-mist{{background:radial-gradient(ellipse 640px 520px at 100% 0%,rgba(223,160,190,.38),rgba(223,160,190,0) 72%),radial-gradient(ellipse 520px 420px at 0% 100%,rgba(223,160,190,.18),rgba(223,160,190,0) 72%),#fff}}
+.bg-mist-r{{background:radial-gradient(ellipse 700px 560px at 0% 0%,rgba(223,160,190,.34),rgba(223,160,190,0) 72%),linear-gradient(135deg,#fff 40%,#fbeef4 100%)}}
+.bg-rose{{background:radial-gradient(ellipse 620px 520px at 85% 20%,rgba(255,255,255,.55),rgba(255,255,255,0) 70%),radial-gradient(ellipse 560px 480px at 10% 95%,rgba(150,80,112,.35),rgba(150,80,112,0) 70%),linear-gradient(140deg,#e9b6cd 0%,#dfa0be 50%,#cf8aab 100%)}}
 /* couverture */
 .cover{{display:flex;flex-direction:column;justify-content:center;gap:40px;padding:{M + 30}px}}
 .cover .kicker{{color:#dfa0be}}
