@@ -44,15 +44,15 @@ def _glyph(ch):
         _used[name] = (f'rg{len(_used)}', pen.getCommands())
     return _used[name][0], _hmtx[name][0]
 
-def _word(chars):
-    """chars : liste de (caractère, accent) → un <svg> pour un mot."""
+def _word(chars, start=0):
+    """chars : liste de (caractère, accent) → un <svg> pour un mot ; --i numérote les lettres."""
     x, runs, cur, flag = 0, [], [], None
-    for ch, em in chars:
+    for k, (ch, em) in enumerate(chars):
         gid, adv = _glyph(ch)
         if em != flag and cur:
             runs.append((flag, cur)); cur = []
         flag = em
-        cur.append(f'<use href="#{gid}" x="{x}"/>')
+        cur.append(f'<use href="#{gid}" x="{x}" style="--i:{start + k}"/>')
         x += adv
     if cur:
         runs.append((flag, cur))
@@ -66,10 +66,10 @@ def rsvg(marked):
         if part == '<em>': em = True
         elif part == '</em>': em = False
         else: chars += [(c, em) for c in html.unescape(part)]
-    words, cur = [], []
+    words, cur, n = [], [], 0
     for c in chars + [(' ', False)]:
         if c[0] == ' ':
-            if cur: words.append(_word(cur)); cur = []
+            if cur: words.append(_word(cur, n)); n += len(cur) + 1; cur = []
         else:
             cur.append(c)
     return ' '.join(words)
@@ -182,7 +182,7 @@ def card(i, p):
     imgs = ''.join(f'<figure>{img(n, a)}</figure>' for n, a in p['imgs'])
     return f'''
       <article class="card rv" id="p-{p['id']}" data-cat="{p['cat']}">
-        <button class="card-open" aria-label="Voir le projet {html.escape(plain)}">
+        <button class="card-open" data-cursor="Voir" aria-label="Voir le projet {html.escape(plain)}">
           {cover}
           <span class="card-meta"><span class="label">{num} — {CAT[p['cat']]}</span><span class="card-title">{p['title']}</span><span class="card-type">{p['type']} · {p['cadre']}</span></span>
         </button>
@@ -211,20 +211,59 @@ exp = ''.join(f'''
 STRIP = ['roumaniere-2', 'low-bass-invitation', 'regina-tropical', 'bda-photo-3', 'cochonnade-des-voiles', 'cherico-packshot', 'enzos-birthday', 'bda-photo-5', 'siroo-fraise', 'roumaniere-1', 'voiles-aml-music', 'kelloggs-barbie', 'bda-photo-4']
 strip_imgs = ''.join(img(n, '', extra=' aria-hidden="true"') for n in STRIP)
 
-page = open(os.path.join(os.path.dirname(__file__), 'template.html'), encoding='utf-8').read()
-page = (page.replace('{{CARDS}}', cards).replace('{{EXP}}', exp).replace('{{STRIP}}', strip_imgs + strip_imgs)
-        .replace('{{N_ALL}}', str(len(P))).replace('{{N_G}}', str(count['graphisme']))
-        .replace('{{N_C}}', str(count['communication'])).replace('{{N_P}}', str(count['photo'])))
-for key, (name, alt) in {'H1': ('low-bass-invitation', 'Invitation Low Bass'), 'H2': ('kelloggs-barbie', 'Packaging Kellogg’s × Barbie'),
-                         'H3': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'), 'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'),
-                         'PORTRAIT': ('laura-portrait', 'Portrait de Laura Tuppo'), 'CAFE': ('laura-cafe', 'Laura Tuppo en terrasse d’un café parisien')}.items():
-    page = page.replace('{{' + key + '}}', img(name, alt, lazy=(key in ('PORTRAIT', 'CAFE'))))
-page = re.sub(r'\[\[r:(.+?)\]\]', lambda m: rtext(m.group(1)), page)
+TOOLS = os.path.dirname(os.path.abspath(__file__))
+MAIL, LINKEDIN = 'laura.tuppo25@gmail.com', 'https://www.linkedin.com/in/profil-de-laura-tuppo'
 wl, wt = width_of('LAURA'), width_of('TUPPO')
-wm_in = f'<span class="wm-l">{rsvg("LAURA")}</span><span class="wm-t">{rsvg("TUPPO")}</span>'
-page = (page.replace('{{WM_ROW}}', f'<span class="wm row" aria-hidden="true">{wm_in}</span>').replace('{{WM_IN}}', wm_in)
-        .replace('{{K_L}}', f'{BOX / wl:.4f}').replace('{{K_T}}', f'{.63 * wl / wt:.4f}'))
-page = page.replace('{{SPRITE}}', sprite())
-assert '{{' not in page, page[page.index('{{'):page.index('{{') + 40]
-open('index.html', 'w', encoding='utf-8').write(page)
-print('ok', len(page))
+WM_IN = f'<span class="wm-l">{rsvg("LAURA")}</span><span class="wm-t">{rsvg("TUPPO")}</span>'
+HEAD = """<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23dfa0be'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='%23141414' text-anchor='middle'%3ELT%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">"""
+ICONS = """<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.2L4.4 7H19.6L12 12.2ZM4 8.6V17h16V8.6l-8 5.4-8-5.4Z"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 9h3v11h-3V9Zm1.5-5a1.75 1.75 0 1 1 0 3.5A1.75 1.75 0 0 1 6 4Zm4 5h2.9v1.5h.04c.4-.76 1.38-1.56 2.85-1.56 3.05 0 3.61 2 3.61 4.6V20h-3v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.86V20H10V9Z"/></symbol>
+</svg>"""
+CONTACT_LIST = f"""<ul class="contact-list">
+        <li><span class="ic"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><a href="mailto:{MAIL}">{MAIL}</a></li>
+        <li><span class="ic"><svg aria-hidden="true"><use href="#i-in"/></svg></span><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn · Laura Tuppo</a></li>
+      </ul>"""
+
+def footer(base):
+    return f"""<footer class="wrap dark">
+  <a href="{base}#accueil" aria-label="Laura Tuppo, accueil"><span class="wm row" aria-hidden="true">{WM_IN}</span></a>
+  <nav aria-label="Pied de page"><a href="{base}#a-propos">À propos</a><a href="{base}#projets">Projets</a><a href="{base}#competences">Compétences</a><a href="{base}#contact">Contact</a><a href="cv.html">CV</a></nav>
+  <div class="foot-contact"><a href="mailto:{MAIL}">{MAIL}</a><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+  <small>© <span id="year">2026</span> Laura Tuppo · Portfolio — Communication &amp; Design graphique</small>
+</footer>"""
+
+def render(name, base, extra):
+    page = open(os.path.join(TOOLS, name), encoding='utf-8').read()
+    for k, v in extra.items():
+        page = page.replace('{{' + k + '}}', v)
+    page = page.replace('{{FOOTER}}', footer(base)).replace('{{HEAD}}', HEAD).replace('{{ICONS}}', ICONS).replace('{{CONTACT_LIST}}', CONTACT_LIST)
+    page = re.sub(r'\[\[r:(.+?)\]\]', lambda m: rtext(m.group(1)), page)
+    page = page.replace('{{WM_ROW}}', f'<span class="wm row" aria-hidden="true">{WM_IN}</span>').replace('{{WM_IN}}', WM_IN)
+    return page
+
+pages = {}
+extra = {'CARDS': cards, 'EXP': exp, 'STRIP': strip_imgs + strip_imgs, 'N_ALL': str(len(P)), 'N_G': str(count['graphisme']),
+         'N_C': str(count['communication']), 'N_P': str(count['photo'])}
+for key, (name, alt) in {'H1': ('low-bass-invitation', 'Invitation Low Bass'), 'H3': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'),
+                         'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'), 'CAFE': ('laura-cafe', 'Laura Tuppo en terrasse d’un café parisien')}.items():
+    extra[key] = img(name, alt, lazy=(key == 'CAFE'))
+pages['index.html'] = render('template.html', '', extra)
+pages['cv.html'] = render('cv.html', 'index.html', {})
+for out, page in pages.items():          # le sprite est complet une fois toutes les pages rendues
+    page = page.replace('{{SPRITE}}', sprite())
+    assert '{{' not in page, (out, page[page.index('{{'):page.index('{{') + 40])
+    open(out, 'w', encoding='utf-8').write(page)
+    print(out, len(page))
+
+os.makedirs('assets', exist_ok=True)
+css = open(os.path.join(TOOLS, 'site.css'), encoding='utf-8').read()
+css = css.replace('{{K_L}}', f'{BOX / wl:.4f}').replace('{{K_T}}', f'{.63 * wl / wt:.4f}')
+assert '{{' not in css
+open('assets/site.css', 'w', encoding='utf-8').write(css)
+open('assets/site.js', 'w', encoding='utf-8').write(open(os.path.join(TOOLS, 'site.js'), encoding='utf-8').read())
+print('assets ok')
