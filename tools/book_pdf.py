@@ -185,9 +185,9 @@ ul{{list-style:none}}
 .wm.big{{--w:520px}}
 .cv-b{{position:absolute;left:{M + 30}px;right:{M + 30}px;bottom:{M}px;display:flex;justify-content:space-between;font-family:'Lexend',Arial,sans-serif;font-size:12px;color:#9a9a9a;letter-spacing:.06em}}
 /* à propos */
-.about{{display:grid;grid-template-columns:400px 1fr;gap:72px;align-items:center;padding-bottom:{M + 20}px}}
-.ab-photo{{margin:0;height:{H - 2 * M - 20}px;border-radius:200px 200px 18px 18px;overflow:hidden}}
-.ab-photo img{{width:100%;height:100%;object-fit:cover;object-position:55% 30%;display:block}}
+.about{{display:grid;grid-template-columns:440px 1fr;gap:72px;align-items:center;padding-bottom:{M + 20}px}}
+.ab-photo{{margin:0;width:440px;aspect-ratio:1122/1402;align-self:center;border-radius:220px 220px 18px 18px;overflow:hidden}}
+.ab-photo img{{width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block}}
 .ab-t{{display:flex;flex-direction:column;gap:22px;max-width:470px}}
 .ab-t .label{{color:#c27597}}
 .lead{{font-size:21px;line-height:1.5;font-weight:300}}
