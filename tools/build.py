@@ -17,6 +17,74 @@ def img(name, alt, cls='', lazy=True, extra=''):
     l = ' loading="lazy"' if lazy else ''
     return f'<img{c} src="images/{name}.jpg" width="{w}" height="{h}"{l} alt="{html.escape(alt)}"{extra}>'
 
+
+# ─────────────────────────────────────────────── Typo Riesling → tracés SVG
+# La police n'est pas publiée : les titres sont convertis en tracés vectoriels.
+# Chemin de la police : variable RIESLING ou tools/riesling.ttf (ignoré par git).
+import re
+from fontTools.ttLib import TTFont
+from fontTools.pens.svgPathPen import SVGPathPen
+from fontTools.pens.transformPen import TransformPen
+FONT = os.environ.get('RIESLING') or os.path.join(os.path.dirname(os.path.abspath(__file__)), 'riesling.ttf')
+_f = TTFont(FONT)
+_gs, _cmap, _hmtx = _f.getGlyphSet(), _f.getBestCmap(), _f['hmtx']
+ASC, DESC = _f['hhea'].ascent, _f['hhea'].descent
+BOX = ASC - DESC
+_used = {}
+SUBST = {'×': 'x'}
+
+def _glyph(ch):
+    ch = SUBST.get(ch, ch)
+    name = _cmap.get(ord(ch))
+    if name is None:
+        raise SystemExit(f'Caractère absent de Riesling : {ch!r}')
+    if name not in _used:
+        pen = SVGPathPen(_gs, ntos=lambda v: ('%.1f' % v).rstrip('0').rstrip('.'))
+        _gs[name].draw(TransformPen(pen, (1, 0, 0, -1, 0, ASC)))
+        _used[name] = (f'rg{len(_used)}', pen.getCommands())
+    return _used[name][0], _hmtx[name][0]
+
+def _word(chars):
+    """chars : liste de (caractère, accent) → un <svg> pour un mot."""
+    x, runs, cur, flag = 0, [], [], None
+    for ch, em in chars:
+        gid, adv = _glyph(ch)
+        if em != flag and cur:
+            runs.append((flag, cur)); cur = []
+        flag = em
+        cur.append(f'<use href="#{gid}" x="{x}"/>')
+        x += adv
+    if cur:
+        runs.append((flag, cur))
+    body = ''.join(('<g class="e">' + ''.join(u) + '</g>') if em else ''.join(u) for em, u in runs)
+    return f'<svg class="rs" viewBox="0 0 {x} {BOX}" style="width:{x / BOX:.3f}em">{body}</svg>'
+
+def rsvg(marked):
+    """Texte (avec <em> pour la partie rose) → mots en SVG, sans texte alternatif."""
+    chars, em = [], False
+    for part in re.split(r'(</?em>)', marked):
+        if part == '<em>': em = True
+        elif part == '</em>': em = False
+        else: chars += [(c, em) for c in html.unescape(part)]
+    words, cur = [], []
+    for c in chars + [(' ', False)]:
+        if c[0] == ' ':
+            if cur: words.append(_word(cur)); cur = []
+        else:
+            cur.append(c)
+    return ' '.join(words)
+
+def rtext(marked):
+    plain = html.unescape(re.sub(r'</?em>', '', marked))
+    return f'<span class="sr">{html.escape(plain)}</span><span class="rt" aria-hidden="true">{rsvg(marked)}</span>'
+
+def sprite():
+    paths = ''.join(f'<path id="{gid}" d="{d}"/>' for gid, d in _used.values())
+    return f'<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>{paths}</defs></svg>'
+
+def width_of(text):
+    return sum(_glyph(c)[1] for c in text)
+
 # ─────────────────────────────────────────────── Projets
 # cat: graphisme | communication | photo
 P = [
@@ -108,7 +176,7 @@ def card(i, p):
     elif p['cover']:
         cover = f'<figure class="card-img">{img(p["cover"], plain)}<span class="card-cta">Voir le projet</span></figure>'
     else:
-        cover = '<figure class="card-img card-text"><span class="ct-big">SEO <em>&amp; GEO</em></span><span class="ct-small">E-commerce · PrestaShop · réseaux sociaux</span><span class="card-cta">Voir le projet</span></figure>'
+        cover = '<figure class="card-img card-text"><span class="ct-big">' + rtext('SEO <em>&amp; GEO</em>') + '</span><span class="ct-small">E-commerce · PrestaShop · réseaux sociaux</span><span class="card-cta">Voir le projet</span></figure>'
     desc = ''.join(f'<p>{d}</p>' for d in p['desc'])
     specs = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in [('Discipline', CAT[p['cat']]), ('Cadre', p['cadre'])] + p['specs'])
     imgs = ''.join(f'<figure>{img(n, a)}</figure>' for n, a in p['imgs'])
@@ -119,6 +187,7 @@ def card(i, p):
           <span class="card-meta"><span class="label">{num} — {CAT[p['cat']]}</span><span class="card-title">{p['title']}</span><span class="card-type">{p['type']} · {p['cadre']}</span></span>
         </button>
         <div class="card-detail" hidden>
+          <div class="d-title">{rtext(p['title'])}</div>
           <div class="d-text">{desc}</div>
           <dl class="d-specs">{specs}</dl>
           <div class="d-imgs">{imgs}</div>
@@ -136,7 +205,7 @@ EXP = [
  ('Commu<em>nication</em>', 'Communication événementielle, campagnes de sensibilisation et street marketing.', 'Low Bass · Notre confort, leur enfer · Don du sang × Marvel', 'low-bass-invitation'),
 ]
 exp = ''.join(f'''
-        <li class="rv" data-peek="images/{pk}.jpg"><h3>{t}</h3><p>{d}<span>{ex}</span></p></li>''' for t, d, ex, pk in EXP)
+        <li class="rv" data-peek="images/{pk}.jpg"><h3>{rtext(t)}</h3><p>{d}<span>{ex}</span></p></li>''' for t, d, ex, pk in EXP)
 
 # ─────────────────────────────────────────────── Carnet d'images (bandeau défilant)
 STRIP = ['roumaniere-2', 'low-bass-invitation', 'regina-tropical', 'bda-photo-3', 'cochonnade-des-voiles', 'cherico-packshot', 'enzos-birthday', 'bda-photo-5', 'siroo-fraise', 'roumaniere-1', 'voiles-aml-music', 'kelloggs-barbie', 'bda-photo-4']
@@ -150,6 +219,12 @@ for key, (name, alt) in {'H1': ('low-bass-invitation', 'Invitation Low Bass'), '
                          'H3': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'), 'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'),
                          'PORTRAIT': ('laura-portrait', 'Portrait de Laura Tuppo')}.items():
     page = page.replace('{{' + key + '}}', img(name, alt, lazy=(key == 'PORTRAIT')))
+page = re.sub(r'\[\[r:(.+?)\]\]', lambda m: rtext(m.group(1)), page)
+wl, wt = width_of('LAURA'), width_of('TUPPO')
+wm_in = f'<span class="wm-l">{rsvg("LAURA")}</span><span class="wm-t">{rsvg("TUPPO")}</span>'
+page = (page.replace('{{WM_ROW}}', f'<span class="wm row" aria-hidden="true">{wm_in}</span>').replace('{{WM_IN}}', wm_in)
+        .replace('{{K_L}}', f'{BOX / wl:.4f}').replace('{{K_T}}', f'{.63 * wl / wt:.4f}'))
+page = page.replace('{{SPRITE}}', sprite())
 assert '{{' not in page, page[page.index('{{'):page.index('{{') + 40]
 open('index.html', 'w', encoding='utf-8').write(page)
 print('ok', len(page))

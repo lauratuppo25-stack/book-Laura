@@ -12,7 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23dfa0be'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='700' font-size='13' fill='%23141414' text-anchor='middle'%3ELT%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Lexend:wght@400;500;600&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 /* DA reprise du CV : colonne blanche / colonne noire, rose poudré en accent,
    nom en typo Art déco, titres en étiquettes arrondies. */
@@ -27,7 +27,7 @@
   --bg:var(--white);
   --muted:var(--grey);
   --line:rgba(20,20,20,.12);
-  --display:'Poiret One','Josefin Sans',Futura,sans-serif;
+  --display:'Lexend',Arial,sans-serif;
   --title:'Lexend','Avenir Next',Arial,sans-serif;
   --body:'Raleway','Helvetica Neue',Arial,sans-serif;
   --pad:clamp(18px,4vw,64px);
@@ -66,19 +66,26 @@ h1,h2,h3{font-weight:400}
 .btn-solid:hover{background:var(--pink);border-color:var(--pink);color:var(--black)}
 .btn-line:hover{background:var(--fg);color:var(--bg)}
 
-/* Nom « LAURA / TUPPO » repris du CV (masques colorés par CSS) */
-.wm{display:inline-grid;justify-items:start;gap:.6em;width:var(--w,320px);--wm-l:var(--black);--wm-t:var(--pink)}
-.wm i{display:block;width:100%;aspect-ratio:1113/687;background:var(--wm-l);-webkit-mask:url(images/brand-laura.png) left top/contain no-repeat;mask:url(images/brand-laura.png) left top/contain no-repeat}
-.wm b{display:block;width:63%;aspect-ratio:720/240;background:var(--wm-t);-webkit-mask:url(images/brand-tuppo.png) left top/contain no-repeat;mask:url(images/brand-tuppo.png) left top/contain no-repeat}
-.wm.row{display:inline-flex;align-items:flex-end;gap:10px;width:auto;height:var(--h,26px)}
-.wm.row i{height:100%;width:auto}
-.wm.row b{height:36%;width:auto}
+/* Nom « LAURA / TUPPO » en Riesling (tracés générés par tools/build.py) */
+.wm{display:inline-grid;justify-items:start;gap:.04em;--wm-l:var(--black);--wm-t:var(--pink);font-size:calc(var(--w,320px) * {{K_L}});line-height:0}
+.wm-l{color:var(--wm-l)}
+.wm-t{color:var(--wm-t);font-size:{{K_T}}em;margin-top:-.45em}
+.wm .rs{display:block}
+.wm.row{display:inline-flex;align-items:flex-end;gap:.25em;font-size:var(--h,30px)}
+.wm.row .wm-t{margin:0 0 .12em}
+
+/* Titres en Riesling : un SVG par mot, pour que les lignes se coupent normalement */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.rs{display:inline-block;height:1em;vertical-align:-.264em;fill:currentColor;overflow:visible}
+.rs .e{fill:var(--pink)}
+.rose .rs .e{fill:var(--white)}
 
 /* ── En-tête ───────────────────────── */
 .top{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:calc(16px + env(safe-area-inset-top,0px)) var(--pad) 16px;transition:background .5s,padding .5s var(--ease)}
 .top .wm{opacity:0;transform:translateY(-8px);transition:opacity .5s,transform .5s var(--ease)}
 .top.scrolled{background:rgba(20,20,20,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:12px}
 .top.scrolled .wm{opacity:1;transform:none;--wm-l:var(--white)}
+.top .wm.row{--h:34px}
 html.menu-open .top{background:transparent;backdrop-filter:none}
 html.menu-open .top .wm{opacity:1;transform:none;--wm-l:var(--white)}
 .menu-btn{display:inline-flex;align-items:center;gap:12px;background:var(--black);color:var(--white);border-radius:999px;padding:10px 20px;font-family:var(--title);font-weight:600;font-size:14px;transition:background .4s,color .4s}
@@ -94,7 +101,7 @@ html.menu-open .menu-btn i::after{top:3.5px;transform:rotate(-45deg)}
 html.menu-open .menu{opacity:1;visibility:visible;transition:opacity .7s var(--ease)}
 .menu li,.menu-side{opacity:0;transform:translateY(48px);filter:blur(12px);transition:opacity .35s,transform .5s var(--ease),filter .35s}
 html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filter:none;transition:opacity .8s var(--ease),transform 1s var(--ease),filter .9s var(--ease);transition-delay:calc(150ms + var(--i) * 90ms)}
-.menu ol a{display:flex;align-items:center;gap:22px;font-family:var(--display);font-size:clamp(46px,7.6vw,118px);line-height:1.08;transition:opacity .5s,padding .6s var(--ease),color .4s}
+.menu ol a{display:flex;align-items:center;gap:22px;font-size:clamp(60px,10vw,160px);line-height:1;transition:opacity .5s,padding .6s var(--ease),color .4s}
 .menu ol a .pill{font-size:13px;padding:.35em .9em;background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.35);transition:background .4s,color .4s,border-color .4s}
 .menu ol:hover a{opacity:.25}
 .menu ol a:hover,.menu ol a:focus-visible{opacity:1;padding-left:.15em;color:var(--pink)}
@@ -105,7 +112,7 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 /* ── 01 Accueil : la page de garde du CV ── */
 .hero{display:grid;grid-template-columns:minmax(0,42fr) minmax(0,58fr);min-height:100svh}
 .hero-l{display:flex;flex-direction:column;justify-content:center;gap:30px;padding:calc(110px + env(safe-area-inset-top,0px)) clamp(24px,4vw,72px) 64px var(--pad)}
-.hero-l .wm{--w:min(420px,100%)}
+.hero-l .wm{--w:min(440px,calc(100vw - 2 * var(--pad)))}
 .hero-sub{font-family:var(--title);font-weight:500;font-size:clamp(16px,1.4vw,19px);color:var(--black)}
 .contact-list{display:grid;gap:12px}
 .contact-list li{display:flex;align-items:center;gap:14px;font-size:16px}
@@ -127,16 +134,15 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 /* Bandeau défilant */
 .marquee{overflow:hidden;background:var(--pink);color:var(--black);padding:14px 0}
 .marquee-track{display:flex;align-items:center;width:max-content;animation:slide 40s linear infinite}
-.marquee span{font-family:var(--display);font-size:clamp(28px,3.6vw,50px);line-height:1.2;white-space:nowrap;padding:0 .5em}
+.marquee span{font-size:clamp(40px,5vw,72px);line-height:1.1;white-space:nowrap;padding:0 .4em}
 .marquee .dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--black);padding:0}
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* ── Sections ──────────────────────── */
 .section{padding-top:clamp(88px,11vw,160px);padding-bottom:clamp(88px,11vw,160px)}
 .sec-head{display:grid;gap:22px;justify-items:start;margin-bottom:clamp(44px,6vw,80px);max-width:960px}
-.display{font-family:var(--display);font-size:clamp(50px,8vw,124px);line-height:.98;letter-spacing:.01em;text-wrap:balance}
-.display em,.card-title em,.exp-list h3 em{font-style:normal;color:var(--pink)}
-.light .display em,.light .exp-list h3 em{color:#c9799f}
+.display{font-size:clamp(70px,11vw,176px);line-height:.92;font-weight:400}
+.card-title em{font-style:normal}
 .sec-intro{max-width:52ch;font-size:clamp(17px,1.4vw,20px);color:var(--muted)}
 
 /* 02 À propos : le CV en version web */
@@ -182,7 +188,7 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 .card-title em{color:#c9799f}
 .card-type{color:var(--pink);font-size:15px}
 .card-text{aspect-ratio:4/5;background:var(--pink);color:var(--black);display:flex;flex-direction:column;justify-content:center;gap:16px;padding:12%}
-.ct-big{font-family:var(--display);font-size:clamp(56px,6vw,96px);line-height:.95}
+.ct-big{font-size:clamp(80px,8.6vw,136px);line-height:.9}
 .ct-big em{font-style:normal}
 .ct-small{font-family:var(--title);font-weight:500;font-size:14px}
 .card-stack{display:grid;gap:6px;padding:14px;background:var(--white)}
@@ -199,7 +205,7 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 .panel-body{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,5vw,96px);padding:clamp(36px,5vw,80px) var(--pad);transform:translateY(30px);transition:transform .8s var(--ease)}
 .panel.open .panel-body{transform:none}
 .panel-info{position:sticky;top:96px;align-self:start;display:grid;gap:20px;justify-items:start}
-.panel-info .display{font-size:clamp(44px,5vw,82px)}
+.panel-info .display{font-size:clamp(62px,7vw,116px)}
 #pType{color:var(--pink);font-size:17px}
 #pText{display:grid;gap:26px;width:100%}
 .panel-info .d-text{display:grid;gap:12px;max-width:46ch;color:#dcdcdc}
@@ -214,7 +220,7 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 /* 04 Compétences */
 .exp-list{border-top:1px solid var(--line)}
 .exp-list li{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center;gap:14px 48px;padding:clamp(20px,2.4vw,34px) 0;border-bottom:1px solid var(--line)}
-.exp-list h3{font-family:var(--display);font-size:clamp(38px,5.4vw,86px);line-height:1.02;transition:transform .6s var(--ease)}
+.exp-list h3{font-size:clamp(52px,7.4vw,124px);line-height:.95;transition:transform .6s var(--ease)}
 .exp-list li:hover h3{transform:translateX(.2em)}
 .exp-list p{color:var(--muted);max-width:44ch}
 .exp-list p span{display:block;margin-top:8px;font-family:var(--title);font-weight:500;font-size:13px;color:var(--black)}
@@ -234,7 +240,7 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 
 /* 05 Contact */
 .contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,6vw,96px);align-items:center}
-.contact .display{font-size:clamp(60px,9vw,150px)}
+.contact .display{font-size:clamp(84px,13vw,210px)}
 .contact-l{display:grid;gap:26px;justify-items:start}
 .contact-l > p{font-size:clamp(18px,1.6vw,22px)}
 .contact-list.big li{font-size:clamp(17px,1.6vw,22px)}
@@ -244,11 +250,11 @@ html.menu-open .menu li,html.menu-open .menu-side{opacity:1;transform:none;filte
 .copied{min-height:1.6em;font-size:14px;color:var(--muted)}
 .contact-r{display:grid;justify-items:center;gap:22px;min-width:0;width:100%}
 .contact-l{min-width:0}
-.contact-r .wm{--w:min(440px,86%);--wm-t:var(--white)}
+.contact-r .wm{--w:min(460px,calc(100vw - 2 * var(--pad) - 20px));--wm-t:var(--white)}
 .contact-r .bubble{position:relative;right:auto;top:auto;width:100%;max-width:360px}
 
 footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;padding-top:36px;padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}
-footer .wm{--h:30px;--wm-l:var(--white)}
+footer .wm{--h:40px;--wm-l:var(--white)}
 footer nav{display:flex;flex-wrap:wrap;gap:20px;font-family:var(--title);font-size:14px}
 footer nav a:hover{color:var(--pink)}
 footer small{font-size:13px;color:var(--grey-d)}
@@ -282,7 +288,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
   .skills{grid-template-columns:minmax(0,1fr)}
   .f1{left:-2%}
   .menu-btn{padding:9px 16px}
-  .top.scrolled .wm{--h:20px}
+  .top .wm.row{--h:28px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -294,6 +300,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 </style>
 </head>
 <body>
+{{SPRITE}}
 
 <!-- pictogrammes -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -303,20 +310,20 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 </svg>
 
 <header class="top" id="topbar">
-  <a href="#accueil" aria-label="Laura Tuppo, retour à l'accueil"><span class="wm row" aria-hidden="true"><i></i><b></b></span></a>
+  <a href="#accueil" aria-label="Laura Tuppo, retour à l'accueil">{{WM_ROW}}</a>
   <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><i aria-hidden="true"></i></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Navigation" aria-hidden="true">
   <ol>
-    <li style="--i:0"><a href="#accueil"><span class="pill">01</span>Accueil</a></li>
-    <li style="--i:1"><a href="#a-propos"><span class="pill">02</span>À propos</a></li>
-    <li style="--i:2"><a href="#projets"><span class="pill">03</span>Projets</a></li>
-    <li style="--i:3"><a href="#competences"><span class="pill">04</span>Compétences</a></li>
-    <li style="--i:4"><a href="#contact"><span class="pill">05</span>Contact</a></li>
+    <li style="--i:0"><a href="#accueil"><span class="pill">01</span>[[r:Accueil]]</a></li>
+    <li style="--i:1"><a href="#a-propos"><span class="pill">02</span>[[r:À propos]]</a></li>
+    <li style="--i:2"><a href="#projets"><span class="pill">03</span>[[r:Projets]]</a></li>
+    <li style="--i:3"><a href="#competences"><span class="pill">04</span>[[r:Compétences]]</a></li>
+    <li style="--i:4"><a href="#contact"><span class="pill">05</span>[[r:Contact]]</a></li>
   </ol>
   <div class="menu-side">
-    <span class="wm" role="img" aria-label="Laura Tuppo"><i></i><b></b></span>
+    <span class="wm" role="img" aria-label="Laura Tuppo">{{WM_IN}}</span>
     <span class="pill pill-pink">Pour toute demande ou collaboration</span>
     <a href="mailto:laura.tuppo25@gmail.com">laura.tuppo25@gmail.com</a>
     <a href="https://www.linkedin.com/in/profil-de-laura-tuppo" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -328,7 +335,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 <!-- 01 — ACCUEIL -->
 <section class="hero" id="accueil">
   <div class="hero-l light">
-    <h1 class="wm" aria-label="Laura Tuppo"><i></i><b></b></h1>
+    <h1 class="wm" aria-label="Laura Tuppo">{{WM_IN}}</h1>
     <p class="hero-sub">Portfolio — Communication &amp; Design graphique</p>
     <ul class="contact-list">
       <li><span class="ic"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><a href="mailto:laura.tuppo25@gmail.com">laura.tuppo25@gmail.com</a></li>
@@ -350,8 +357,8 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 </section>
 
 <div class="marquee" aria-hidden="true"><div class="marquee-track">
-  <span>Identité visuelle</span><span class="dot"></span><span>Design graphique</span><span class="dot"></span><span>Stratégie digitale</span><span class="dot"></span><span>Création de contenu</span><span class="dot"></span><span>Communication</span><span class="dot"></span>
-  <span>Identité visuelle</span><span class="dot"></span><span>Design graphique</span><span class="dot"></span><span>Stratégie digitale</span><span class="dot"></span><span>Création de contenu</span><span class="dot"></span><span>Communication</span><span class="dot"></span>
+  <span>[[r:Identité visuelle]]</span><span class="dot"></span><span>[[r:Design graphique]]</span><span class="dot"></span><span>[[r:Stratégie digitale]]</span><span class="dot"></span><span>[[r:Création de contenu]]</span><span class="dot"></span><span>[[r:Communication]]</span><span class="dot"></span>
+  <span>[[r:Identité visuelle]]</span><span class="dot"></span><span>[[r:Design graphique]]</span><span class="dot"></span><span>[[r:Stratégie digitale]]</span><span class="dot"></span><span>[[r:Création de contenu]]</span><span class="dot"></span><span>[[r:Communication]]</span><span class="dot"></span>
 </div></div>
 
 <!-- 02 — À PROPOS -->
@@ -359,7 +366,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
   <div class="section wrap light" style="padding-bottom:clamp(56px,7vw,96px)">
     <div class="sec-head rv" style="margin-bottom:0">
       <span class="pill pill-black pill-big">À propos</span>
-      <h2 class="display">À <em>propos</em></h2>
+      <h2 class="display">[[r:À <em>propos</em>]]</h2>
       <p class="about-lead">Étudiante en <strong>Master Stratégie Digitale &amp; Innovations</strong>, je développe mes compétences en communication, direction artistique et création graphique.</p>
     </div>
   </div>
@@ -390,7 +397,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 <section class="section wrap dark" id="projets">
   <div class="sec-head rv">
     <span class="pill pill-pink pill-big">Projets</span>
-    <h2 class="display">Projets <em>sélectionnés</em></h2>
+    <h2 class="display">[[r:Projets <em>sélectionnés</em>]]</h2>
     <p class="sec-intro">Une sélection de réalisations en branding, design graphique et communication digitale.</p>
   </div>
   <div class="filters" role="group" aria-label="Filtrer les projets">
@@ -407,7 +414,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 <section class="section wrap light" id="competences">
   <div class="sec-head rv">
     <span class="pill pill-black pill-big">Compétences</span>
-    <h2 class="display">Exper<em>tises</em></h2>
+    <h2 class="display">[[r:Exper<em>tises</em>]]</h2>
   </div>
   <ol class="exp-list">{{EXP}}
   </ol>
@@ -432,7 +439,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
   <div class="contact">
     <div class="contact-l rv">
       <span class="pill pill-black pill-big">Contact</span>
-      <h2 class="display">Contact</h2>
+      <h2 class="display">[[r:Con<em>tact</em>]]</h2>
       <p>Pour toute demande ou collaboration.</p>
       <ul class="contact-list big">
         <li><span class="ic"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><a href="mailto:laura.tuppo25@gmail.com">laura.tuppo25@gmail.com</a></li>
@@ -445,7 +452,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
       <p class="copied" id="copied" aria-live="polite"></p>
     </div>
     <div class="contact-r rv">
-      <span class="wm" role="img" aria-label="Laura Tuppo"><i></i><b></b></span>
+      <span class="wm" role="img" aria-label="Laura Tuppo">{{WM_IN}}</span>
       <div class="bubble"><span class="pill pill-black">À bientôt !</span>Une affiche, une identité, un événement à faire connaître ? Parlons-en.</div>
     </div>
   </div>
@@ -454,7 +461,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
 </main>
 
 <footer class="wrap dark">
-  <a href="#accueil" aria-label="Retour à l'accueil"><span class="wm row" aria-hidden="true"><i></i><b></b></span></a>
+  <a href="#accueil" aria-label="Retour à l'accueil">{{WM_ROW}}</a>
   <nav aria-label="Pied de page"><a href="#a-propos">À propos</a><a href="#projets">Projets</a><a href="#competences">Compétences</a><a href="#contact">Contact</a></nav>
   <small>© <span id="year">2026</span> Laura Tuppo</small>
 </footer>
@@ -542,7 +549,7 @@ html.js .stage{animation:pop 1.4s var(--ease) .25s both}
     const list = visibleCards();
     const det = $('.card-detail', card);
     $('#pLabel').textContent = $('.card-meta .label', card).textContent;
-    $('#pTitle').innerHTML = $('.card-title', card).innerHTML;
+    $('#pTitle').innerHTML = $('.d-title', det).innerHTML;
     $('#pType').textContent = $('.card-type', card).textContent;
     const text = $('#pText'); text.innerHTML = '';
     text.append($('.d-text', det).cloneNode(true), $('.d-specs', det).cloneNode(true));

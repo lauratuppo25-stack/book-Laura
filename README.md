@@ -3,7 +3,7 @@
 Portfolio dans la DA du CV : colonnes blanche et noire, rose poudré, nom en typo Art déco, titres en étiquettes arrondies. Communication & design graphique.
 
 - `index.html` : la page complète (HTML + CSS + JS, sans dépendance).
-- `images/` : tous les visuels des projets, plus `brand-laura.png` / `brand-tuppo.png` (le nom repris du CV, utilisé comme masque coloré) et `portrait-cutout.png`.
+- `images/` : tous les visuels des projets, plus `portrait-cutout.png` (portrait détouré du CV).
 
 Ouvrir `index.html` dans un navigateur suffit. Pour le mettre en ligne gratuitement :
 GitHub → *Settings* → *Pages* → *Deploy from a branch* → `main` / `root`.
@@ -22,4 +22,14 @@ de `tools/build.py`, puis régénérer la page :
 python3 tools/build.py .
 ```
 
-(nécessite Python 3 et Pillow : `pip install pillow`)
+(nécessite Python 3, Pillow et fontTools : `pip install pillow fonttools`)
+
+### Typo Riesling
+
+Le nom et les grands titres sont en **Riesling** (Bright Ideas, dafont). La police n'est pas publiée :
+`tools/build.py` convertit ces textes en tracés SVG au moment de générer la page. Pour régénérer,
+placer `riesling.ttf` dans `tools/` (le fichier est ignoré par git) ou indiquer son chemin :
+
+```
+RIESLING=/chemin/vers/riesling.ttf python3 tools/build.py .
+```
