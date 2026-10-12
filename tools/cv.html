@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr" class="js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#141414">
+<title>CV — Laura Tuppo</title>
+<meta name="description" content="CV de Laura Tuppo : formations, expériences et compétences en communication et design graphique. À consulter en ligne ou à télécharger en PDF.">
+<meta property="og:title" content="CV — Laura Tuppo">
+<meta property="og:image" content="cv/cv-laura-tuppo-900.jpg">
+{{HEAD}}
+</head>
+<body class="dark">
+{{SPRITE}}
+{{ICONS}}
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="top solid" id="topbar">
+  <a href="index.html" aria-label="Laura Tuppo, retour au portfolio">{{WM_ROW}}</a>
+  <div class="top-r">
+    <a class="pill top-cv" href="index.html#projets">Projets</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><i aria-hidden="true"></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Navigation" aria-hidden="true">
+  <ol>
+    <li style="--li:0"><a href="index.html#accueil"><span class="pill">01</span>[[r:Accueil]]</a></li>
+    <li style="--li:1"><a href="index.html#a-propos"><span class="pill">02</span>[[r:À propos]]</a></li>
+    <li style="--li:2"><a href="index.html#projets"><span class="pill">03</span>[[r:Projets]]</a></li>
+    <li style="--li:3"><a href="index.html#competences"><span class="pill">04</span>[[r:Compétences]]</a></li>
+    <li style="--li:4"><a href="index.html#contact"><span class="pill">05</span>[[r:Contact]]</a></li>
+    <li style="--li:5"><a href="cv.html" data-page="here"><span class="pill">CV</span>[[r:Le <em>CV</em>]]</a></li>
+  </ol>
+  <div class="menu-side">
+    <span class="wm" role="img" aria-label="Laura Tuppo">{{WM_IN}}</span>
+    <a class="btn btn-pink" href="cv/CV_Laura_Tuppo_2026.pdf" download>Télécharger le CV <span aria-hidden="true">↓</span></a>
+  </div>
+</nav>
+
+<main>
+  <section class="cv-hero wrap">
+    <span class="pill pill-pink pill-big rv">Curriculum vitæ</span>
+    <h1 class="display rv">[[r:Le <em>CV</em>]]</h1>
+    <p class="sec-intro rv">Formations, expériences, compétences.</p>
+    <div class="btns rv">
+      <a class="btn btn-pink" href="cv/CV_Laura_Tuppo_2026.pdf" download>Télécharger le PDF <span aria-hidden="true">↓</span></a>
+      <a class="btn" href="cv/CV_Laura_Tuppo_2026.pdf" target="_blank" rel="noopener">Ouvrir dans un onglet <span aria-hidden="true">↗</span></a>
+      <a class="btn" href="index.html#projets">Voir les projets <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="sheet-wrap wrap" aria-label="CV">
+    <figure class="sheet rv" id="sheet" tabindex="0" role="button" data-cursor="Zoom" aria-label="Agrandir le CV">
+      <img src="cv/cv-laura-tuppo-900.jpg" srcset="cv/cv-laura-tuppo-900.jpg 900w, cv/cv-laura-tuppo.jpg 1820w" sizes="(max-width: 940px) 100vw, 900px" width="900" height="1273" alt="CV de Laura Tuppo : diplômes (Master Stratégie Digitale &amp; Innovations à l’IFC Avignon, Bachelor communication digitale et événementielle, BTS MCO, Bac STMG), expériences en alternance chez Pallas Cuir et Sorhobis Boissons, et compétences en création de visuels, réseaux sociaux et supports print et web.">
+      <figcaption>Cliquer pour agrandir</figcaption>
+    </figure>
+  </section>
+</main>
+
+{{FOOTER}}
+
+<div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="CV agrandi" aria-hidden="true">
+  <button class="btn btn-pink" type="button">Fermer ✕</button>
+  <img src="cv/cv-laura-tuppo.jpg" width="1820" height="2574" loading="lazy" alt="CV de Laura Tuppo, version agrandie">
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+<script src="assets/site.js"></script>
+</body>
+</html>

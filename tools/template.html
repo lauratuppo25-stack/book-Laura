@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr" class="js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#141414">
+<title>Laura Tuppo — Portfolio</title>
+<meta name="description" content="Laura Tuppo — Portfolio. Communication &amp; design graphique : identité visuelle, affiches, communication événementielle, photographie produit.">
+<meta property="og:title" content="Laura Tuppo — Portfolio">
+<meta property="og:description" content="Portfolio — Communication &amp; Design graphique">
+<meta property="og:image" content="images/low-bass-invitation.jpg">
+{{HEAD}}
+<script>document.documentElement.classList.add("is-loading");setTimeout(function(){var d=document.documentElement;if(d.classList.contains("is-loading")){d.classList.remove("is-loading");d.classList.add("loaded")}},9000)</script>
+</head>
+<body>
+{{SPRITE}}
+{{ICONS}}
+
+<div class="loader" aria-hidden="true">
+  <div class="loader-in">
+    <span class="wm">{{WM_IN}}</span>
+    <span class="loader-bar"><i></i></span>
+    <span class="loader-count">000 %</span>
+  </div>
+</div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="top" id="topbar">
+  <a href="#accueil" aria-label="Laura Tuppo, retour à l'accueil">{{WM_ROW}}</a>
+  <div class="top-r">
+    <a class="pill top-cv" href="cv.html">CV</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu"><span id="menuLbl">Menu</span><i aria-hidden="true"></i></button>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Navigation" aria-hidden="true">
+  <ol>
+    <li style="--li:0"><a href="#accueil"><span class="pill">01</span>[[r:Accueil]]</a></li>
+    <li style="--li:1"><a href="#a-propos"><span class="pill">02</span>[[r:À propos]]</a></li>
+    <li style="--li:2"><a href="#projets"><span class="pill">03</span>[[r:Projets]]</a></li>
+    <li style="--li:3"><a href="#competences"><span class="pill">04</span>[[r:Compétences]]</a></li>
+    <li style="--li:4"><a href="#contact"><span class="pill">05</span>[[r:Contact]]</a></li>
+    <li style="--li:5"><a href="cv.html"><span class="pill">CV</span>[[r:Le <em>CV</em>]]</a></li>
+  </ol>
+  <div class="menu-side">
+    <span class="wm" role="img" aria-label="Laura Tuppo">{{WM_IN}}</span>
+    <a class="btn btn-pink" href="cv/CV_Laura_Tuppo_2026.pdf" download>Télécharger le CV <span aria-hidden="true">↓</span></a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 01 — ACCUEIL + 02 — À PROPOS : la photo reste en fond, puis se floute au défilement -->
+<section class="hero wrap dark" id="accueil">
+    <div class="hero-text">
+      <p class="kicker"><span class="pill pill-pink">Portfolio</span>Communication &amp; Design graphique</p>
+      <h1 class="wm" aria-label="Laura Tuppo">{{WM_IN}}</h1>
+      <div class="hero-ctas">
+        <a class="btn btn-pink" href="#projets">Découvrir les projets <span aria-hidden="true">→</span></a>
+        <a class="btn" href="cv.html">Voir le CV <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#a-propos"><i aria-hidden="true"></i>Défiler</a>
+  </section>
+
+<div class="scene dark" id="scene">
+  <div class="scene-bg" aria-hidden="true"><div class="scene-photo">{{HERO}}</div></div>
+  <div class="scene-gap" aria-hidden="true"></div>
+
+  <section class="about-over wrap" id="a-propos">
+    <div class="about-card rv">
+      <span class="pill pill-white pill-big">À propos</span>
+      <h2 class="display">[[r:À <em>propos</em>]]</h2>
+      <p class="about-lead">Étudiante en <strong>Master Stratégie Digitale &amp; Innovations</strong>.<br>Communication, direction artistique, création graphique.</p>
+      <div class="about-ctas">
+        <a class="btn btn-pink" href="cv.html">Voir le CV <span aria-hidden="true">→</span></a>
+        <a class="btn" href="#projets">Projets <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+  <span>[[r:Identité visuelle]]</span><span class="dot"></span><span>[[r:Design graphique]]</span><span class="dot"></span><span>[[r:Stratégie digitale]]</span><span class="dot"></span><span>[[r:Création de contenu]]</span><span class="dot"></span><span>[[r:Communication]]</span><span class="dot"></span>
+  <span>[[r:Identité visuelle]]</span><span class="dot"></span><span>[[r:Design graphique]]</span><span class="dot"></span><span>[[r:Stratégie digitale]]</span><span class="dot"></span><span>[[r:Création de contenu]]</span><span class="dot"></span><span>[[r:Communication]]</span><span class="dot"></span>
+</div></div>
+
+<!-- 03 — PROJETS -->
+<section class="section wrap dark" id="projets">
+  <div class="sec-head rv">
+    <span class="pill pill-pink pill-big">Projets</span>
+    <h2 class="display">[[r:Projets <em>sélectionnés</em>]]</h2>
+    <p class="sec-intro">Branding, design graphique, communication digitale.</p>
+  </div>
+  <div class="filters" role="group" aria-label="Filtrer les projets">
+    <button data-filter="all" aria-pressed="true">Tout<sup>{{N_ALL}}</sup></button>
+    <button data-filter="graphisme" aria-pressed="false">Design graphique<sup>{{N_G}}</sup></button>
+    <button data-filter="communication" aria-pressed="false">Communication<sup>{{N_C}}</sup></button>
+    <button data-filter="photo" aria-pressed="false">Photographie<sup>{{N_P}}</sup></button>
+  </div>
+  <div class="grid" id="grid">{{CARDS}}
+  </div>
+  <div class="tiles-wrap" id="tiles">
+    <p class="tiles-head rv"><span class="pill pill-pink">Photographie</span><span class="muted">Shootings produit &amp; lifestyle</span></p>
+    <div class="tiles">{{TILES}}
+    </div>
+  </div>
+</section>
+
+<!-- 04 — COMPÉTENCES -->
+<section class="section wrap light" id="competences">
+  <div class="sec-head rv">
+    <span class="pill pill-black pill-big">Compétences</span>
+    <h2 class="display">[[r:Exper<em>tises</em>]]</h2>
+  </div>
+  <ol class="exp-list">{{EXP}}
+  </ol>
+</section>
+
+<!-- Carnet d'images -->
+<section class="strip dark" aria-label="Carnet d'images">
+  <div class="strip-head wrap"><span class="pill pill-pink">Carnet d’images</span><span class="muted">Affiches, stories, photo produit</span></div>
+  <div class="strip-track">{{STRIP}}</div>
+</section>
+
+<!-- 05 — CONTACT -->
+<section class="section wrap rose" id="contact">
+  <div class="contact">
+    <div class="contact-l rv">
+      <span class="pill pill-black pill-big">Contact</span>
+      <h2 class="display">[[r:Con<em>tact</em>]]</h2>
+      <p>Pour toute demande ou collaboration.</p>
+      {{CONTACT_LIST}}
+      <div class="contact-btns">
+        <a class="btn btn-solid" href="mailto:laura.tuppo25@gmail.com">Écrire un e-mail <span aria-hidden="true">→</span></a>
+        <button class="btn" id="copyMail" type="button" data-mail="laura.tuppo25@gmail.com">Copier l’adresse</button>
+        <a class="btn" href="cv/CV_Laura_Tuppo_2026.pdf" download>Télécharger le CV <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="copied" id="copied" aria-live="polite"></p>
+    </div>
+    <div class="contact-r rv">
+      <span class="wm" role="img" aria-label="Laura Tuppo">{{WM_IN}}</span>
+      <a class="badge" href="cv.html" aria-label="Voir le CV">
+        <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="bc" d="M60 60 m-47 0 a47 47 0 1 1 94 0 a47 47 0 1 1 -94 0"/></defs><text><textPath href="#bc" textLength="290" lengthAdjust="spacing">Voir le CV ✦ Voir le CV ✦ </textPath></text></svg>
+        <span aria-hidden="true">CV →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+{{FOOTER}}
+
+<!-- Fiche projet -->
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle" aria-hidden="true">
+  <div class="panel-bar">
+    <button id="pClose">← Projets</button>
+    <span id="pCount" class="pill pill-pink"></span>
+    <div><button id="pPrev">Précédent</button><button id="pNext">Suivant</button></div>
+  </div>
+  <div class="panel-body">
+    <div class="panel-info">
+      <span class="pill pill-white" id="pLabel"></span>
+      <h2 class="display" id="pTitle"></h2>
+      <p id="pType"></p>
+      <div id="pText"></div>
+    </div>
+    <div class="panel-imgs" id="pImgs"></div>
+  </div>
+</div>
+
+<div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+<script src="assets/site.js"></script>
+</body>
+</html>
