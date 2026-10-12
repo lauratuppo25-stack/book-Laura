@@ -36,6 +36,20 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  // Accueil → À propos : la photo de fond se floute au fil du défilement
+  const scene = $('#scene');
+  if (scene) {
+    let ticking = false;
+    const blur = () => {
+      ticking = false;
+      const p = Math.min(Math.max(scrollY / (innerHeight * .9), 0), 1);
+      scene.style.setProperty('--p', p.toFixed(3));
+    };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(blur); } }, { passive: true });
+    addEventListener('resize', blur);
+    blur();
+  }
+
   // Apparitions au défilement (titres lettre par lettre, cartes, photos)
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
@@ -188,12 +202,6 @@
     document.addEventListener('pointerenter', () => { cur.style.opacity = 1; });
   }
 
-  // Accueil : les visuels suivent doucement la souris
-  const stage = $('#stage');
-  let sx = 0, sy = 0;
-
-  // À propos : léger parallaxe sur la photo
-  const photo = $('.about-photo img');
 
   // Expertises : un visuel suit la souris
   const peek = $('#peek'), pimg = peek && $('img', peek);
@@ -209,14 +217,6 @@
   const loop = () => {
     cx += (mx - cx) * .2; cy += (my - cy) * .2;
     if (cur) cur.style.transform = `translate3d(${cx}px,${cy}px,0)`;
-    if (stage) {
-      sx += ((mx / innerWidth) * 2 - 1 - sx) * .06; sy += ((my / innerHeight) * 2 - 1 - sy) * .06;
-      stage.style.setProperty('--mx', sx.toFixed(3)); stage.style.setProperty('--my', sy.toFixed(3));
-    }
-    if (photo) {
-      const r = photo.parentElement.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < innerHeight) photo.style.setProperty('--py', ((r.top + r.height / 2 - innerHeight / 2) * -.08).toFixed(1) + 'px');
-    }
     if (peek) {
       const w = peek.offsetWidth, h = peek.offsetHeight;
       const tx = mx > innerWidth * .6 ? mx - w - 40 : mx + 40;

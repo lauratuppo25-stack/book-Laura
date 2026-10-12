@@ -43,45 +43,39 @@
 
 <main>
 
-<!-- 01 — ACCUEIL -->
-<section class="hero wrap dark" id="accueil">
-  <div class="hero-text">
-    <p class="kicker"><span class="pill pill-pink">Portfolio</span>Communication &amp; Design graphique</p>
-    <h1 class="wm" aria-label="Laura Tuppo">{{WM_IN}}</h1>
-    <div class="hero-ctas">
-      <a class="btn btn-pink" href="#projets">Découvrir les projets <span aria-hidden="true">→</span></a>
-      <a class="btn" href="cv.html">Voir le CV <span aria-hidden="true">→</span></a>
+<!-- 01 — ACCUEIL + 02 — À PROPOS : la photo reste en fond, puis se floute au défilement -->
+<div class="scene dark" id="scene">
+  <div class="scene-bg" aria-hidden="true"><div class="scene-photo">{{HERO}}</div></div>
+
+  <section class="hero wrap" id="accueil">
+    <div class="hero-text">
+      <p class="kicker"><span class="pill pill-pink">Portfolio</span>Communication &amp; Design graphique</p>
+      <h1 class="wm" aria-label="Laura Tuppo">{{WM_IN}}</h1>
+      <div class="hero-ctas">
+        <a class="btn btn-pink" href="#projets">Découvrir les projets <span aria-hidden="true">→</span></a>
+        <a class="btn" href="cv.html">Voir le CV <span aria-hidden="true">→</span></a>
+      </div>
     </div>
-  </div>
-  <div class="stage" id="stage">
-    <div class="hero-photo">{{HERO}}</div>
-    <figure class="float f2" style="--d:1.4;--r:6deg" aria-hidden="true">{{H1}}</figure>
-    <figure class="float f1" style="--d:1;--r:-7deg" aria-hidden="true">{{H4}}</figure>
-    <figure class="float f3" style="--d:1.8;--r:4deg" aria-hidden="true">{{H3}}</figure>
-  </div>
-  <a class="scroll-cue" href="#a-propos"><i aria-hidden="true"></i>Défiler</a>
-</section>
+    <a class="scroll-cue" href="#a-propos"><i aria-hidden="true"></i>Défiler</a>
+  </section>
+
+  <section class="about-over wrap" id="a-propos">
+    <div class="about-card rv">
+      <span class="pill pill-white pill-big">À propos</span>
+      <h2 class="display">[[r:À <em>propos</em>]]</h2>
+      <p class="about-lead">Étudiante en <strong>Master Stratégie Digitale &amp; Innovations</strong>.<br>Communication, direction artistique, création graphique.</p>
+      <div class="about-ctas">
+        <a class="btn btn-pink" href="cv.html">Voir le CV <span aria-hidden="true">→</span></a>
+        <a class="btn" href="#projets">Projets <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+</div>
 
 <div class="marquee" aria-hidden="true"><div class="marquee-track">
   <span>[[r:Identité visuelle]]</span><span class="dot"></span><span>[[r:Design graphique]]</span><span class="dot"></span><span>[[r:Stratégie digitale]]</span><span class="dot"></span><span>[[r:Création de contenu]]</span><span class="dot"></span><span>[[r:Communication]]</span><span class="dot"></span>
   <span>[[r:Identité visuelle]]</span><span class="dot"></span><span>[[r:Design graphique]]</span><span class="dot"></span><span>[[r:Stratégie digitale]]</span><span class="dot"></span><span>[[r:Création de contenu]]</span><span class="dot"></span><span>[[r:Communication]]</span><span class="dot"></span>
 </div></div>
-
-<!-- 02 — À PROPOS -->
-<section class="section wrap light" id="a-propos">
-  <div class="about">
-    <div class="sec-head rv" style="margin-bottom:0">
-      <span class="pill pill-black pill-big">À propos</span>
-      <h2 class="display">[[r:À <em>propos</em>]]</h2>
-      <p class="about-lead">Étudiante en <strong>Master Stratégie Digitale &amp; Innovations</strong>.<br>Communication, direction artistique, création graphique.</p>
-      <div class="about-ctas">
-        <a class="btn btn-solid" href="cv.html">Voir le CV <span aria-hidden="true">→</span></a>
-        <a class="btn" href="#projets">Projets <span aria-hidden="true">↓</span></a>
-      </div>
-    </div>
-    <figure class="about-photo rv"><span class="disc" aria-hidden="true"></span><div class="frame">{{ABOUT}}</div><span class="pill pill-black">Portfolio Laura Tuppo</span></figure>
-  </div>
-</section>
 
 <!-- 03 — PROJETS -->
 <section class="section wrap dark" id="projets">

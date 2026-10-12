@@ -249,9 +249,7 @@ def render(name, base, extra):
 pages = {}
 extra = {'CARDS': cards, 'EXP': exp, 'STRIP': strip_imgs + strip_imgs, 'N_ALL': str(len(P)), 'N_G': str(count['graphisme']),
          'N_C': str(count['communication']), 'N_P': str(count['photo'])}
-for key, (name, alt) in {'H1': ('low-bass-invitation', 'Invitation Low Bass'), 'H3': ('cochonnade-des-voiles', 'Affiche La Cochonnade des Voiles'),
-                         'H4': ('enzos-birthday', 'Invitation Enzo’s Birthday'), 'HERO': ('laura-cafe', 'Laura Tuppo en terrasse d’un café parisien'), 'ABOUT': ('laura-portrait', 'Portrait de Laura Tuppo')}.items():
-    extra[key] = img(name, alt, lazy=(key == 'ABOUT'))
+extra['HERO'] = img('laura-cafe', 'Laura Tuppo en terrasse d’un café parisien', lazy=False)
 pages['index.html'] = render('template.html', '', extra)
 pages['cv.html'] = render('cv.html', 'index.html', {})
 for out, page in pages.items():          # le sprite est complet une fois toutes les pages rendues
