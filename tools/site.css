@@ -185,6 +185,8 @@ html.js .hero-text > .hero-ctas{animation-delay:.75s}
 .filters button:hover{border-color:var(--pink)}
 .filters button[aria-pressed="true"]{background:var(--pink);color:var(--black);border-color:var(--pink)}
 .grid{columns:3 300px;column-gap:clamp(20px,2.4vw,36px);transition:opacity .25s}
+.grid.cols{columns:auto;display:flex;align-items:flex-start;gap:clamp(20px,2.4vw,36px)}
+.grid-col{flex:1 1 0;min-width:0}
 .grid.fading{opacity:0}
 .card{break-inside:avoid;margin-bottom:clamp(36px,4vw,56px)}
 html.js .card.rv{transform:translateY(60px)}

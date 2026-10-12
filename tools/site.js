@@ -111,6 +111,7 @@
         if (!c.hidden) io.observe(c);
       });
       zones.forEach(z => { z.hidden = !$$('.card', z).some(c => !c.hidden); z.classList.remove('fading'); });
+      if (grid) grid.dispatchEvent(new Event('relayout'));
     };
     if (reduce) { apply(); return; }
     zones.forEach(z => z.classList.add('fading'));
@@ -174,6 +175,26 @@
       if (e.key === 'ArrowRight') step(1);
       if (e.key === 'ArrowLeft') step(-1);
     });
+  }
+
+  // Grille : projets répartis ligne par ligne (l'ordre se lit de gauche à droite)
+  const masonry = $('#grid');
+  if (masonry) {
+    const items = $$('.card', masonry);
+    let cols = 0;
+    const layoutGrid = force => {
+      const n = innerWidth > 980 ? 3 : innerWidth > 640 ? 2 : 1;
+      if (n === cols && !force) return;
+      cols = n;
+      masonry.classList.add('cols');
+      $$('.grid-col', masonry).forEach(c => c.remove());
+      const columns = Array.from({ length: n }, () => { const c = document.createElement('div'); c.className = 'grid-col'; masonry.append(c); return c; });
+      let k = 0;
+      items.forEach(it => { columns[it.hidden ? n - 1 : k++ % n].append(it); });
+    };
+    layoutGrid();
+    addEventListener('resize', () => layoutGrid());
+    masonry.addEventListener('relayout', () => layoutGrid(true));
   }
 
   // CV : agrandir la page du CV
